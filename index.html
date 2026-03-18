@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ticket Lords</title>
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+
+<body>
+
+  <div class="topnav">
+    <a class="active" href="#Home">Home</a>
+    <button class="login-btn">Login</button>
+  </div>
+
+  <div class="section-headline">
+    <li>
+      <h1 class="headline-main">Find Your Next Event</h1>
+      <h2 class="headline-sub">Search Event, Artist, Location</h2>
+    </li>
+  </div>
+
+  <div class="search-container">
+    <input type="text" placeholder="Search for a ticket">
+  </div>
+  <br>
+  <div class="event-categories">
+    <event-category>🌍Cultural</event-category>
+    <event-category>🍜Food & Drinks</event-category>
+    <event-category>🏋️Sports</event-category>
+    <event-category>🎶Arts & Music</event-category>
+    <event-category>✋😐🤚Cinema</event-category>
+    <event-category>More</event-category>
+  </div>
+
+  <br><br>
+
+
+  <div class="slider">
+    <button class="arrow-left" onclick="slide(-1)">&#8592;</button>
+    <div class="event-popular">
+      <event-card>Jogeir Johhnyson and The Scripts</event-card>
+      <event-card>The Drage vs The Liavågs</event-card>
+      <event-card>The Drage vs The Liavågs</event-card>
+      <event-card>The Drage vs The Liavågs</event-card>
+      <event-card>The Drage vs The Liavågs</event-card>
+      <event-card>Anjdreas and the fourth dimension</event-card>
+      <event-card>Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og konflikt</event-card>
+    </div>
+    <button class="arrow-right" onclick="slide(1)">&#8594;</button>
+  </div>
+
+
+
+  <footer class="footer">
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </footer>
+
+</body>
+
+</html>
