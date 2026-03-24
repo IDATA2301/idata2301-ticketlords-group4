@@ -1,9 +1,40 @@
-
+import React, { useRef, useState, useEffect } from "react";
 function App() {
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateArrows = () => {
+    const element = sliderRef.current;
+    if (element) { //The div is not null
+      setCanScrollLeft(element.scrollLeft > 0);
+      setCanScrollRight((element.scrollLeft + element.clientWidth) < element.scrollWidth);
+    }
+  }
+
+  useEffect(() => {
+    updateArrows();
+    const element = sliderRef.current;
+    if (!element) return;
+    element.addEventListener("scroll", updateArrows);
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      element.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, []);
+
   const slide = (direction: number) => {
-    console.log("Slide direction:", direction);
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: direction * 200, behavior: "smooth" });
+    }
   };
+
+
+
+
+
 
   return (
     <>
@@ -36,20 +67,26 @@ function App() {
       <br /><br />
 
 
-      <div className="slider">
-        <button className="arrow-left" onClick={() => slide(-1)}>&#8592;</button>
-        <div className="event-popular">
-          <div>Jogeir Johhnyson and The Scripts</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>Anjdreas and the fourth dimension</div>
-          <div>Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og konflikt</div>
-        </div>
-        <button className="arrow-right" onClick={() => slide(1)}>&#8594;</button>
-      </div>
 
+      <div className="slider">
+        {canScrollLeft && (
+          <button className="arrow-left" onClick={() => slide(-1)}>&#8592;</button>
+        )}
+        <div className="event-popular" ref={sliderRef}>
+          <div className="category-item">Jogeir Johhnyson and The Scripts</div>
+          <div className="category-item">The Drage vs The Liavågs</div>
+          <div className="category-item">The Drage vs The Liavågs</div>
+          <div className="category-item">The Drage vs The Liavågs</div>
+          <div className="category-item">The Drage vs The Liavågs</div>
+          <div className="category-item">Anjdreas and the fourth dimension</div>
+          <div className="category-item">Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og konflikt</div>
+          <div className="category-item">Jogeir: the kid named finger</div>
+        </div>
+        {canScrollRight && (
+          <button className="arrow-right" onClick={() => slide(1)}>&#8594;</button>
+        )}
+
+      </div>
 
       <footer className="footer">
         <a href="#about">About</a>
