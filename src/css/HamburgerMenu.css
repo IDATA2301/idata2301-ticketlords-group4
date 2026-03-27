@@ -1,4 +1,5 @@
 .hamburger {
+  top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,6 +10,8 @@
   cursor: pointer;
   gap: 7px;
   padding: 0;
+  position: fixed;
+  z-index: 1100;
 }
 
 .hamburger span {
@@ -30,4 +33,24 @@
 
 .hamburger.open span:nth-child(3) {
   transform: translateY(-11px) rotate(-45deg);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15vw;
+  background: #838383;
+  z-index: 1000;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0, 1);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-top {
+  margin-top: 3.8rem;
+}
+
+.sidebar-event-categories {
+  font-size: 40px;
 }
