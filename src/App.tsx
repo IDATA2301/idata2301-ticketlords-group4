@@ -97,6 +97,7 @@ function App() {
           <br />
           <br />
 
+
           <div className="slider">
             {canScrollLeft && (
               <button className="arrow-left" onClick={() => slide(-1)}>
@@ -134,6 +135,7 @@ function App() {
           <a href="#contact">Contact</a>
         </footer>
       </div>
+
     </>
   );
 }
