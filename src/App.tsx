@@ -34,6 +34,20 @@ function App() {
 
         {open && (
           <>
+            <div className="sidebar">
+              <div className="sidebar-top">              <div className="sidebar-event-categories">
+                <div>🎶Arts & Music</div>
+                <div>✋😐🤚Cinema</div>
+                <div>🌍Cultural</div>
+                <div>🍜Food & Drinks</div>
+                <div>🏋️Sports</div>
+                <div>More</div>
+              </div>
+              </div>
+
+
+            </div>
+
             {/*TODO: Render menu content after the hambuger menu is clicked here.*/}
           </>
         )}
@@ -43,6 +57,7 @@ function App() {
 
   useEffect(() => {
     updateArrows();
+
     const element = sliderRef.current;
     if (!element) return;
     element.addEventListener("scroll", updateArrows);
@@ -64,24 +79,29 @@ function App() {
       <div id="root">
         <div className="main-content">
           <div className="topnav">
-            <div className="hamburger-menu">
-              <header>
-                <HamburgerMenu />
-              </header>
+            <div className="topnav-left">
+              <div className="hamburger-menu">
+                <header>
+                  <HamburgerMenu />
+                </header>
+              </div>
             </div>
-            <a className="active" href="#Home">
-              Home
-            </a>
-            <button className="login-btn">Login</button>
-          </div>
+            <div className="topnav-middle">
 
+              <a className="active" href="#Home">
+                Home
+              </a>
+            </div>
+            <div className="topnav-right">
+              <button className="login-btn">Login</button>
+            </div>
+          </div>
           <div className="section-headline">
-            <li>
+            <div>
               <h1 className="headline-main">Find Your Next Event</h1>
               <h2 className="headline-sub">Search Event, Artist, Location</h2>
-            </li>
+            </div>
           </div>
-
           <div className="search-container">
             <input type="text" placeholder="Search for a ticket" />
           </div>
@@ -96,7 +116,6 @@ function App() {
           </div>
           <br />
           <br />
-
 
           <div className="slider">
             {canScrollLeft && (
@@ -113,7 +132,7 @@ function App() {
               <div className="category-item">The Drage vs The Liavågs</div>
               <div className="category-item">The Drage vs The Liavågs</div>
               <div className="category-item">
-                Anjdreas and the fourth dimension
+                <img src="/src/assets/jogeirHeart.jpg"></img>
               </div>
               <div className="category-item">
                 Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
@@ -134,8 +153,7 @@ function App() {
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </footer>
-      </div>
-
+      </div >
     </>
   );
 }
