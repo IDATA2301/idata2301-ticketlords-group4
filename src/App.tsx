@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./css/HamburgerMenu.css";
+import "./css/Slider.css";
 function App() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -35,14 +36,15 @@ function App() {
         {open && (
           <>
             <div className="sidebar">
-              <div className="sidebar-top">              <div className="sidebar-event-categories">
-                <div>🎶Arts & Music</div>
-                <div>✋😐🤚Cinema</div>
-                <div>🌍Cultural</div>
-                <div>🍜Food & Drinks</div>
-                <div>🏋️Sports</div>
-                <div>More</div>
-              </div>
+              <div className="sidebar-top">
+                <div className="sidebar-event-categories">
+                  <div>🎶Arts & Music</div>
+                  <div>✋😐🤚Cinema</div>
+                  <div>🌍Cultural</div>
+                  <div>🍜Food & Drinks</div>
+                  <div>🏋️Sports</div>
+                  <div>More</div>
+                </div>
               </div>
 
 
@@ -114,15 +116,15 @@ function App() {
             <div>✋😐🤚Cinema</div>
             <div>More</div>
           </div>
-          <br />
-          <br />
 
-          <div className="slider">
-            {canScrollLeft && (
-              <button className="arrow-left" onClick={() => slide(-1)}>
-                &#8592;
-              </button>
-            )}
+          <div className="event-popular-section">
+            <div>
+              {canScrollLeft && (
+                <button className="arrow-left" onClick={() => slide(-1)}>
+                  &#8592;
+                </button>
+              )}
+            </div>
             <div className="event-popular" ref={sliderRef}>
               <div className="category-item">
                 Jogeir Johhnyson and The Scripts
@@ -139,15 +141,20 @@ function App() {
                 konflikt
               </div>
               <div className="category-item">Jogeir: the kid named finger</div>
+
             </div>
-            {canScrollRight && (
-              <button className="arrow-right" onClick={() => slide(1)}>
-                &#8594;
-              </button>
-            )}
-            <br />
-            <br />
+            <div>
+
+              {canScrollRight && (
+                <button className="arrow-right" onClick={() => slide(1)}>
+                  &#8594;
+                </button>
+              )}</div>
           </div>
+
+          <br />
+          <br />
+
         </div>
         <footer className="footer">
           <a href="#about">About</a>

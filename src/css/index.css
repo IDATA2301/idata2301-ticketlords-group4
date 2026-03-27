@@ -99,11 +99,6 @@ body {
   background-color: #45a049;
 }
 
-.event-popular {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 
 event-card {
   display: block;
@@ -135,8 +130,6 @@ event-card {
 .headline-sub {
   color: #df32b6;
 }
-
-
 
 
 .event-categories {
@@ -175,8 +168,7 @@ event-card {
 }
 
 .event-popular {
-  text-align: center;
-  display: grid;
+  display: flex;
   grid-template-rows: repeat(2, 1fr);
   grid-auto-flow: column;
   gap: 50px 100px;
@@ -188,11 +180,6 @@ event-card {
   font-size: 1.5rem;
 }
 
-.slider {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
 
 .carousel-content {
   display: flex;
@@ -209,92 +196,63 @@ event-card {
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
-
-  .arrow {
-    background: none;
-    border: none;
-    font-size: 2em;
-    cursor: pointer;
-  }
-
-  .footer {
-    background-color: #8f27dd;
-    padding: 20px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 0;
-    right: 0;
-  }
-
-  .footer a {
-    color: white;
-    text-decoration: none;
-    padding: 0 15px;
-  }
-
-  .footer a:hover {
-    color: #5443a2;
-  }
-
-  .event-categories div {
-    border: 4px solid #8f27dd;
-    font-size: 1.5rem;
-  }
-
-  .slider {
-    display: flex;
-    align-items: center;
-  }
-
-  .event-popular {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 1rem;
-    scrollbar-width: none;
-    flex: 1;
-  }
-
-  .event-popular {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 1rem;
-    scrollbar-width: none;
-    flex: 1;
-  }
-
-  .event-popular::-webkit-scrollbar {
-    display: none;
-  }
-
-  .category-item {
-    min-width: 200px;
-    flex: 0 0 auto;
-  }
-
-  .arrow-left,
-  .arrow-right {
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    font-size: 20px;
-  }
 }
 
 
-.arrow {
-  background: none;
-  border: none;
-  font-size: 2em;
-  cursor: pointer;
+.footer {
+  background-color: #8f27dd;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  padding: 0 15px;
+}
+
+.footer a:hover {
+  color: #5443a2;
+}
+
+.event-categories div {
+  border: 4px solid #8f27dd;
+  font-size: 1.5rem;
+}
+
+
+.event-popular {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  scrollbar-width: none;
+  flex: 1;
+}
+
+.event-popular {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  scrollbar-width: none;
+  flex: 1;
+}
+
+.event-popular::-webkit-scrollbar {
+  display: none;
+}
+
+.category-item {
+  min-width: 200px;
+  flex: 0 0 auto;
 }
 
 .footer {
@@ -323,19 +281,6 @@ event-card {
   font-size: 1.5rem;
 }
 
-.slider {
-  display: flex;
-  align-items: center;
-}
-
-.event-popular {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  scrollbar-width: none;
-  flex: 1;
-}
 
 .event-popular {
   display: flex;
@@ -346,19 +291,18 @@ event-card {
   gap: 1rem;
   scrollbar-width: none;
   flex: 1;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .event-popular::-webkit-scrollbar {
   display: none;
 }
 
-
 .category-item {
   min-width: 200px;
   flex: 0 0 auto;
 }
-
 
 .arrow-left,
 .arrow-right {
