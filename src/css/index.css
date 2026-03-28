@@ -12,18 +12,12 @@ body,
   flex: 1;
 }
 
-footer {
-  background: #00f0f0;
-  padding: 10px 20px;
-  text-align: center;
-}
-
 footer a {
   padding: 10px 20px;
 }
 
 .heading {
-  width: 100%
+  width: 100%;
 }
 
 .topnav {
@@ -48,7 +42,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 
 .login-btn {
   padding: 6px 10px;
@@ -99,7 +92,6 @@ body {
   background-color: #45a049;
 }
 
-
 event-card {
   display: block;
   flex: 0 0 calc(30% - 40px);
@@ -130,7 +122,6 @@ event-card {
 .headline-sub {
   color: #df32b6;
 }
-
 
 .event-categories {
   display: grid;
@@ -165,27 +156,8 @@ event-card {
   font-weight: bold;
   padding: 0.4rem 1rem;
   border-radius: 20px;
-}
-
-.event-popular {
-  display: flex;
-  grid-template-rows: repeat(2, 1fr);
-  grid-auto-flow: column;
-  gap: 50px 100px;
-  color: #8f27dd;
-}
-
-.event-popular div {
   border: 4px solid #8f27dd;
   font-size: 1.5rem;
-}
-
-
-.carousel-content {
-  display: flex;
-  overflow: hidden;
-  width: 200px;
-  text-align: center;
 }
 
 .item {
@@ -197,7 +169,6 @@ event-card {
   border-radius: 8px;
   text-align: center;
 }
-
 
 .footer {
   background-color: #8f27dd;
@@ -218,99 +189,4 @@ event-card {
 
 .footer a:hover {
   color: #5443a2;
-}
-
-.event-categories div {
-  border: 4px solid #8f27dd;
-  font-size: 1.5rem;
-}
-
-
-.event-popular {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  scrollbar-width: none;
-  flex: 1;
-}
-
-.event-popular {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  scrollbar-width: none;
-  flex: 1;
-}
-
-.event-popular::-webkit-scrollbar {
-  display: none;
-}
-
-.category-item {
-  min-width: 200px;
-  flex: 0 0 auto;
-}
-
-.footer {
-  background-color: #8F27DD;
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  right: 0;
-}
-
-.footer a {
-  color: white;
-  text-decoration: none;
-  padding: 0 15px;
-}
-
-.footer a:hover {
-  color: #5443a2;
-}
-
-.event-categories div {
-  border: 4px solid #8F27DD;
-  font-size: 1.5rem;
-}
-
-
-.event-popular {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  scrollbar-width: none;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.event-popular::-webkit-scrollbar {
-  display: none;
-}
-
-.category-item {
-  min-width: 200px;
-  flex: 0 0 auto;
-}
-
-.arrow-left,
-.arrow-right {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  font-size: 20px;
 }

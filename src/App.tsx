@@ -46,8 +46,6 @@ function App() {
                   <div>More</div>
                 </div>
               </div>
-
-
             </div>
 
             {/*TODO: Render menu content after the hambuger menu is clicked here.*/}
@@ -89,7 +87,6 @@ function App() {
               </div>
             </div>
             <div className="topnav-middle">
-
               <a className="active" href="#Home">
                 Home
               </a>
@@ -141,26 +138,24 @@ function App() {
                 konflikt
               </div>
               <div className="category-item">Jogeir: the kid named finger</div>
-
             </div>
             <div>
-
               {canScrollRight && (
                 <button className="arrow-right" onClick={() => slide(1)}>
                   &#8594;
                 </button>
-              )}</div>
+              )}
+            </div>
           </div>
 
           <br />
           <br />
-
         </div>
         <footer className="footer">
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </footer>
-      </div >
+      </div>
     </>
   );
 }

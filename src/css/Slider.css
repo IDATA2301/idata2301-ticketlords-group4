@@ -1,7 +1,28 @@
-.event-popular {
+.event-popular-section {
+  position: relative;
   margin-top: 20rem;
 }
 
+.event-popular {
+  display: flex;
+  flex-direction: row;
+  flex-direction: nowrap;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+  gap: 1rem;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 4rem;
+  overflow-x: auto;
+  box-sizing: border-box;
+  border: 2px solid blue;
+}
+
+p .event-popular::-webkit-scrollbar {
+  display: none;
+}
 .slider {
   display: flex;
   align-items: center;
@@ -10,7 +31,19 @@
   margin: 0 auto;
 }
 
+.category-item {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  overflow: auto;
+  min-width: 200px;
+  flex: 0 0 auto;
+}
 
+.event-popular img {
+  width: 300px;
+  height: auto;
+}
 
 .arrow {
   background: none;
@@ -19,17 +52,22 @@
   cursor: pointer;
 }
 
-
-
+.event-popular div {
+  border: 4px solid #8f27dd;
+  font-size: 1.5rem;
+}
 
 .arrow-left,
 .arrow-right {
-  margin-top: 29.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
   background: #fff;
+  border: 1px solid purple;
   border-radius: 50%;
   width: 32px;
   height: 32px;
