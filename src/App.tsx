@@ -115,7 +115,7 @@ function App() {
           </div>
 
           <div className="event-popular-section">
-            <div>
+            <div className="scroll-left">
               {canScrollLeft && (
                 <button className="arrow-left" onClick={() => slide(-1)}>
                   &#8592;
@@ -139,7 +139,7 @@ function App() {
               </div>
               <div className="category-item">Jogeir: the kid named finger</div>
             </div>
-            <div>
+            <div className="scroll-right">
               {canScrollRight && (
                 <button className="arrow-right" onClick={() => slide(1)}>
                   &#8594;

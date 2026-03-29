@@ -1,4 +1,5 @@
 .event-popular-section {
+  display: flex;
   position: relative;
   margin-top: 20rem;
 }
@@ -75,10 +76,16 @@ p .event-popular::-webkit-scrollbar {
   font-size: 20px;
 }
 
+.scroll-left div,
+.scroll-right div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+}
+
 .arrow-left {
-  left: 0;
 }
 
 .arrow-right {
-  right: 0;
 }
