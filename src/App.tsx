@@ -56,17 +56,21 @@ function App() {
   };
 
   useEffect(() => {
-    updateArrows();
-
     const element = sliderRef.current;
     if (!element) return;
-    element.addEventListener("scroll", updateArrows);
+
+    const handleScroll = () => updateArrows();
+    element.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", updateArrows);
+
+    // Call once to set initial state
+    updateArrows();
+
     return () => {
-      element.removeEventListener("scroll", updateArrows);
+      element.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateArrows);
     };
-  }, []);
+  }, [sliderRef]);
 
   const slide = (direction: number) => {
     if (sliderRef.current) {
@@ -115,36 +119,47 @@ function App() {
           </div>
 
           <div className="event-popular-section">
-            <div className="scroll-left">
-              {canScrollLeft && (
-                <button className="arrow-left" onClick={() => slide(-1)}>
-                  &#8592;
-                </button>
-              )}
-            </div>
-            <div className="event-popular" ref={sliderRef}>
-              <div className="category-item">
-                Jogeir Johhnyson and The Scripts
+            <div className="event-popular">
+              <div className="scroll-left">
+                {canScrollLeft && (
+                  <button
+                    className="arrow-left-button"
+                    onClick={() => slide(-1)}
+                  >
+                    {"<"}
+                  </button>
+                )}
               </div>
-              <div className="category-item">The Drage vs The Liavågs</div>
-              <div className="category-item">The Drage vs The Liavågs</div>
-              <div className="category-item">The Drage vs The Liavågs</div>
-              <div className="category-item">The Drage vs The Liavågs</div>
-              <div className="category-item">
-                <img src="/src/assets/jogeirHeart.jpg"></img>
+              <div className="category-items" ref={sliderRef}>
+                <div className="category-item">
+                  Jogeir Johhnyson and The Scripts
+                </div>
+                <div className="category-item">The Drage vs The Liavågs</div>
+                <div className="category-item">The Drage vs The Liavågs</div>
+                <div className="category-item">The Drage vs The Liavågs</div>
+                <div className="category-item">The Drage vs The Liavågs</div>
+                <div className="category-item">
+                  <img src="/src/assets/jogeirHeart.jpg"></img>
+                </div>
+                <div className="category-item">
+                  Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
+                  konflikt
+                </div>
+                <div className="category-item">
+                  Jogeir: the kid named finger
+                </div>
               </div>
-              <div className="category-item">
-                Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
-                konflikt
+
+              <div className="scroll-right">
+                {canScrollRight && (
+                  <button
+                    className="arrow-right-button"
+                    onClick={() => slide(1)}
+                  >
+                    {">"}
+                  </button>
+                )}
               </div>
-              <div className="category-item">Jogeir: the kid named finger</div>
-            </div>
-            <div className="scroll-right">
-              {canScrollRight && (
-                <button className="arrow-right" onClick={() => slide(1)}>
-                  &#8594;
-                </button>
-              )}
             </div>
           </div>
 
