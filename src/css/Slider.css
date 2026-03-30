@@ -84,7 +84,6 @@ p .event-popular::-webkit-scrollbar {
   width: 32px;
   height: 32px;
   cursor: pointer;
-  font-size: 20px;
 }
 
 .arrow-left-button:hover,
@@ -121,4 +120,36 @@ p .event-popular::-webkit-scrollbar {
 
 .arrow-right-button {
   font-size: 3rem;
+}
+
+@media (max-width: 600px) {
+  .scroll-left,
+  .scroll-right {
+    min-width: 12px;
+    min-height: auto;
+    max-height: auto;
+  }
+
+  .arrow-left-button,
+  .arrow-right-button {
+    border-width: 1rem;
+  }
+
+  .arrow-left-button img,
+  .arrow-right-button img {
+    max-width: 8px;
+    max-height: auto;
+  }
+
+  .category-items {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .category-item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
 }

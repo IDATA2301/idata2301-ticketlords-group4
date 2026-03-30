@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./css/HamburgerMenu.css";
 import "./css/Slider.css";
+
+import { scrollByOne, slide } from "./functions/sliderHelper.ts";
+import HamburgerMenu from "./components/HamburgerMenu.tsx";
 function App() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -15,44 +18,6 @@ function App() {
         element.scrollLeft + element.clientWidth < element.scrollWidth,
       );
     }
-  };
-
-  const HamburgerMenu: React.FC = () => {
-    const [open, setOpen] = useState(false);
-
-    return (
-      <>
-        <button
-          className={`hamburger${open ? " open" : ""}`}
-          onClick={() => setOpen((prev) => !prev)}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-
-        {open && (
-          <>
-            <div className="sidebar">
-              <div className="sidebar-top">
-                <div className="sidebar-event-categories">
-                  <div>🎶Arts & Music</div>
-                  <div>✋😐🤚Cinema</div>
-                  <div>🌍Cultural</div>
-                  <div>🍜Food & Drinks</div>
-                  <div>🏋️Sports</div>
-                  <div>More</div>
-                </div>
-              </div>
-            </div>
-
-            {/*TODO: Render menu content after the hambuger menu is clicked here.*/}
-          </>
-        )}
-      </>
-    );
   };
 
   useEffect(() => {
@@ -72,12 +37,14 @@ function App() {
     };
   }, [sliderRef]);
 
-  const slide = (direction: number) => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: direction * 200, behavior: "smooth" });
+  const handleScroll = (direction: "left" | "right") => {
+    const container = sliderRef.current;
+    if (window.innerWidth > 600) {
+      slide(container, direction);
+    } else {
+      scrollByOne(container, direction);
     }
   };
-
   return (
     <>
       <div id="root">
@@ -124,7 +91,7 @@ function App() {
                 {canScrollLeft && (
                   <button
                     className="arrow-left-button"
-                    onClick={() => slide(-1)}
+                    onClick={() => handleScroll("left")}
                   >
                     <img
                       src="/src/assets/arrow-left.png"
@@ -157,7 +124,7 @@ function App() {
                 {canScrollRight && (
                   <button
                     className="arrow-right-button"
-                    onClick={() => slide(1)}
+                    onClick={() => handleScroll("right")}
                   >
                     <img
                       src="/src/assets/arrow-right.png"
