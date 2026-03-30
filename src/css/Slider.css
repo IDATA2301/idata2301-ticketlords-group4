@@ -7,9 +7,6 @@
 .event-popular {
   display: flex;
   flex-direction: row;
-  flex-direction: nowrap;
-  scroll-behavior: auto;
-  scrollbar-width: none;
   gap: 1rem;
   flex: 1;
   width: 100%;
@@ -38,6 +35,7 @@ p .event-popular::-webkit-scrollbar {
   flex-direction: row;
   width: 900px;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .category-items div {
@@ -79,13 +77,25 @@ p .event-popular::-webkit-scrollbar {
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
-  background: #8f27dd;
-  border: 1px solid purple;
-  border-radius: 50%;
+  border: dashed;
+  border-width: 1.5rem;
+  border-color: transparent;
+  border-radius: 1rem;
   width: 32px;
   height: 32px;
   cursor: pointer;
   font-size: 20px;
+}
+
+.arrow-left-button:hover,
+.arrow-right-button:hover {
+  box-shadow: 0 0 0 4px #62bb66;
+}
+
+.arrow-left-button img,
+.arrow-right-button img {
+  max-width: 12px;
+  max-height: auto;
 }
 
 .scroll-left {
