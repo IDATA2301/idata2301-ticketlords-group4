@@ -92,17 +92,6 @@ body {
   background-color: #45a049;
 }
 
-event-card {
-  display: block;
-  flex: 0 0 calc(30% - 40px);
-  margin: 20px;
-  border: 5px;
-  padding: 100px 30px;
-  background-color: white;
-  border-color: #8f27dd;
-  border-style: solid;
-}
-
 .section-headline {
   text-align: center;
   background-color: #191919;
