@@ -126,7 +126,10 @@ function App() {
                     className="arrow-left-button"
                     onClick={() => slide(-1)}
                   >
-                    {"<"}
+                    <img
+                      src="/src/assets/arrow-left.png"
+                      alt="Arrow left icon"
+                    />
                   </button>
                 )}
               </div>
@@ -156,7 +159,10 @@ function App() {
                     className="arrow-right-button"
                     onClick={() => slide(1)}
                   >
-                    {">"}
+                    <img
+                      src="/src/assets/arrow-right.png"
+                      alt="Arrow right icon"
+                    />
                   </button>
                 )}
               </div>
