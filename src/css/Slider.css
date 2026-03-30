@@ -91,18 +91,15 @@ p .event-popular::-webkit-scrollbar {
   box-shadow: 0 0 0 4px #62bb66;
 }
 
+.arrow-left-button.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .arrow-left-button img,
 .arrow-right-button img {
   max-width: 12px;
   max-height: auto;
-}
-
-.scroll-left {
-  min-width: 3rem;
-}
-
-.scroll-right {
-  min-width: 3rem;
 }
 
 .scroll-left,
@@ -114,20 +111,20 @@ p .event-popular::-webkit-scrollbar {
   margin-right: 20px;
 }
 
-.arrow-left-button {
-  font-size: 30px;
-}
-
-.arrow-right-button {
-  font-size: 3rem;
+@media (hover: none) and (pointer: coarse) {
+  .arrow-left-button:active,
+  .arrow-right-button:active,
+  .arrow-left-button:hover,
+  .arrow-right-button:hover {
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 600px) {
   .scroll-left,
   .scroll-right {
-    min-width: 12px;
+    min-width: 0px;
     min-height: auto;
-    max-height: auto;
   }
 
   .arrow-left-button,
@@ -146,10 +143,15 @@ p .event-popular::-webkit-scrollbar {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    padding: 0 4px;
   }
 
   .category-item {
     flex: 0 0 100%;
     scroll-snap-align: start;
+  }
+
+  .category-items div {
+    margin-right: 0;
   }
 }
