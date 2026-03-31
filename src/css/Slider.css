@@ -15,7 +15,14 @@
   padding: 6rem 2rem;
   overflow-x: auto;
   box-sizing: border-box;
-  border: 2px solid blue;
+  background-color: #e3fded;
+  border: 2px solid grey;
+  border-radius: 30px;
+}
+
+.event-popular div {
+  max-height: 350px;
+  overflow: hidden;
 }
 
 p .event-popular::-webkit-scrollbar {
@@ -33,7 +40,7 @@ p .event-popular::-webkit-scrollbar {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-  width: 900px;
+  width: 100rem;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -52,8 +59,8 @@ p .event-popular::-webkit-scrollbar {
 }
 
 .event-popular img {
-  width: 400px;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .arrow {
@@ -98,8 +105,9 @@ p .event-popular::-webkit-scrollbar {
 
 .arrow-left-button img,
 .arrow-right-button img {
-  max-width: 12px;
-  max-height: auto;
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
 }
 
 .scroll-left,

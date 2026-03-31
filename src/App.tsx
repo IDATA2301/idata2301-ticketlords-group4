@@ -102,11 +102,23 @@ function App() {
               </div>
               <div className="category-items" ref={sliderRef}>
                 <div className="category-item">
-                  Jogeir Johhnyson and The Scripts
+                  <img src="/src/assets/hispanic-cultural.png" />
                 </div>
-                <div className="category-item">The Drage vs The Liavågs</div>
-                <div className="category-item">The Drage vs The Liavågs</div>
-                <div className="category-item">The Drage vs The Liavågs</div>
+                <div className="category-item">
+                  <img src="/src/assets/beach-sunset.png" />
+                </div>
+                <div className="category-item">
+                  <img
+                    src="/src/assets/lord-of-the-rings-triology.png"
+                    alt="lord of the rings triology poster"
+                  />
+                </div>
+                <div className="category-item">
+                  <img
+                    src="/src/assets/cosplay-convention.png"
+                    alt="cosplay convention image"
+                  />
+                </div>
                 <div className="category-item">The Drage vs The Liavågs</div>
                 <div className="category-item">
                   <img src="/src/assets/jogeirHeart.jpg"></img>
