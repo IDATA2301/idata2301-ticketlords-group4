@@ -1,18 +1,39 @@
 .event-popular-section {
   display: flex;
+  flex-direction: column;
   position: relative;
   margin-top: 10rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-popular-section-description {
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+
+  position: absolute;
+  top: 0px;
+  left: 2rem;
+  z-index: 1;
+  font-size: 22px;
+}
+
+.event-popular-section-description h2 {
+  color: #9400d3;
 }
 
 .event-popular {
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 1rem;
   flex: 1;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 6rem 2rem;
+  margin: 2rem auto;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   overflow-x: auto;
   box-sizing: border-box;
   background-color: #e3fded;
@@ -28,6 +49,7 @@
 p .event-popular::-webkit-scrollbar {
   display: none;
 }
+
 .slider {
   display: flex;
   align-items: center;
@@ -49,6 +71,13 @@ p .event-popular::-webkit-scrollbar {
   margin-right: 1rem;
 }
 
+.category-items a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 .category-item {
   display: flex;
   align-items: center;
@@ -56,11 +85,18 @@ p .event-popular::-webkit-scrollbar {
   overflow: auto;
   min-width: 200px;
   flex: 0 0 auto;
+  height: 80%;
+}
+
+.category-item-description {
+  margin-top: 1rem;
+  height: 20%;
+  width: 100%;
 }
 
 .event-popular img {
-  width: 100%;
   height: 100%;
+  width: auto;
 }
 
 .arrow {
@@ -77,6 +113,7 @@ p .event-popular::-webkit-scrollbar {
 
 .arrow-left-button,
 .arrow-right-button {
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;

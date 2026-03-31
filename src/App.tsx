@@ -87,6 +87,9 @@ function App() {
 
           <div className="event-popular-section">
             <div className="event-popular">
+              <div className="event-popular-section-description">
+                <h2> {"Popular events"}</h2>
+              </div>
               <div className="scroll-left">
                 {canScrollLeft && (
                   <button
@@ -101,35 +104,82 @@ function App() {
                 )}
               </div>
               <div className="category-items" ref={sliderRef}>
-                <div className="category-item">
-                  <img src="/src/assets/hispanic-cultural.png" />
-                </div>
-                <div className="category-item">
-                  <img src="/src/assets/beach-sunset.png" />
-                </div>
-                <div className="category-item">
-                  <img
-                    src="/src/assets/lord-of-the-rings-triology.png"
-                    alt="lord of the rings triology poster"
-                  />
-                </div>
-                <div className="category-item">
-                  <img
-                    src="/src/assets/cosplay-convention.png"
-                    alt="cosplay convention image"
-                  />
-                </div>
-                <div className="category-item">The Drage vs The Liavågs</div>
-                <div className="category-item">
-                  <img src="/src/assets/jogeirHeart.jpg"></img>
-                </div>
-                <div className="category-item">
-                  Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
-                  konflikt
-                </div>
-                <div className="category-item">
-                  Jogeir: the kid named finger
-                </div>
+                <a href="#events/el-hispanico-festivalo">
+                  <div className="category-item">
+                    <img src="/src/assets/hispanic-cultural.png" />
+                  </div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
+
+                <a href="#events/hawaii-sunset-concert">
+                  <div className="category-item">
+                    <img src="/src/assets/beach-sunset.png" />
+                  </div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
+
+                <a href="#events/lord-of-the-rings-trilogy">
+                  <div className="category-item">
+                    <img
+                      src="/src/assets/lord-of-the-rings-triology.png"
+                      alt="lord of the rings triology poster"
+                    />
+                  </div>
+                  <div className="category-item-description">
+                    Lord of the Rings Trilogy
+                  </div>
+                </a>
+
+                <a href="#events/cosplay-convention">
+                  <div className="category-item">
+                    <img
+                      src="/src/assets/cosplay-convention.png"
+                      alt="cosplay convention image"
+                    />
+                  </div>
+                  <div className="category-item-description">
+                    Cosplay Convention
+                  </div>
+                </a>
+
+                <a href="#events/drage-vs-liavags">
+                  <div className="category-item">The Drage vs The Liavågs</div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
+
+                <a href="#events/jogeir-heart">
+                  <div className="category-item">
+                    <img src="/src/assets/jogeirHeart.jpg" alt="Jogeir Heart" />
+                  </div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
+
+                <a href="#events/jogeir-funnyjunk-bakken">
+                  <div className="category-item">
+                    Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
+                    konflikt
+                  </div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
+
+                <a href="#events/jogeir-finger">
+                  <div className="category-item">
+                    Jogeir: the kid named finger
+                  </div>
+                  <div className="category-item-description">
+                    {"Default description"}
+                  </div>
+                </a>
               </div>
 
               <div className="scroll-right">
