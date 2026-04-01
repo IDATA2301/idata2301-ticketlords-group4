@@ -20,12 +20,24 @@ const HamburgerMenu: React.FC = () => {
           <div className="sidebar">
             <div className="sidebar-top">
               <div className="sidebar-event-categories">
-                <div>🎶Arts & Music</div>
-                <div>✋😐🤚Cinema</div>
-                <div>🌍Cultural</div>
-                <div>🍜Food & Drinks</div>
-                <div>🏋️Sports</div>
-                <div>More</div>
+                <a href="#categories/arts-music">
+                  <div>🎶Arts & Music</div>
+                </a>
+                <a href="#categories/cinema">
+                  <div>✋😐🤚Cinema</div>
+                </a>
+                <a href="#categories/cultural">
+                  <div>🌍Cultural</div>
+                </a>
+                <a href="#categories/food-drinks">
+                  <div>🍜Food & Drinks</div>
+                </a>
+                <a href="#categories/sports">
+                  <div>🏋️Sports</div>
+                </a>
+                <a href="#categories">
+                  <div>More</div>
+                </a>
               </div>
             </div>
           </div>
