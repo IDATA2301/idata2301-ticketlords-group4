@@ -123,6 +123,10 @@ body {
   margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+}
+
 @media (max-width: 600px) {
   .event-categories {
     display: flex;
