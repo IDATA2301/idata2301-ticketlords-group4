@@ -36,21 +36,46 @@
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 15vw;
+  width: 20%;
   background: #838383;
   z-index: 1000;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0, 1);
   transition: transform 0.3s ease;
+  opacity: 88%;
 }
 
 .sidebar-top {
   margin-top: 3.8rem;
 }
 
-.sidebar-event-categories {
-  font-size: 40px;
+.sidebar-event-categories a {
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.sidebar-event-categories div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #8f27dd;
+  font-size: 30px;
+  border: solid;
+  border-width: 4px;
+  border-color: #8f27dd;
+  border-radius: 10px;
+  width: 80%;
+  height: auto;
+  justify-content: center;
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
