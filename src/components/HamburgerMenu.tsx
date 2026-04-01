@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 const HamburgerMenu: React.FC = () => {
   const [open, setOpen] = useState(false);
 
@@ -20,24 +22,24 @@ const HamburgerMenu: React.FC = () => {
           <div className="sidebar">
             <div className="sidebar-top">
               <div className="sidebar-event-categories">
-                <a href="#categories/arts-music">
+                <Link to="categories/arts-music">
                   <div>🎶Arts & Music</div>
-                </a>
-                <a href="#categories/cinema">
+                </Link>
+                <Link to="categories/cinema">
                   <div>✋😐🤚Cinema</div>
-                </a>
-                <a href="#categories/cultural">
+                </Link>
+                <Link to="categories/cultural">
                   <div>🌍Cultural</div>
-                </a>
-                <a href="#categories/food-drinks">
+                </Link>
+                <Link to="categories/food-drinks">
                   <div>🍜Food & Drinks</div>
-                </a>
-                <a href="#categories/sports">
+                </Link>
+                <Link to="categories/sports">
                   <div>🏋️Sports</div>
-                </a>
-                <a href="#categories">
+                </Link>
+                <Link to="categories">
                   <div>More</div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

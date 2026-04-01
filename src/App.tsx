@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./css/HamburgerMenu.css";
 import "./css/Slider.css";
 
-import { scrollByOne, slide } from "./functions/sliderHelper.ts";
+import { BrowserRouter, Link } from "react-router-dom";
 import HamburgerMenu from "./components/HamburgerMenu.tsx";
+import { scrollByOne, slide } from "./functions/sliderHelper.ts";
 function App() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -45,8 +46,9 @@ function App() {
       scrollByOne(container, direction);
     }
   };
+
   return (
-    <>
+    <BrowserRouter>
       <div id="root">
         <div className="main-content">
           <div className="topnav">
@@ -58,12 +60,14 @@ function App() {
               </div>
             </div>
             <div className="topnav-middle">
-              <a className="active" href="#Home">
+              <Link to="home" className="active">
                 Home
-              </a>
+              </Link>
             </div>
             <div className="topnav-right">
-              <button className="login-btn">Login</button>
+              <Link to="login">
+                <button className="login-btn">Login</button>
+              </Link>
             </div>
           </div>
           <div className="section-headline">
@@ -77,12 +81,24 @@ function App() {
           </div>
           <br />
           <div className="event-categories">
-            <div>🌍Cultural</div>
-            <div>🍜Food & Drinks</div>
-            <div>🏋️Sports</div>
-            <div>🎶Arts & Music</div>
-            <div>✋😐🤚Cinema</div>
-            <div>More</div>
+            <Link to="/categories/arts-music" className="event-category-link">
+              <div>🎶Arts & Music</div>
+            </Link>
+            <Link to="/categories/cinema" className="event-category-link">
+              <div>✋😐🤚Cinema</div>
+            </Link>
+            <Link to="/categories/cultural" className="event-category-link">
+              <div>🌍Cultural</div>
+            </Link>
+            <Link to="/categories/food-drinks" className="event-category-link">
+              <div>🍜Food & Drinks</div>
+            </Link>
+            <Link to="/categories/sports" className="event-category-link">
+              <div>🏋️Sports</div>
+            </Link>
+            <Link to="/categories" className="event-category-link">
+              <div>More</div>
+            </Link>
           </div>
 
           <div className="event-popular-section">
@@ -104,25 +120,25 @@ function App() {
                 )}
               </div>
               <div className="category-items" ref={sliderRef}>
-                <a href="#events/el-hispanico-festivalo">
+                <Link to="events/el-hispanico-festivalo">
                   <div className="category-item">
                     <img src="/src/assets/hispanic-cultural.png" />
                   </div>
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/hawaii-sunset-concert">
+                <Link to="events/hawaii-sunset-concert">
                   <div className="category-item">
                     <img src="/src/assets/beach-sunset.png" />
                   </div>
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/lord-of-the-rings-trilogy">
+                <Link to="events/lord-of-the-rings-trilogy">
                   <div className="category-item">
                     <img
                       src="/src/assets/lord-of-the-rings-triology.png"
@@ -132,9 +148,9 @@ function App() {
                   <div className="category-item-description">
                     Lord of the Rings Trilogy
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/cosplay-convention">
+                <Link to="events/cosplay-convention">
                   <div className="category-item">
                     <img
                       src="/src/assets/cosplay-convention.png"
@@ -144,25 +160,25 @@ function App() {
                   <div className="category-item-description">
                     Cosplay Convention
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/drage-vs-liavags">
+                <Link to="events/drage-vs-liavags">
                   <div className="category-item">The Drage vs The Liavågs</div>
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/jogeir-heart">
+                <Link to="events/jogeir-heart">
                   <div className="category-item">
                     <img src="/src/assets/jogeirHeart.jpg" alt="Jogeir Heart" />
                   </div>
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/jogeir-funnyjunk-bakken">
+                <Link to="events/jogeir-funnyjunk-bakken">
                   <div className="category-item">
                     Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
                     konflikt
@@ -170,16 +186,16 @@ function App() {
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
 
-                <a href="#events/jogeir-finger">
+                <Link to="events/jogeir-finger">
                   <div className="category-item">
                     Jogeir: the kid named finger
                   </div>
                   <div className="category-item-description">
                     {"Default description"}
                   </div>
-                </a>
+                </Link>
               </div>
 
               <div className="scroll-right">
@@ -202,12 +218,11 @@ function App() {
           <br />
         </div>
         <footer className="footer">
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <Link to="about">About</Link>
+          <Link to="contact">Contact</Link>
         </footer>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
-
 export default App;
