@@ -50,6 +50,12 @@
   opacity: 88%;
 }
 
+@media (max-width: 600px) {
+  .sidebar {
+    width: 100vw;
+  }
+}
+
 .sidebar-top {
   margin-top: 3.8rem;
 }
