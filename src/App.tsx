@@ -9,6 +9,8 @@ function App() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [showTopbar, setShowTopbar] = useState(true);
+  const lastScrollY = useRef(0);
 
   const updateArrows = () => {
     const element = sliderRef.current;
@@ -38,6 +40,35 @@ function App() {
     };
   }, [sliderRef]);
 
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      const currentY = window.scrollY;
+      const isMobile = window.innerWidth <= 600;
+
+      if (!isMobile) {
+        setShowTopbar(true);
+        lastScrollY.current = currentY;
+        return;
+      }
+
+      const delta = currentY - lastScrollY.current;
+
+      if (delta > 5 && currentY > 50) {
+        setShowTopbar(false);
+      }
+      else if (delta < -5) {
+        setShowTopbar(true);
+      }
+
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleWindowScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+    };
+  }, []);
+
   const handleScroll = (direction: "left" | "right") => {
     const container = sliderRef.current;
     if (window.innerWidth > 600) {
@@ -51,7 +82,7 @@ function App() {
     <BrowserRouter>
       <div id="root">
         <div className="main-content">
-          <div className="topnav">
+          <div className={`topnav ${showTopbar ? "topnav--visible" : "topnav--hidden"}`}>
             <div className="topnav-left">
               <div className="hamburger-menu">
                 <header>

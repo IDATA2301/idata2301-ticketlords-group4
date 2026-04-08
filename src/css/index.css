@@ -33,6 +33,15 @@ footer a {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: transform 0.2s ease-out;
+  }
+
+  .topnav.topnav--visible {
+    transform: translateY(0);
+  }
+
+  .topnav.topnav--hidden {
+    transform: translateY(-100%);
   }
 }
 
