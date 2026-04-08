@@ -28,6 +28,14 @@ footer a {
   padding: 1rem 0.8rem;
 }
 
+@media (max-width: 600px) {
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+}
+
 .topnav a {
   color: black;
   font-size: 1.3rem;
@@ -80,9 +88,32 @@ body {
 .search-container input[type="text"] {
   height: 35px;
   padding: 8px;
-  width: 500px;
+  width: min(90vw, 500px);
   border-radius: 20px;
   border: 2px solid #ccc;
+}
+
+@media (max-width: 600px) {
+  .search-container input[type="text"] {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .topnav {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .topnav-middle {
+    flex: 1;
+    text-align: center;
+  }
+
+  .topnav-right {
+    margin-right: 0;
+  }
 }
 
 .event {
