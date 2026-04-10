@@ -99,7 +99,7 @@ export default function HomePage() {
                         )}
                     </div>
                     <div className="category-items" ref={sliderRef}>
-                        <Link to="events/el-hispanico-festivalo">
+                        <Link to="/events/el-hispanico-festivalo">
                             <div className="category-item">
                                 <img src="/src/assets/hispanic-cultural.png"/>
                             </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/hawaii-sunset-concert">
+                        <Link to="/events/hawaii-sunset-concert">
                             <div className="category-item">
                                 <img src="/src/assets/beach-sunset.png"/>
                             </div>
@@ -117,7 +117,7 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/lord-of-the-rings-trilogy">
+                        <Link to="/events/lord-of-the-rings-trilogy">
                             <div className="category-item">
                                 <img
                                     src="/src/assets/lord-of-the-rings-triology.png"
@@ -129,7 +129,7 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/cosplay-convention">
+                        <Link to="/events/cosplay-convention">
                             <div className="category-item">
                                 <img
                                     src="/src/assets/cosplay-convention.png"
@@ -141,14 +141,14 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/drage-vs-liavags">
+                        <Link to="/events/drage-vs-liavags">
                             <div className="category-item">The Drage vs The Liavågs</div>
                             <div className="category-item-description">
                                 {"Default description"}
                             </div>
                         </Link>
 
-                        <Link to="events/jogeir-heart">
+                        <Link to="/events/jogeir-heart">
                             <div className="category-item">
                                 <img src="/src/assets/jogeirHeart.jpg" alt="Jogeir Heart"/>
                             </div>
@@ -157,7 +157,7 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/jogeir-funnyjunk-bakken">
+                        <Link to="/events/jogeir-funnyjunk-bakken">
                             <div className="category-item">
                                 Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
                                 konflikt
@@ -167,7 +167,7 @@ export default function HomePage() {
                             </div>
                         </Link>
 
-                        <Link to="events/jogeir-finger">
+                        <Link to="/events/jogeir-finger">
                             <div className="category-item">
                                 Jogeir: the kid named finger
                             </div>
