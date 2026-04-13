@@ -1,0 +1,250 @@
+.event-popular-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 10rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-popular-section-description {
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+
+  position: absolute;
+  top: 0px;
+  left: 2rem;
+  z-index: 1;
+  font-size: 22px;
+}
+
+.event-popular-section-description h2 {
+  color: #9400d3;
+}
+
+.event-popular {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  overflow-x: auto;
+  box-sizing: border-box;
+  background-color: #e3fded;
+  border: 2px solid grey;
+  border-radius: 30px;
+}
+
+.event-popular div {
+  max-height: 350px;
+  overflow: hidden;
+}
+
+p .event-popular::-webkit-scrollbar {
+  display: none;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.category-items {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-items div {
+  margin-right: 1rem;
+}
+
+.category-items a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  overflow: auto;
+  min-width: 200px;
+  flex: 0 0 auto;
+  height: 80%;
+}
+
+.category-item-description {
+  margin-top: 1rem;
+  height: 20%;
+  width: 100%;
+}
+
+.event-popular img {
+  height: 100%;
+  width: auto;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.event-popular .category-item {
+  border: 4px solid #8f27dd;
+  font-size: 1.5rem;
+}
+
+.arrow-left-button,
+.arrow-right-button {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  border: dashed;
+  border-width: 1.5rem;
+  border-color: transparent;
+  border-radius: 1rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.arrow-left-button:hover,
+.arrow-right-button:hover {
+  box-shadow: 0 0 0 4px #62bb66;
+}
+
+.arrow-left-button.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.arrow-left-button img,
+.arrow-right-button img {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.scroll-left,
+.scroll-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .arrow-left-button:active,
+  .arrow-right-button:active,
+  .arrow-left-button:hover,
+  .arrow-right-button:hover {
+    box-shadow: none;
+  }
+}
+
+/*@media (max-width: 600px) {*/
+/*  .scroll-left,*/
+/*  .scroll-right {*/
+/*    min-width: 0px;*/
+/*    min-height: auto;*/
+/*  }*/
+
+/*  .arrow-left-button,*/
+/*  .arrow-right-button {*/
+/*    border-width: 1rem;*/
+/*  }*/
+
+/*  .arrow-left-button img,*/
+/*  .arrow-right-button img {*/
+/*    max-width: 8px;*/
+/*    max-height: auto;*/
+/*  }*/
+
+/*  .category-items {*/
+/*    display: flex;*/
+/*    overflow-x: auto;*/
+/*    scroll-snap-type: x mandatory;*/
+/*    scroll-behavior: smooth;*/
+/*    padding: 0 4px;*/
+/*  }*/
+
+/*  .category-item {*/
+/*    flex: 0 0 100%;*/
+/*    scroll-snap-align: start;*/
+/*  }*/
+
+/*  .category-items div {*/
+/*    margin-right: 0;*/
+/*  }*/
+/*}*/
+
+@media (max-width: 600px) {
+  .event-popular {
+    flex-direction: column;
+    overflow-x: visible;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .event-popular div {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .scroll-left,
+  .scroll-right {
+    display: none;
+  }
+
+  .category-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding: 0;
+  }
+
+  .category-item {
+    aspect-ratio: 3 / 4;
+    flex: none;
+    min-width: 0;
+    height: auto;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .event-popular img {
+    width: 100%;
+    height: auto;
+  }
+
+  .category-item-description {
+    height: auto;
+  }
+}
+
