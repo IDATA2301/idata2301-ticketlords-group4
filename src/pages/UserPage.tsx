@@ -12,7 +12,7 @@ export default function UserPage() {
 
   useEffect(() => {
     // Fetch user data from backend
-    fetch("/users/user/0") //TODO: change 0 to {id} when users have their own page
+    fetch("/users/user/1") //TODO: change 0 to {id} when users have their own page
       .then((response) => response.json())
       .then((data) => {
         setUser({
