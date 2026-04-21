@@ -50,7 +50,7 @@ export default function EventPage() {
     }
 
     return (
-        <div className="event-page">
+        <div className="event-header">
             <div className="event-hero">
                 {event.image && (
                     <img
