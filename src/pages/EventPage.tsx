@@ -1,31 +1,17 @@
 import {useParams} from "react-router-dom";
 import "../css/EventPage.css"
+import { EVENTS } from "../data/events";
 
-type EventData = {
-    title: string;
-    location: string;
-    date: string;
-    description: string;
-    image?: string;
-};
+function formatEventDate(isoDate: string): string {
+    const parsed = new Date(isoDate);
+    if (Number.isNaN(parsed.getTime())) return isoDate;
 
-const EVENTS: Record<string, EventData> = {
-    "el-hispanico-festivalo": {
-        title: "El Hispanico Festivalo",
-        location: "Bergen",
-        date: "2026-06-12",
-        description: "A vibrant celebration of Hispanic culture",
-        image: "/src/assets/hispanic-cultural.png",
-    },
-    "hawaii-sunset-concert": {
-        title: "Hawaii Sunset Concert",
-        location: "Fårnebu Arena",
-        date: "2026-08-12",
-        description: "Live music with the sunset",
-        image: "/src/assets/beach-sunset.png",
-    },
-
-};
+    return parsed.toLocaleDateString("nb-NO", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    });
+}
 
 export default function EventPage() {
     const {slug} = useParams<{ slug: string }>();
@@ -66,7 +52,7 @@ export default function EventPage() {
 
                 <div className="event-meta">
                     <span className="event-location">{event.location}</span>
-                    <span className="event-date">{event.date}</span>
+                    <span className="event-date">{formatEventDate(event.date)}</span>
                 </div>
 
                 <p className="event-description">{event.description}</p>
