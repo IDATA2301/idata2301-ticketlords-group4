@@ -10,7 +10,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (query) {
-      fetch("/events/search?query=" + encodeURIComponent(query))
+      fetch("http://10.212.25.185:8080/events/search?query=" + encodeURIComponent(query))
         .then((response: Response) => response.ok ? response.json() : [])
         .then((data: Event[]) => {
           if (!data || data.length === 0) {
