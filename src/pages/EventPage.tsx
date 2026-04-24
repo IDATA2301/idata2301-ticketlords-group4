@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import "../css/EventPage.css"
-import { EVENTS } from "../data/events";
+import {EVENTS} from "../data/events";
 
 function formatEventDate(isoDate: string): string {
     const parsed = new Date(isoDate);
@@ -36,26 +36,28 @@ export default function EventPage() {
     }
 
     return (
-        <div className="event-header">
-            <div className="event-hero">
-                {event.image && (
-                    <img
-                        className="event-hero-image"
-                        src={event.image}
-                        alt={event.title}
-                    />
-                )}
-            </div>
-
-            <div className="event-content">
-                <h1 className="event-title">{event.title}</h1>
-
-                <div className="event-meta">
-                    <span className="event-location">{event.location}</span>
-                    <span className="event-date">{formatEventDate(event.date)}</span>
+        <div className="event-page">
+            <div className="event-card">
+                <div className="event-hero">
+                    {event.image && (
+                        <img
+                            className="event-hero-image"
+                            src={event.image}
+                            alt={event.title}
+                        />
+                    )}
                 </div>
 
-                <p className="event-description">{event.description}</p>
+                <div className="event-content">
+                    <h1 className="event-title">{event.title}</h1>
+
+                    <div className="event-meta">
+                        <span className="event-location">{event.location}</span>
+                        <span className="event-date">{formatEventDate(event.date)}</span>
+                    </div>
+
+                    <p className="event-description">{event.description}</p>
+                </div>
             </div>
         </div>
     );

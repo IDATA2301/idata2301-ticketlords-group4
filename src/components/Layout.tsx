@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 import "../css/HamburgerMenu.css";
 import "../css/Slider.css";
@@ -7,12 +7,12 @@ import "../css/Slider.css";
 export default function Layout() {
     const [showTopbar, setShowTopbar] = useState(true);
     const lastScrollY = useRef(0);
+    const location = useLocation();
 
     useEffect(() => {
         const handleWindowScroll = () => {
             const currentY = window.scrollY;
             const isMobile = window.innerWidth <= 600;
-
 
             if (!isMobile) {
                 setShowTopbar(true);
@@ -38,6 +38,18 @@ export default function Layout() {
         };
     }, []);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        lastScrollY.current = 0;
+
+        const timeoutId = window.setTimeout(() => {
+            setShowTopbar(true);
+        }, 0);
+
+        return () => {
+            window.clearTimeout(timeoutId);
+        };
+    }, [location.pathname]);
 
     return (
         <div id="root">
@@ -58,7 +70,7 @@ export default function Layout() {
                         </Link>
                     </div>
                     <div className="topnav-right">
-                        <Link to="login">
+                        <Link to="/login">
                             <button className="login-btn">Login</button>
                         </Link>
                     </div>
@@ -70,8 +82,8 @@ export default function Layout() {
 
             {/* Footer */}
             <footer className="footer">
-                <Link to="about">About</Link>
-                <Link to="contact">Contact</Link>
+                <Link to="/about">About</Link>
+                <Link to="/contact">Contact</Link>
             </footer>
         </div>
     );
