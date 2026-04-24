@@ -1,3 +1,5 @@
+import type Category from "./Category";
+import type EventVenue from "./EventVenue";
 export default interface Event {
   eventId: number;
   eventName: String;
@@ -8,5 +10,4 @@ export default interface Event {
   eventVenue: EventVenue;
   eventDescription: String;
   totalClicks: number;
-
 }
