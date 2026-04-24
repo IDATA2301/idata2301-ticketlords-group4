@@ -76,6 +76,38 @@
     font-size: 16px;
 }
 
+.event-image-wrap {
+    position: relative;
+    display: inline-block
+}
+
+.wishlist-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #666;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.wishlist-heart:hover {
+    transform: scale(1.06);
+}
+
+.wishlist-heart.is-active {
+    color: #e53935;
+    background: rgba(255, 255, 255, 0.95);
+}
+
 @media (max-width: 800px) {
     .event-card {
         flex-direction: column;
