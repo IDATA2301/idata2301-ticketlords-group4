@@ -1,12 +1,43 @@
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import type Event from "../util/dtos/Event"
 
+import "../css/SearchPage.css"
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
   const [results, setResults] = useState<Event[]>([]);
   const [notFound, setNotFound] = useState(false);
+  const [filter, setFilter] = useState("all");
+
+  const sortedEvents = (results: Event[]) => {
+    switch (filter) {
+      case "all": return results;
+      case "upcoming": return results.slice().sort((a, b) => new Date(a.eventDateStart).getTime() - new Date(b.eventDateStart).getTime());
+      case "alphabetical": return results.slice().sort((a, b) => String(a.eventName).localeCompare(String(b.eventName)));
+      case "popular": return results.slice().sort((a, b) => b.totalClicks - a.totalClicks);
+      default: return [];
+    }
+  }
+
+  const dateFinder = (month: number) => {
+    switch (month) {
+      case 0: return "JAN";
+      case 1: return "FEB";
+      case 2: return "MAR";
+      case 3: return "APR";
+      case 4: return "MAY";
+      case 5: return "JUN";
+      case 6: return "JUL";
+      case 7: return "AUG";
+      case 8: return "SEP";
+      case 9: return "OCT";
+      case 10: return "NOV";
+      case 11: return "DEC";
+      default: return "";
+    }
+  }
+
 
   useEffect(() => {
     if (query) {
@@ -30,15 +61,59 @@ export default function SearchPage() {
 
   return (
     <>
-      <div>
-        <h2>Search Results for "{query}"</h2>
-        {notFound ? <div>Woops! Seems no events could be found by this query. Maybe try something else?</div> :
+      <div className="search-page">
+        <div className="search-info">
+          <div className="search-context">Search Results for "{query}"</div>
+          <div className="sort-button">
+            <label htmlFor="sort-select">Sort</label>
+            <select value={filter} onChange={e => setFilter(e.target.value)}>
+              <option value="all">All</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="alphabetical">Alphabetical</option>
+              <option value="popular">Most Popular</option>
+            </select>
+          </div>
+        </div>
+        {notFound ? <div className="no-search-found">Woops! Seems no events could be found by this query. Maybe try something else?<br /><br />
+          Suggestions:
           <ul>
-            {results.map((event: Event) => (
-              <li key={event.eventId}>
-                {event.eventName}</li>
-            ))}
+            <li>Search for an event.</li>
+            <li>Search for a host</li>
+            <li>Search for a category</li>
           </ul>
+          <div className="no-search-found-image">
+            <img src="/src/assets/Chillin.png" alt="Image of a dude chilling on a sunbed"></img></div>
+        </div> :
+          <div className="searched-events">
+            {sortedEvents(results).map((event: Event) => {
+              const dateStart: Date = new Date(event.eventDateStart);
+              return (
+                <div className="event" key={event.eventId}>
+                  <Link to={"/events/" + event.eventId} className="searched-event-link">
+                    <div className="searched-event-item">
+                      <div className="date">
+                        <div className="day">
+                          {dateStart.getDate() + "."}
+                        </div>
+                        <div className="month">
+                          {dateFinder(dateStart.getMonth())}
+                        </div>
+                      </div>
+                      <div className="info">
+                        <div className="event-name">
+                          {event.eventName}
+                        </div>
+                        <div className="event-arena">
+                          {event.eventVenue.arena}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              )
+            })
+            }
+          </div>
         }
       </div>
     </>
