@@ -39,6 +39,16 @@
     display: block;
 }
 
+.event-hero-placeholder {
+    width: 260px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #ddd;
+    display: block;
+    text-align: center;
+}
+
 .event-content {
     margin: 0;
     max-width: 700px;
@@ -118,5 +128,11 @@
         width: 100%;
         max-width: 420px;
         height: auto;
+    }
+
+    .event-hero-placeholder {
+        width: 100%;
+        max-width: 420px;
+        height: 220px;
     }
 }

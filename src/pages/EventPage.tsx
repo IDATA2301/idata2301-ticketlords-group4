@@ -75,32 +75,29 @@ export default function EventPage() {
         <div className="event-page">
             <div className="event-card">
                 <div className="event-hero">
-                    {event.image && (
                         <div className="event-image-wrap">
+                            {event.image ? (
                             <img
                                 className="event-hero-image"
                                 src={event.image}
                                 alt={event.title}
                             />
+                                ) : (
+                                    <div className="event-hero-placeholder" aria-label="No image avialable">
+                                        No image available
+                                    </div>
+                                )}
+
                             <button
                                 type="button"
                                 className={`wishlist-heart ${isWishlisted ? "is-active" : ""}`}
                                 onClick={toggleWishlist}
-                                aria-label={
-                                    isWishlisted
-                                        ? "Remove from wishlist"
-                                        : "Add to wishlist"
-                                }
-                                title={
-                                    isWishlisted
-                                        ? "Remove from wishlist"
-                                        : "Add to wishlist"
-                                }
+                                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                                title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                             >
                                 {isWishlisted ? "♥" : "♡"}
                             </button>
                         </div>
-                    )}
             </div>
 
             <div className="event-content">

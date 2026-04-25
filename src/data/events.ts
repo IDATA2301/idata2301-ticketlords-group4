@@ -38,7 +38,7 @@ export const EVENTS: Record<string, EventData> = {
         slug: "lord-of-the-rings-trilogy",
         title: "Lord of the Rings Trilogy",
         location: "Ålesund Cinema",
-        date: "2027-30-04",
+        date: "2027-04-30",
         description: "Witness the acclaimed trilogy, that has defined the fantasy genre for over 2 decades, for a night in Ålesund cinema",
         image: imagesByFileName["lord-of-the-rings-triology.png"],
     },
@@ -51,10 +51,10 @@ export const EVENTS: Record<string, EventData> = {
         image: imagesByFileName["cosplay-convention.png"],
     },
     "drage-vs-liavags": {
-        slug: "drage-vs-liavågs",
+        slug: "drage-vs-liavags",
         title: "The Drage vs The Liavågs",
         location: "Campus Ålesund",
-        date: "2027-23-04",
+        date: "2027-04-23",
         description: "Watch the epic showdown of Drage vs The Liavågs live in campus backyard. Who will win?",
 
     },
