@@ -1,5 +1,9 @@
 import { Link, useSearchParams } from "react-router-dom"
+import Select from "react-select"
+import { components } from "react-select"
+import type { DropdownIndicatorProps } from "react-select"
 import { useState, useEffect } from "react"
+
 import type Event from "../util/dtos/Event"
 
 import "../css/SearchPage.css"
@@ -9,6 +13,7 @@ export default function SearchPage() {
   const [results, setResults] = useState<Event[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [filter, setFilter] = useState("all");
+  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
 
   const sortedEvents = (results: Event[]) => {
     switch (filter) {
@@ -19,6 +24,46 @@ export default function SearchPage() {
       default: return [];
     }
   }
+
+  const DownArrowIcon = () => (
+    <svg viewBox="0 0 24 24" width="20" height="20">
+      <path
+        d="M8.20711 10C7.76165 10 7.53857 10.5386 7.85355 10.8536L11.6464 14.6464C11.8417 14.8417 12.1583 14.8417 12.3536 14.6464L16.1464 10.8536C16.4614 10.5386 16.2383 10 15.7929 10H8.20711Z"
+        fill="#333"
+      />
+    </svg>
+  )
+
+  const UpArrowIcon = () => (
+    <svg viewBox="0 0 24 24" width="20" height="20">
+      <path
+        d="M8.20711 14C7.76165 14 7.53857 13.4614 7.85355 13.1464L11.6464 9.35355C11.8417 9.15829 12.1583 9.15829 12.3536 9.35355L16.1464 13.1464C16.4614 13.4614 16.2383 14 15.7929 14H8.20711Z"
+        fill="#333"
+      />
+    </svg>
+  )
+
+  const SortIcon = () => (
+    <svg viewBox="0 0 24 24" width="20" height="20">
+      <path
+        d="M10.5 13V11H18.5V13H10.5ZM10.5 19V17H14.5V19H10.5ZM10.5 7V5H22.5V7H10.5ZM6.5 17H9L5.5 20.5L2 17H4.5V4H6.5V17Z"
+        fill="#333"
+      />
+    </svg>
+  )
+
+  const DropdownIndicator = (props: DropdownIndicatorProps<any, boolean, any>) => (
+    <components.DropdownIndicator {...props}>
+      {props.selectProps.menuIsOpen ? <UpArrowIcon /> : <DownArrowIcon />}
+    </components.DropdownIndicator>
+  );
+
+  const filterLabels: { [key: string]: string } = {
+    all: "All",
+    upcoming: "Upcoming",
+    alphabetical: "Alphabetical",
+    popular: "Most Popular"
+  };
 
   const dateFinder = (month: number) => {
     switch (month) {
@@ -65,13 +110,38 @@ export default function SearchPage() {
         <div className="search-info">
           <div className="search-context">Search Results for "{query}"</div>
           <div className="sort-button">
-            <label htmlFor="sort-select">Sort</label>
-            <select value={filter} onChange={e => setFilter(e.target.value)}>
-              <option value="all">All</option>
-              <option value="upcoming">Upcoming</option>
-              <option value="alphabetical">Alphabetical</option>
-              <option value="popular">Most Popular</option>
-            </select>
+
+            <div onClick={() => setIsSortMenuOpen(!isSortMenuOpen)} className="sort-icon">
+              <SortIcon />
+            </div>
+            <Select classNamePrefix="sort-select"
+              isSearchable={false}
+              components={{ DropdownIndicator }}
+              menuIsOpen={isSortMenuOpen}
+              onMenuOpen={() => setIsSortMenuOpen(true)}
+              onMenuClose={() => setIsSortMenuOpen(false)}
+              value={{ value: filter, label: filterLabels[filter] || "All" }}
+              onChange={option => {
+                if (option && !Array.isArray(option) && "value" in option) {
+                  setFilter(option.value);
+                } else {
+                  setFilter("all");
+                }
+              }
+              }
+              styles={{
+                menu: (provided) => ({
+                  ...provided,
+                  width: 150,
+                  background: "#f8f8f8",
+                }),
+              }}
+              options={[
+                { value: "all", label: "All" },
+                { value: "upcoming", label: "Upcoming" },
+                { value: "alphabetical", label: "Alphabetical" },
+                { value: "popular", label: "Most Popular" }
+              ]}></Select>
           </div>
         </div>
         {notFound ? <div className="no-search-found">Woops! Seems no events could be found by this query. Maybe try something else?<br /><br />
@@ -115,7 +185,7 @@ export default function SearchPage() {
             }
           </div>
         }
-      </div>
+      </div >
     </>
   );
 }
