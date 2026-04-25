@@ -1,4 +1,3 @@
-
 export type EventData = {
     slug: string;
     title: string;
@@ -17,6 +16,7 @@ const imagesByFileName: Record<string, string> = Object.fromEntries(
     Object.entries(imageModules).map(([path, url]) => [path.split("/").pop() as string, url])
 );
 
+//date follows YYYY-MM-DD
 export const EVENTS: Record<string, EventData> = {
     "el-hispanico-festivalo": {
         slug: "el-hispanico-festivalo",
@@ -34,5 +34,52 @@ export const EVENTS: Record<string, EventData> = {
         description: "Live music with the sunset",
         image: imagesByFileName["beach-sunset.png"],
     },
+    "lord-of-the-rings-trilogy": {
+        slug: "lord-of-the-rings-trilogy",
+        title: "Lord of the Rings Trilogy",
+        location: "Ålesund Cinema",
+        date: "2027-30-04",
+        description: "Witness the acclaimed trilogy, that has defined the fantasy genre for over 2 decades, for a night in Ålesund cinema",
+        image: imagesByFileName["lord-of-the-rings-triology.png"],
+    },
+    "cosplay-convention": {
+        slug: "cosplay-convention",
+        title: "Cosplay Convention",
+        location: "Campus Ålesund",
+        date: "2027-02-01",
+        description: "Come show of your cosplay or just come watch others costume",
+        image: imagesByFileName["cosplay-convention.png"],
+    },
+    "drage-vs-liavags": {
+        slug: "drage-vs-liavågs",
+        title: "The Drage vs The Liavågs",
+        location: "Campus Ålesund",
+        date: "2027-23-04",
+        description: "Watch the epic showdown of Drage vs The Liavågs live in campus backyard. Who will win?",
+
+    },
+    "jogeir-heart": {
+        slug: "jogeir-heart",
+        title: "Valentines day",
+        location: "Campus Ålesund",
+        date: "2027-02-14",
+        description: "Celebrate the loveliest day of the year",
+        image: imagesByFileName["jogeirHeart.jpg"],
+    },
+    "jogeir-funnyjunk-bakken": {
+        slug: "jogeir-funnyjunk-bakken",
+        title: "Jogeir, Funnyjunk og Bakken",
+        location: "Bakken",
+        date: "2027-06-25",
+        description: "En historie om kjærlighet og konflikt",
+
+    },
+    "jogeir-finger": {
+        slug: "jogeir-finger",
+        title: "Jogeir: The kid named finger",
+        location: "Myrvåg",
+        date: "2027-07-17",
+        description: "See the epic thriller"
+    }
 
 };
