@@ -1,6 +1,3 @@
-import hispanicCulturalImage from "../assets/hispanic-cultural.png";
-import beachSunsetImage from "../assets/beach-sunset.png";
-
 
 export type EventData = {
     slug: string;
@@ -11,6 +8,15 @@ export type EventData = {
     image?: string;
 }
 
+const imageModules = import.meta.glob("../assets/*.{png,jpg,jpeg,webp,avif,svg}", {
+    eager: true,
+    import: "default",
+}) as Record<string, string>;
+
+const imagesByFileName: Record<string, string> = Object.fromEntries(
+    Object.entries(imageModules).map(([path, url]) => [path.split("/").pop() as string, url])
+);
+
 export const EVENTS: Record<string, EventData> = {
     "el-hispanico-festivalo": {
         slug: "el-hispanico-festivalo",
@@ -18,7 +24,7 @@ export const EVENTS: Record<string, EventData> = {
         location: "Bergen",
         date: "2026-06-12",
         description: "A vibrant celebration of Hispanic culture",
-        image: hispanicCulturalImage,
+        image: imagesByFileName["hispanic-cultural.png"],
     },
     "hawaii-sunset-concert": {
         slug: "hawaii-sunset-concert",
@@ -26,7 +32,7 @@ export const EVENTS: Record<string, EventData> = {
         location: "Fårnebu Arena",
         date: "2026-08-12",
         description: "Live music with the sunset",
-        image: beachSunsetImage,
+        image: imagesByFileName["beach-sunset.png"],
     },
 
 };
