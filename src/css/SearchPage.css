@@ -23,8 +23,38 @@
 }
 
 .sort-button {
+  display: flex;
+  flex-direction: row;
   margin-top: 1.5rem;
+  border-radius: 4px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
+
+.sort-button:hover {
+  background-color: #d8d8d7;
+}
+
+
+.sort-button * {
+  cursor: pointer;
+}
+
+.sort-icon {
+  margin-top: 0.5rem;
+}
+
+
+.sort-select__control {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+.sort-select__indicator-separator {
+  display: none;
+}
+
 
 .no-search-found {
   margin-top: 2rem;
@@ -63,9 +93,11 @@
 .event {
   all: initial;
   list-style: none;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
 .date {
+  align-self: stretch;
   max-width: 90px;
   flex-basis: 15%;
   padding: 5px;
@@ -75,27 +107,29 @@
 }
 
 .month {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .day {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .info {
+  align-self: stretch;
   flex-basis: 85%;
   margin-left: 10px;
   min-height: 100%;
   background-color: #8f27dd;
+  padding-left: 20px;
 }
 
 .event-name {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 10px;
 }
 
 .event-arena {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-left: 50px;
   margin-right: 20px;
   margin-bottom: 20px;
