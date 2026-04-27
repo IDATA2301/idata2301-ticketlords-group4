@@ -54,7 +54,7 @@ export default function HomePage() {
 
   const handleSearch = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/search?query=" + encodeURIComponent(query));
+    navigate("/events/search?query=" + encodeURIComponent(query));
   };
 
 
@@ -78,19 +78,19 @@ export default function HomePage() {
         <button type="submit">Search</button>
       </form>
       <div className="event-categories">
-        <Link to="/categories/arts-music" className="event-category-link">
+        <Link to="/events/category/arts-music" className="event-category-link">
           <div>🎶Arts & Music</div>
         </Link>
-        <Link to="/categories/cinema" className="event-category-link">
+        <Link to="/events/category/cinema" className="event-category-link">
           <div>✋😐🤚Cinema</div>
         </Link>
-        <Link to="/categories/cultural" className="event-category-link">
+        <Link to="/events/category/cultural" className="event-category-link">
           <div>🌍Cultural</div>
         </Link>
-        <Link to="/categories/food-drinks" className="event-category-link">
+        <Link to="/events/category/food-drinks" className="event-category-link">
           <div>🍜Food & Drinks</div>
         </Link>
-        <Link to="/categories/sports" className="event-category-link">
+        <Link to="/events/category/sports" className="event-category-link">
           <div>🏋️Sports</div>
         </Link>
         <Link to="/categories" className="event-category-link">
