@@ -1,0 +1,108 @@
+import { useEffect, useState } from "react";
+import "../css/UserPage.css"
+
+export default function UserPage() {
+  const [user, setUser] = useState({
+    email: "",
+    displayName: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    // Fetch user data from backend
+    fetch("/users/user/1") //TODO: change 0 to {id} when users have their own page
+      .then((response) => response.json())
+      .then((data) => {
+        setUser({
+          email: data.email || "",
+          displayName: data.displayName || "",
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          password: "",
+        });
+      })
+      .catch((error) => console.error("Error fetching user:", error));
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.currentTarget;
+    setUser((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = () => {
+    fetch("/users/user/0", { //TODO: change 0 to {id} when users have their own page
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error("Error updating user:", error));
+  };
+
+return (
+  <>
+    <p>Edit the user</p>
+    <label htmlFor="email">Email: </label>
+    <input
+      type="email"
+      id="email"
+      value={user.email}
+      onChange={handleChange}
+    /><br/>
+
+    <label htmlFor="password">Password: </label>
+    <input
+      type="password"
+      id="password"
+      value=""
+      onChange={handleChange}
+    /><br/>
+
+    <label htmlFor="repeatPassword">Repeat password: </label>
+    <input
+      type="password"
+      id="repeatPassword"
+      value=""
+      onChange={handleChange}
+    /><br/>
+
+    <br/>
+
+    <label htmlFor="displayName">Display Name: </label>
+    <input
+      type="text"
+      id="displayName"
+      value={user.displayName}
+      onChange={handleChange}
+    /><br/>
+
+    <label htmlFor="firstName">First Name: </label>
+    <input
+      type="text"
+      id="firstName"
+      value={user.firstName}
+      onChange={handleChange}
+    /><br/>
+
+    <label htmlFor="lastName">Last Name: </label>
+    <input
+      type="text"
+      id="lastName"
+      value={user.lastName}
+      onChange={handleChange}
+    /><br/>
+
+    <br/>
+
+    <button id="submitChanges">Submit changes</button>
+    
+  </>
+);
+}
+
+/*
+Vitest
+testcontainer (docker)
+*/
