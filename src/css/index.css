@@ -8,7 +8,6 @@ body,
 
 .main-content {
   width: 100%;
-  flex: 1;
 }
 
 footer a {
@@ -19,13 +18,37 @@ footer a {
   width: 100%;
 }
 
+.topnav-middle {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.home-button {
+  display: flex;
+  gap: 20px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  align-items: center;
+}
+
+.home-button div {
+  font-size: 2.5rem;
+  font-style: italic;
+
+}
+
+.home-button img {
+  height: 50px;
+  width: auto;
+}
+
 .topnav {
-  width: 100%;
+  min-height: 65px;
   box-sizing: border-box;
   background-color: #8f27dd;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0.8rem;
+  align-items: center;
 }
 
 @media (max-width: 600px) {

@@ -22,19 +22,19 @@ const HamburgerMenu: React.FC = () => {
           <div className="sidebar">
             <div className="sidebar-top">
               <div className="sidebar-event-categories">
-                <Link to="categories/arts-music">
+                <Link to="/events/category/arts-music">
                   <div>🎶Arts & Music</div>
                 </Link>
-                <Link to="categories/cinema">
+                <Link to="events/category/cinema">
                   <div>✋😐🤚Cinema</div>
                 </Link>
-                <Link to="categories/cultural">
+                <Link to="events/category/cultural">
                   <div>🌍Cultural</div>
                 </Link>
-                <Link to="categories/food-drinks">
+                <Link to="events/category/food-drinks">
                   <div>🍜Food & Drinks</div>
                 </Link>
-                <Link to="categories/sports">
+                <Link to="events/category/sports">
                   <div>🏋️Sports</div>
                 </Link>
                 <Link to="categories">
