@@ -65,8 +65,12 @@ export default function Layout() {
             </div>
           </div>
           <div className="topnav-middle">
-            <Link to="/home" className="active">
-              Home
+            <Link to="/home" className="home-button">
+
+              <img src="/src/assets/TicketLordsLogo.png" />
+              <div>
+                Ticket Lords
+              </div>
             </Link>
           </div>
           <div className="topnav-right">
