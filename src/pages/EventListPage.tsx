@@ -156,7 +156,7 @@ export default function EventListPage({ title, fetchEvents }: Props) {
               const dateStart: Date = new Date(event.eventDateStart);
               return (
                 <div className="event" key={event.eventId}>
-                  <Link to={"/events/" + event.eventId} className="searched-event-link">
+                  <Link to={"/event/" + event.eventId} className="searched-event-link">
                     <div className="searched-event-item">
                       <div className="date">
                         <div className="day">
