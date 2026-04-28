@@ -20,7 +20,7 @@ function App() {
           {/* Add more routes below later */}
           <Route path="events/search" element={<SearchPage />} />
           <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
-          <Route path="events/:slug" element={<EventPage />} />
+          <Route path="event/:slug" element={<EventPage />} />
           <Route path="registerUser" element={<RegisterUserPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="user" element={<UserPage />} />
