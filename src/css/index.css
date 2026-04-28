@@ -208,11 +208,7 @@ a {
   background-color: #8f27dd;
   padding: 20px;
   text-align: center;
-  position: fixed;
-  bottom: 0;
   width: 100%;
-  left: 0;
-  right: 0;
 }
 
 .footer a {

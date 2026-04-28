@@ -1,0 +1,136 @@
+.search-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.search-context {
+  flex-basis: 72%;
+  align-self: flex-start;
+  font-size: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sort-button {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5rem;
+  border-radius: 4px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+.sort-button:hover {
+  background-color: #d8d8d7;
+}
+
+
+.sort-button * {
+  cursor: pointer;
+}
+
+.sort-icon {
+  margin-top: 0.5rem;
+}
+
+
+.sort-select__control {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+.sort-select__indicator-separator {
+  display: none;
+}
+
+
+.no-search-found {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.no-search-found-image {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-search-found-image img {
+  width: 500px;
+  height: auto;
+}
+
+.searched-event {
+  display: flex;
+  flex-direction: column;
+}
+
+.searched-event-item {
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 3rem;
+  align-items: center;
+}
+
+.event {
+  all: initial;
+  list-style: none;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+.date {
+  align-self: stretch;
+  max-width: 90px;
+  flex-basis: 15%;
+  padding: 5px;
+  color: #000000;
+  margin-right: clamp(20px, 5vw, 40px);
+  background-color: #8f27dd;
+}
+
+.month {
+  font-size: 2rem;
+}
+
+.day {
+  font-size: 2rem;
+}
+
+.info {
+  align-self: stretch;
+  flex-basis: 85%;
+  margin-left: 10px;
+  min-height: 100%;
+  background-color: #8f27dd;
+  padding-left: 20px;
+}
+
+.event-name {
+  font-size: 2rem;
+  margin-top: 10px;
+}
+
+.event-arena {
+  font-size: 1.2rem;
+  margin-left: 50px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
