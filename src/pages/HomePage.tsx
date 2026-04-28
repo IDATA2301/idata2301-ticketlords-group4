@@ -117,7 +117,7 @@ export default function HomePage() {
             )}
           </div>
           <div className="category-items" ref={sliderRef}>
-            <Link to="/events/el-hispanico-festivalo">
+            <Link to="/event/el-hispanico-festivalo">
               <div className="category-item">
                 <img src="/src/assets/hispanic-cultural.png" />
               </div>
@@ -126,7 +126,7 @@ export default function HomePage() {
               </div>
             </Link>
 
-            <Link to="/events/hawaii-sunset-concert">
+            <Link to="/event/hawaii-sunset-concert">
               <div className="category-item">
                 <img src="/src/assets/beach-sunset.png" />
               </div>
