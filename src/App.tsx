@@ -7,6 +7,7 @@ import UserPage from "./pages/UserPage";
 import RegisterUserPage from "./pages/RegisterUserPage";
 import SearchPage from "./pages/SearchPage";
 import CategoryEventPage from "./pages/CategoryEventPage";
+import ContactPage from "./pages/ContactPage";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="registerUser" element={<RegisterUserPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="user" element={<UserPage />} />
+          <Route path="contact" element={<ContactPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
