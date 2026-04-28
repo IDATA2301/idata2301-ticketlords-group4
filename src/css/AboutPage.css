@@ -1,0 +1,16 @@
+.about-page * {
+  word-wrap: break-word;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+.about-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 200px;
+}
+
+.about-content {
+  max-width: 800px;
+  margin-left: 10%;
+}

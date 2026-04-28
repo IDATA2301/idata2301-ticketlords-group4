@@ -86,7 +86,7 @@ export default function Layout() {
 
       {/* Footer */}
       <footer className="footer">
-        <Link to="/about">About</Link>
+        <Link to="/about-us">About</Link>
         <Link to="/contact">Contact</Link>
       </footer>
     </div>
