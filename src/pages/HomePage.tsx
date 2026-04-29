@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/Slider.css";
 
 import { scrollByOne, slide } from "../functions/sliderHelper";
+import type Event from "../util/dtos/Event";
 
 export default function HomePage() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [popularEvents, setPopularEvents] = useState<Event[]>([]);
 
   const updateArrows = () => {
     const element = sliderRef.current;
@@ -20,7 +22,17 @@ export default function HomePage() {
     }
   };
 
+  const fetchPopularEvents = async (): Promise<Event[]> => {
+    const response = await fetch("http://10.212.25.185:8080/events/popular");
+    if (!response.ok) return [];
+    return response.json();
+  }
 
+  useEffect(() => {
+    fetchPopularEvents().then(events => {
+      setPopularEvents(events);
+    });
+  })
 
   useEffect(() => {
     const element = sliderRef.current;
