@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/Slider.css";
 
 import { scrollByOne, slide } from "../functions/sliderHelper";
+import { useUnregisteredUser } from "../context/UnregisteredUserContext";
 
 export default function HomePage() {
+  const { unregisteredUserId } = useUnregisteredUser();
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  useEffect(() => {
+    console.log("Current unreg user ID:", unregisteredUserId);
+  }, [unregisteredUserId]);
 
   const updateArrows = () => {
     const element = sliderRef.current;
