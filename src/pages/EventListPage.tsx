@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Select from "react-select"
 import { components } from "react-select"
 import type { DropdownIndicatorProps } from "react-select"
