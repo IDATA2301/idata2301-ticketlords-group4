@@ -32,7 +32,7 @@ export default function HomePage() {
     fetchPopularEvents().then(events => {
       setPopularEvents(events);
     });
-  })
+  }, []);
 
   useEffect(() => {
     const element = sliderRef.current;
