@@ -75,7 +75,11 @@ export default function HomePage() {
           onChange={e => setQuery(e.target.value)}
           placeholder="Search for a ticket"
         />
-        <button type="submit">Search</button>
+        <button type="submit">
+          <svg viewBox="0 0 24 24" width="26" height="26">
+            <path d="M15.5758 14.1455C17.6156 11.413 17.3939 7.52649 14.9117 5.0443C12.1869 2.31945 7.76893 2.3191 5.04408 5.04395C2.31852 7.76951 2.31887 12.1874 5.04373 14.9123C7.52627 17.3948 11.4124 17.6162 14.1457 15.5757L19.2745 20.7045C19.5018 20.9318 19.8105 21.0282 20.1069 20.9936C20.3251 20.9689 20.5371 20.8721 20.7047 20.7045C21.0999 20.3093 21.0996 19.6693 20.7047 19.2744L15.5758 14.1455ZM13.4816 6.47447C15.4166 8.40952 15.417 11.5467 13.4819 13.4818C11.5462 15.4175 8.40895 15.4172 6.47389 13.4821C4.53884 11.5471 4.53849 8.40987 6.47424 6.47412C8.40929 4.53907 11.5465 4.53942 13.4816 6.47447Z" fill="currentColor"></path>
+          </svg>
+        </button>
       </form>
       <div className="event-categories">
         <Link to="/events/category/arts-music" className="event-category-link">
