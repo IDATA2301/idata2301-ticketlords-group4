@@ -8,6 +8,8 @@ import RegisterUserPage from "./pages/RegisterUserPage";
 import SearchPage from "./pages/SearchPage";
 import CategoryEventPage from "./pages/CategoryEventPage";
 import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="user" element={<UserPage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="about-us" element={<AboutPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

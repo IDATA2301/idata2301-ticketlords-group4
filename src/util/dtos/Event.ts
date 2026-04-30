@@ -10,4 +10,5 @@ export default interface Event {
   eventVenue: EventVenue;
   eventDescription: String;
   totalClicks: number;
+  imgPathUrl: String;
 }
