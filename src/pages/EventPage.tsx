@@ -1,60 +1,70 @@
-import {useEffect, useState} from "react";
+import {use, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import "../css/EventPage.css"
 import {EVENTS} from "../data/events";
+import type Event from "../util/dtos/Event"
 
 const WISHLIST_STORAGE_KEY = "wishlist-event-slugs";
 
-function formatEventDate(isoDate: string): string {
-    const parsed = new Date(isoDate);
-    if (Number.isNaN(parsed.getTime())) return isoDate;
-
-    return parsed.toLocaleDateString("nb-NO", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-    });
-}
-
-function getWishlistSlugs(): string[] {
-    try {
-        const raw = localStorage.getItem(WISHLIST_STORAGE_KEY);
-        const parsed = raw ? JSON.parse(raw) : [];
-        return Array.isArray(parsed) ? parsed : [];
-    } catch {
-        return [];
-    }
-}
-
-function setWishlistSlugs(slugs: string[]) {
-    localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(slugs));
-}
-
 export default function EventPage() {
-    const {slug} = useParams<{ slug: string }>();
+    const {eventId} = useParams<{ eventId: string }>();
     const [isWishlisted, setIsWishlisted] = useState(false);
 
-    const event = slug ? EVENTS[slug] : undefined;
+    const [event, setEvent] = useState<Event | null>(null);
 
-    useEffect(() => {
-        if (!slug) return;
-        const slugs = getWishlistSlugs()
-        setIsWishlisted(slugs.includes(slug));
-    }, [slug]);
+useEffect(() => {
+  if (!eventId) return;
 
-    const toggleWishlist = () => {
-        if (!slug) return;
+  const load = async () => {
+    try {
+      const response = await fetch("http://10.212.25.185:8080/events/event/" + encodeURIComponent(eventId));
+      if (!response.ok) {
+        setEvent(fallBackEvent);
+        return;
+      }
+      const data = (await response.json()) as Event;
+      setEvent(data);
+    } catch {
+      setEvent(fallBackEvent);
+    }
+  };
 
-        const slugs = getWishlistSlugs()
-        const next = slugs.includes(slug)
-            ? slugs.filter((item) => item !== slug)
-            : [...slugs, slug];
+  load();
+}, [eventId]);
 
-        setWishlistSlugs(next);
-        setIsWishlisted(next.includes(slug));
+    const fallBackEvent =     {
+        "eventName": "The Jhonnysons",
+        "eventId": 1,
+        "host": "Jhonny himself",
+        "category": {
+            "categoryName": "Drama",
+            "categoryId": 2
+        },
+        "eventDescription": "He is vibing and celebrating just being a Jhonny",
+        "totalClicks": 99999999999999,
+        "eventDateEnd": "2026-04-22",
+        "eventDateStart": "2026-04-22",
+        "eventVenue": {
+            "arena": "Jhonnys house",
+            "city": "Ålesund",
+            "country": "Norway",
+            "address": "Nørvegjerdet 2C",
+            "venueId": 1
+        }
     };
 
-    if (!slug) {
+    const toggleWishlist = () => {
+        if (!eventId) return;
+
+        const slugs = getWishlistSlugs()
+        const next = slugs.includes(eventId)
+            ? slugs.filter((item) => item !== eventId)
+            : [...slugs, eventId];
+
+        setIsWishlisted(next.includes(eventId));
+    };
+
+    if (!eventId) {
         return (
             <div className="event-page">
                 <h1> No event specified</h1>
@@ -66,10 +76,12 @@ export default function EventPage() {
         return (
             <div className="event-page">
                 <h1>Event not found</h1>
-                <p>We couldn't find an event for "{slug}".</p>
+                <p>We couldn't find an event for "{eventId}".</p>
             </div>
         );
     }
+
+
 
     return (
         <div className="event-page">
@@ -80,7 +92,7 @@ export default function EventPage() {
                             <img
                                 className="event-hero-image"
                                 src={event.image}
-                                alt={event.title}
+                                alt={event.eventName}
                             />
                                 ) : (
                                     <div className="event-hero-placeholder" aria-label="No image avialable">
@@ -101,11 +113,13 @@ export default function EventPage() {
             </div>
 
             <div className="event-content">
-                <h1 className="event-title">{event.title}</h1>
+                <h1 className="event-title">{event.eventName}</h1>
 
                 <div className="event-meta">
-                    <span className="event-location">{event.location}</span>
-                    <span className="event-date">{formatEventDate(event.date)}</span>
+                    <span className="event-city">{event.eventVenue.city} </span>
+                    <span className="event-country">{event.eventVenue.country} </span>
+                    <span className="event-arena">{event.eventVenue.arena }</span>
+                    <span className="event-date">{event.eventDateStart.getDate}</span>
                 </div>
 
                 <p className="event-description">{event.description}</p>
