@@ -3,7 +3,7 @@ import Select from "react-select"
 import { components } from "react-select"
 import type { DropdownIndicatorProps } from "react-select"
 import { useState, useEffect } from "react"
-
+import monthConverter from "../functions/DateConverter"
 import type Event from "../util/dtos/Event"
 
 import "../css/SearchPage.css"
@@ -82,23 +82,6 @@ export default function EventListPage({ title, fetchEvents }: Props) {
     popular: "Most Popular"
   };
 
-  const dateFinder = (month: number) => {
-    switch (month) {
-      case 0: return "JAN";
-      case 1: return "FEB";
-      case 2: return "MAR";
-      case 3: return "APR";
-      case 4: return "MAY";
-      case 5: return "JUN";
-      case 6: return "JUL";
-      case 7: return "AUG";
-      case 8: return "SEP";
-      case 9: return "OCT";
-      case 10: return "NOV";
-      case 11: return "DEC";
-      default: return "";
-    }
-  }
 
   return (
     <>
@@ -163,7 +146,7 @@ export default function EventListPage({ title, fetchEvents }: Props) {
                           {dateStart.getDate() + "."}
                         </div>
                         <div className="month">
-                          {dateFinder(dateStart.getMonth())}
+                          {monthConverter(dateStart.getMonth())}
                         </div>
                       </div>
                       <div className="info">
