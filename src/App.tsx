@@ -10,6 +10,7 @@ import CategoryEventPage from "./pages/CategoryEventPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import CartPage from "./pages/CartPage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="about-us" element={<AboutPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="cart" element={<CartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
