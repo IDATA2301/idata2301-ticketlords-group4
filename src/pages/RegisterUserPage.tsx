@@ -1,8 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import {Link} from "react-router-dom";
-import { useRef } from "react";import { useUnregisteredUser } from "../context/UnregisteredUserContext";
+import { useUnregisteredUser } from "../context/UnregisteredUserContext";
   
 export default function RegisterUserPage() {
-  const { unregisteredUserId } = useUnregisteredUser();
+  const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
+  const [isLoading, setIsLoading] = useState(false);
   const displayNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -10,30 +12,44 @@ export default function RegisterUserPage() {
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => { // TODO: remove on release: prints in log unreg userid
+    console.log("Current unreg user ID:", unregisteredUserId);
+  }, [unregisteredUserId]);
+
+
   const handleSubmit = () => {
+    if (isLoading) return; // Prevent multiple submissions
+    
     const formData = {
-      UnregisteredUserId: unregisteredUserId,
-      displayName: displayNameRef.current?.value || "",
       email: emailRef.current?.value || "",
+      displayName: displayNameRef.current?.value || "",
       firstName: firstNameRef.current?.value || "",
       lastName: lastNameRef.current?.value || "",
+      hashedPassword: passwordRef.current?.value || "",
       phoneNumber: phoneNumberRef.current?.value || "",
-      password: passwordRef.current?.value || "",
-      role: "USER", /* not secure, should be handled in backend */
+      UnregisteredUserId: unregisteredUserId,
     };
 
-    fetch("http://10.212.25.185:8080/users/user/register", {
+    setIsLoading(true);
+    fetch("http://10.212.25.185:8080/users/user/register?uregId=" + encodeURIComponent(unregisteredUserId), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .catch((error) => console.error("Error registering user:", error));
+      .then((newUserId) => {
+        localStorage.setItem("unregisteredUserId", newUserId.toString());
+        console.log(localStorage.getItem("unregisteredUserId"));
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
-      <p>registerUser page</p>
       <div>
         <input type="text" ref={displayNameRef} placeholder="Display name"/>
         <input type="email" ref={emailRef} placeholder="Email"/>
@@ -42,7 +58,9 @@ export default function RegisterUserPage() {
         <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
         <input type="password" ref={passwordRef} placeholder="Password"/>
 
-        <button type="button" onClick={handleSubmit}>Register</button>
+        <button type="button" onClick={handleSubmit} disabled={isLoading}>
+          {isLoading ? "Registering..." : "Register"}
+        </button>
       </div>
 
       <Link to="/login">
