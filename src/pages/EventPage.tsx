@@ -5,10 +5,11 @@ import type Event from "../util/dtos/Event"
 
 
 
+
 export default function EventPage() {
     const {eventId} = useParams<{ eventId: string }>();
     const [isWishlisted, setIsWishlisted] = useState(false);
-
+    const toggleWishlist = () => setIsWishlisted(prev => !prev);
     const [event, setEvent] = useState<Event | null>(null);
 
 useEffect(() => {
@@ -55,7 +56,7 @@ useEffect(() => {
     };
 
 
-   /** if (!eventId) {
+   if (!eventId) {
         return (
             <div className="event-page">
                 <h1> No event specified</h1>
@@ -71,7 +72,7 @@ useEffect(() => {
             </div>
         );
     }
-    **/
+
 
 
     return (
@@ -88,7 +89,7 @@ useEffect(() => {
                                 ) : (
                                     <div className="event-hero-placeholder" aria-label="No image avialable">
                                         No image available
-                                    </div>x
+                                    </div>
                                 )}
 
                             <button
@@ -107,10 +108,9 @@ useEffect(() => {
                 <h1 className="event-title">{event.eventName}</h1>
 
                 <div className="event-meta">
-                    <span className="event-city">{event.eventVenue.city} </span>
-                    <span className="event-country">{event.eventVenue.country} </span>
-                    <span className="event-arena">{event.eventVenue.arena }</span>
-                    <span className="event-date">{new Date(event.eventDateStart).toLocaleDateString()}</span>
+                    <div className="event-location"> {event.eventVenue.city}, {event.eventVenue.country} </div>
+                    <div className="event-page-arena">{event.eventVenue.arena }</div>
+                    <div className="event-date">{new Date(event.eventDateStart).toLocaleDateString()}</div>
                 </div>
 
                 <p className="event-description">{event.eventDescription}</p>
