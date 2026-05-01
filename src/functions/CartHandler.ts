@@ -50,7 +50,7 @@ export function addToCart(cartItem: CartItem) {
 }
 
 /**
- * Removes a CartItem from the cart by ticketId.
+ * Removes a CartItem from the cart by ticketId. Clears the cart if it is empty after removal.
  *
  * @param {number} ticketId - The ID of the ticket to be removed from the cart.
  */
@@ -61,13 +61,16 @@ export function removeFromCart(ticketId: number) {
     cart.items = cart.items.filter((i) => i.ticket.ticketId !== ticketId);
     saveCart(cart);
   }
+  if (cart.items.length === 0) {
+    clearCart();
+  }
 }
 
 
 /**
  * Removes the cart from localStorage.
  */
-export function clearCart() {
+function clearCart() {
   localStorage.removeItem(CART_KEY);
 }
 
@@ -86,7 +89,7 @@ export function getCartCount() {
  *
  * @returns The total cost of all tickets in the cart.
  */
-export function getCartTotalCost() {
+export function getCartTotalCost(): number {
   return getCart().items.reduce((total: number, i: CartItem) => total + (i.ticket.price * i.amount), 0);
 }
 
