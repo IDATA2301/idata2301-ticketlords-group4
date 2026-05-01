@@ -131,7 +131,7 @@ export default function HomePage() {
                     <div className="category-items" ref={sliderRef}>
                         <Link to={"/event/" + popularEvents[0]?.eventId}>
                             <div className="category-item">
-                                <img src="/src/assets/hispanic-cultural.png"/>
+                                <img src={"http://10.212.25.185:8080/events/" + popularEvents[0]?.eventId + "/image" }/>
                             </div>
                             <div className="category-item-description">
                                 {popularEvents[0]?.eventDescription}

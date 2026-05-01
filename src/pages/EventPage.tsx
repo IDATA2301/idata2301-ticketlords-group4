@@ -1,15 +1,15 @@
-import {use, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import "../css/EventPage.css"
-import {EVENTS} from "../data/events";
 import type Event from "../util/dtos/Event"
 
-const WISHLIST_STORAGE_KEY = "wishlist-event-slugs";
+
+
 
 export default function EventPage() {
     const {eventId} = useParams<{ eventId: string }>();
     const [isWishlisted, setIsWishlisted] = useState(false);
-
+    const toggleWishlist = () => setIsWishlisted(prev => !prev);
     const [event, setEvent] = useState<Event | null>(null);
 
 useEffect(() => {
@@ -32,39 +32,31 @@ useEffect(() => {
   load();
 }, [eventId]);
 
-    const fallBackEvent =     {
+    const fallBackEvent: Event = {
         "eventName": "The Jhonnysons",
-        "eventId": 1,
-        "host": "Jhonny himself",
-        "category": {
+            "eventId": 1,
+            "host": "Jhonny himself",
+            "imgPathUrl": "cosplay-convention.png",
+            "category": {
             "categoryName": "Drama",
-            "categoryId": 2
-        },
+                "categoryId": 2,
+
+            },
         "eventDescription": "He is vibing and celebrating just being a Jhonny",
-        "totalClicks": 99999999999999,
-        "eventDateEnd": "2026-04-22",
-        "eventDateStart": "2026-04-22",
-        "eventVenue": {
+            "totalClicks": 99999999999999,
+            "eventDateEnd": new Date("2026-04-22"),
+            "eventDateStart": new Date("2026-04-22"),
+            "eventVenue": {
             "arena": "Jhonnys house",
-            "city": "Ålesund",
-            "country": "Norway",
-            "address": "Nørvegjerdet 2C",
-            "venueId": 1
+                "city": "Ålesund",
+                "country": "Norway",
+                "address": "Nørvegjerdet 2C",
+                "venueId": 1
         }
     };
 
-    const toggleWishlist = () => {
-        if (!eventId) return;
 
-        const slugs = getWishlistSlugs()
-        const next = slugs.includes(eventId)
-            ? slugs.filter((item) => item !== eventId)
-            : [...slugs, eventId];
-
-        setIsWishlisted(next.includes(eventId));
-    };
-
-    if (!eventId) {
+   if (!eventId) {
         return (
             <div className="event-page">
                 <h1> No event specified</h1>
@@ -88,10 +80,10 @@ useEffect(() => {
             <div className="event-card">
                 <div className="event-hero">
                         <div className="event-image-wrap">
-                            {event.image ? (
+                            {event?.imgPathUrl ? (
                             <img
                                 className="event-hero-image"
-                                src={event.image}
+                                src={"http://10.212.25.185:8080/events/" + event.eventId + "/image" }
                                 alt={event.eventName}
                             />
                                 ) : (
@@ -116,13 +108,12 @@ useEffect(() => {
                 <h1 className="event-title">{event.eventName}</h1>
 
                 <div className="event-meta">
-                    <span className="event-city">{event.eventVenue.city} </span>
-                    <span className="event-country">{event.eventVenue.country} </span>
-                    <span className="event-arena">{event.eventVenue.arena }</span>
-                    <span className="event-date">{event.eventDateStart.getDate}</span>
+                    <div className="event-location"> {event.eventVenue.city}, {event.eventVenue.country} </div>
+                    <div className="event-page-arena">{event.eventVenue.arena }</div>
+                    <div className="event-date">{new Date(event.eventDateStart).toLocaleDateString()}</div>
                 </div>
 
-                <p className="event-description">{event.description}</p>
+                <p className="event-description">{event.eventDescription}</p>
             </div>
         </div>
 </div>
