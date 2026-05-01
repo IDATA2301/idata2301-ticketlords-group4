@@ -13,6 +13,7 @@
   gap: 10px;
 }
 
+
 .search-context {
   flex-basis: 72%;
   align-self: flex-start;
@@ -63,7 +64,7 @@
 
 .no-search-found-image {
   position: absolute;
-  top: 60%;
+  top: 700px;
   left: 50%;
   transform: translate(-50%, -60%);
   display: flex;
