@@ -8,7 +8,7 @@ const CART_KEY: string = "cart";
  *
  * @returns {Cart} The current cart, or an empty cart if none exists.
  */
-export function getCart(): Cart {
+function getCart(): Cart {
   try {
     const cart = localStorage.getItem(CART_KEY);
     if (cart && cart !== null) {
@@ -27,7 +27,7 @@ export function getCart(): Cart {
  *
  * @param {Cart} cart - The cart to be saved.
  */
-export function saveCart(cart: Cart) {
+function saveCart(cart: Cart) {
   if (cart !== null) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
