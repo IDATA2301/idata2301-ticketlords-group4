@@ -54,7 +54,7 @@ export default function EventPage() {
       }
     }
     loadTickets();
-  }, [tickets]);
+  }, [event]);
 
 
   const fallBackEvent: Event = {
@@ -116,6 +116,8 @@ export default function EventPage() {
                 No image available
               </div>
             )}
+
+
 
             <button
               type="button"
