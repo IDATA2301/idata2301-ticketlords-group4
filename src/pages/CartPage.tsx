@@ -2,6 +2,7 @@ import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
 import { useState } from "react";
+import { getCart, saveCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
 
 export default function CartPage() {
   const hardCodedCartItems = [
