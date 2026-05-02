@@ -43,6 +43,7 @@ export function addToCart(cartItem: CartItem) {
   const existing = cart.items.find((i) => i.ticket.ticketId === cartItem.ticket.ticketId);
   if (existing) {
     existing.amount += cartItem.amount;
+    saveCart(cart);
   } else {
     cart.items.push(cartItem);
     saveCart(cart);
