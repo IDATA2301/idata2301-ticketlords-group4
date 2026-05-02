@@ -1,8 +1,9 @@
 import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
-import { useState } from "react";
-import { getCart, saveCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
+import { useState, useEffect } from "react";
+import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
+import type CartItem from "../data/CartItem";
 
 export default function CartPage() {
   const hardCodedCartItems = [
@@ -93,9 +94,9 @@ export default function CartPage() {
   ]
 
 
-  const [cartItems, setCartItems] = useState<Ticket[]>(hardCodedCartItems);
-  const totalPrice = cartItems.reduce((sum, ticket) =>
-    sum + ticket.price, 0);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const totalPrice = cartItems.reduce((sum, ticketList) =>
+    sum + ticketList.ticket.price, 0);
   const pricePreTax = totalPrice * 0.75;
   const taxPrice = totalPrice * 0.25;
 
@@ -106,31 +107,36 @@ export default function CartPage() {
     </svg>
   );
 
+  useEffect(() => {
+    const cartItems: CartItem[] = getCart().items;
+    setCartItems(cartItems);
+  })
+
   return (
     <>
       <h1>Cart</h1>
       <div className="cart-content">
         <div className="cart-items">
-          {cartItems.map((ticket: Ticket) => (
-            <div className={"ticket-item"} key={ticket.ticketId}>
+          {cartItems.map((cartItem: CartItem) => (
+            <div className={"ticket-item"} key={cartItem.ticket.ticketId}>
               <div className="ticket-info">
                 <div>
-                  <div>{ticket.event.eventName}</div>
+                  <div>{cartItem.ticket.event.eventName}</div>
                   <div>
                     {
                       (() => {
-                        const date = new Date(ticket.event.eventDateStart);
+                        const date = new Date(cartItem.ticket.event.eventDateStart);
                         return date.getDate() + " " + monthConverter(date.getMonth()) + " " + date.getFullYear();
                       })()
                     }
                   </div>
-                  <div>Price: {ticket.price} NOK</div>
-                  <div>Quantity: {ticket.amountAvailable}</div>
+                  <div>Price: {cartItem.ticket.price} NOK</div>
+                  <div>Quantity: {cartItem.ticket.amountAvailable}</div>
                 </div>
                 <div>
                   <button className="trash-button"
                     onClick={() => {
-                      setCartItems(cartItems.filter(item => item.ticketId !== ticket.ticketId));
+                      setCartItems(cartItems.filter(item => item.ticket.ticketId !== cartItem.ticket.ticketId));
                     }}
                   ><TrashCanIcon />
                   </button>
