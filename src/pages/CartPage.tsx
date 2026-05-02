@@ -8,6 +8,7 @@ import type CartItem from "../data/CartItem";
 export default function CartPage() {
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
 
@@ -25,11 +26,15 @@ export default function CartPage() {
 
   useEffect(() => {
     setPricePreTax(getCartTotalCost() * 0.75);
-  }, []);
+  }, [cartItems]);
 
   useEffect(() => {
     setTaxPrice(getCartTotalCost() * 0.25);
-  }, []);
+  }, [cartItems]);
+
+  useEffect(() => {
+    setTotalCost(getCartTotalCost());
+  }, [cartItems])
 
   return (
     <>
@@ -79,7 +84,7 @@ export default function CartPage() {
           <hr className="cart-separator" />
           <div className="total">
             <div>{"Total"}</div>
-            <div>{"Nok " + getCartTotalCost()}</div>
+            <div>{"Nok " + totalCost}</div>
           </div>
         </div>
       </div >
