@@ -3,9 +3,7 @@ import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
 import { useState, useEffect } from "react";
 import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
-import type CartItem from "../data/CartItem";
-
-export default function CartPage() {
+import type CartItem from "../data/CartItem"; export default function CartPage() {
   const hardCodedCartItems = [
     {
       ticketId: 1,
@@ -110,7 +108,7 @@ export default function CartPage() {
   useEffect(() => {
     const cartItems: CartItem[] = getCart().items;
     setCartItems(cartItems);
-  })
+  }, []);
 
   return (
     <>
@@ -131,12 +129,13 @@ export default function CartPage() {
                     }
                   </div>
                   <div>Price: {cartItem.ticket.price} NOK</div>
-                  <div>Quantity: {cartItem.ticket.amountAvailable}</div>
+                  <div>Quantity: {cartItem.amount}</div>
                 </div>
                 <div>
                   <button className="trash-button"
                     onClick={() => {
-                      setCartItems(cartItems.filter(item => item.ticket.ticketId !== cartItem.ticket.ticketId));
+                      removeFromCart(cartItem.ticket.ticketId);
+                      setCartItems(getCart().items);
                     }}
                   ><TrashCanIcon />
                   </button>
