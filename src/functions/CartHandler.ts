@@ -8,7 +8,7 @@ const CART_KEY: string = "cart";
  *
  * @returns {Cart} The current cart, or an empty cart if none exists.
  */
-function getCart(): Cart {
+export function getCart(): Cart {
   try {
     const cart = localStorage.getItem(CART_KEY);
     if (cart && cart !== null) {
@@ -73,6 +73,7 @@ export function removeFromCart(ticketId: number) {
 function clearCart() {
   localStorage.removeItem(CART_KEY);
 }
+
 
 /**
  * Gets the amount of items in the cart.
