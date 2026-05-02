@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 import "../css/EventPage.css"
 import type Event from "../util/dtos/Event"
 import { addToCart } from "../functions/CartHandler";
+import type CartItem from "../data/CartItem";
 import type Ticket from "../util/dtos/Ticket";
-
-
 
 
 export default function EventPage() {
@@ -14,6 +13,8 @@ export default function EventPage() {
   const toggleWishlist = () => setIsWishlisted(prev => !prev);
   const [event, setEvent] = useState<Event | null>(null);
   const [tickets, setTickets] = useState<Ticket[]>([]);
+
+
 
   /**
    * Loads an event from the database based on the eventId in the url.
@@ -49,7 +50,7 @@ export default function EventPage() {
             setTickets(await response.json());
           }
         }
-      } catch (error) {
+      } catch {
         setTickets([]);
       }
     }
@@ -80,6 +81,15 @@ export default function EventPage() {
     }
   };
 
+  const fallBackTicket: Ticket = {
+    "ticketId": 8,
+    "event": fallBackEvent,
+    "ticketType": "VIP",
+    "price": 500,
+    "amountAvailable": 16,
+    "ticketDescription": "Get backstage access to The Jhonnysons"
+  };
+
 
   if (!eventId) {
     return (
@@ -99,7 +109,6 @@ export default function EventPage() {
   }
 
 
-
   return (
     <div className="event-page">
       <div className="event-card">
@@ -116,8 +125,6 @@ export default function EventPage() {
                 No image available
               </div>
             )}
-
-
 
             <button
               type="button"
@@ -143,8 +150,21 @@ export default function EventPage() {
           <p className="event-description">{event.eventDescription}</p>
         </div>
       </div>
-    </div >
-  )
-    ;
 
+      <div className="ticket-section">
+
+        {tickets.map((ticket: Ticket) => {
+          return (
+            <div className="ticket-column">
+              <div className="ticket-price"> {ticket?.price}</div>
+              <div className="ticket-amount"> {ticket?.amountAvailable}</div>
+              <div className="ticket-type"> {ticket?.ticketType}</div>
+              <button className="add-to-cart-button" onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}>Add to cart</button>
+            </div>
+          )
+        }
+        )}
+      </div>
+    </div>
+  );
 }
