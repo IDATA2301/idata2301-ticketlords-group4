@@ -3,100 +3,13 @@ import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
 import { useState, useEffect } from "react";
 import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
-import type CartItem from "../data/CartItem"; export default function CartPage() {
-  const hardCodedCartItems = [
-    {
-      ticketId: 1,
-      event: {
-        eventId: 1,
-        eventName: "Jhonnysons",
-        host: "Jhonny",
-        category: {
-          categoryId: 1,
-          categoryName: "Music"
-        },
-        eventDateStart: new Date("2025-08-01"),
-        eventDateEnd: new Date("2025-08-02"),
-        eventVenue: {
-          venueId: 1,
-          arena: "Madison Square Garden",
-          city: "New York",
-          country: "Nigeria",
-          address: "123 Main St"
-        },
-        eventDescription: "A great music event",
-        totalClicks: 100,
-        imgPathUrl: "event1.jpg"
-      },
-      ticketType: "VIP",
-      price: 2000,
-      amountAvailable: 50,
-      ticketDescription: "Access to VIP lounge and free drinks"
-    },
-    {
-      ticketId: 2,
-      event: {
-        eventId: 1,
-        eventName: "Skibidi",
-        host: "Im blue dabadee",
-        category: {
-          categoryId: 1,
-          categoryName: "Music"
-        },
-        eventDateStart: new Date("2025-09-03"),
-        eventDateEnd: new Date("2025-09-04"),
-        eventVenue: {
-          venueId: 1,
-          arena: "Madison Square Garden",
-          city: "New York",
-          country: "Nigeria",
-          address: "123 Main St"
-        },
-        eventDescription: "Now listen up heres a story",
-        totalClicks: 200,
-        imgPathUrl: "Chillin.png"
-      },
-      ticketType: "Normal",
-      price: 5000,
-      amountAvailable: 3,
-      ticketDescription: "About a little guy who lives in a blue world and all day and all night and everything he sees is just blue like him inside and outside"
-    },
-    {
-      ticketId: 3,
-      event: {
-        eventId: 2,
-        eventName: "Skibidi",
-        host: "Im blue dabadee",
-        category: {
-          categoryId: 1,
-          categoryName: "Music"
-        },
-        eventDateStart: new Date("2025-09-03"),
-        eventDateEnd: new Date("2025-09-04"),
-        eventVenue: {
-          venueId: 1,
-          arena: "Madison Square Garden",
-          city: "New York",
-          country: "Nigeria",
-          address: "123 Main St"
-        },
-        eventDescription: "Now listen up heres a story",
-        totalClicks: 200,
-        imgPathUrl: "Chillin.png"
-      },
-      ticketType: "Normal",
-      price: 451,
-      amountAvailable: 3,
-      ticketDescription: "About a little guy who lives in a blue world and all day and all night and everything he sees is just blue like him inside and outside"
-    }
-  ]
+import type CartItem from "../data/CartItem";
 
+export default function CartPage() {
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const totalPrice = cartItems.reduce((sum, ticketList) =>
-    sum + ticketList.ticket.price, 0);
-  const pricePreTax = totalPrice * 0.75;
-  const taxPrice = totalPrice * 0.25;
+  const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
+  const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
 
   const TrashCanIcon = () => (
     <svg width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
@@ -108,6 +21,14 @@ import type CartItem from "../data/CartItem"; export default function CartPage()
   useEffect(() => {
     const cartItems: CartItem[] = getCart().items;
     setCartItems(cartItems);
+  }, []);
+
+  useEffect(() => {
+    setPricePreTax(getCartTotalCost() * 0.75);
+  }, []);
+
+  useEffect(() => {
+    setTaxPrice(getCartTotalCost() * 0.25);
   }, []);
 
   return (
@@ -148,7 +69,7 @@ import type CartItem from "../data/CartItem"; export default function CartPage()
         <div className="cart-summary">
           <h1>Order summary</h1>
           <div className="items">
-            <div>Items({cartItems.length})</div>
+            <div>Items({cartItems.reduce((sum, item) => sum + item.amount, 0)})</div>
             <div>{"NOK" + " " + pricePreTax}</div>
           </div>
           <div className="tax">
@@ -158,7 +79,7 @@ import type CartItem from "../data/CartItem"; export default function CartPage()
           <hr className="cart-separator" />
           <div className="total">
             <div>{"Total"}</div>
-            <div>{"Nok " + totalPrice}</div>
+            <div>{"Nok " + getCartTotalCost()}</div>
           </div>
         </div>
       </div >
