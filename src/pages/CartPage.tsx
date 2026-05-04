@@ -4,6 +4,7 @@ import "../css/CartPage.css";
 import { useState, useEffect } from "react";
 import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function CartPage() {
 
@@ -35,6 +36,8 @@ export default function CartPage() {
   useEffect(() => {
     setTotalCost(getCartTotalCost());
   }, [cartItems])
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -85,6 +88,13 @@ export default function CartPage() {
           <div className="total">
             <div>{"Total"}</div>
             <div>{"Nok " + totalCost}</div>
+          </div>
+          <div className="go-to-checkout-button">
+            <button onClick={() => navigate("/checkout")}>
+              Go to checkout
+            </button>
+
+
           </div>
         </div>
       </div >
