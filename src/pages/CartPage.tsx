@@ -2,9 +2,10 @@ import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
 import { useState, useEffect } from "react";
-import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
+import { getCart, removeFromCart, getTicketCountInCart, getCartTotalCost } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
 import { Navigate, useNavigate } from "react-router-dom";
+import CartSummary from "../components/CartSummary";
 
 export default function CartPage() {
 
@@ -74,29 +75,12 @@ export default function CartPage() {
           )
           )}
         </div>
-        <div className="cart-summary">
-          <h1>Order summary</h1>
-          <div className="items">
-            <div>Items({cartItems.reduce((sum, item) => sum + item.amount, 0)})</div>
-            <div>{"NOK" + " " + pricePreTax}</div>
-          </div>
-          <div className="tax">
-            <div>{"Estimated tax (25%)"}</div>
-            <div>{"NOK " + taxPrice}</div>
-          </div>
-          <hr className="cart-separator" />
-          <div className="total">
-            <div>{"Total"}</div>
-            <div>{"Nok " + totalCost}</div>
-          </div>
-          <div className="go-to-checkout-button">
-            <button onClick={() => navigate("/checkout")}>
-              Go to checkout
-            </button>
 
-
-          </div>
-        </div>
+        <CartSummary showCheckoutButton={true}
+          totalCost={totalCost}
+          pricePreTax={pricePreTax}
+          taxPrice={taxPrice}
+          itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
       </div >
     </>
   )
