@@ -76,11 +76,13 @@ export default function CartPage() {
           )}
         </div>
 
-        <CartSummary showCheckoutButton={true}
-          totalCost={totalCost}
-          pricePreTax={pricePreTax}
-          taxPrice={taxPrice}
-          itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
+        <div className="cart-summary">
+          <CartSummary showCheckoutButton={true}
+            totalCost={totalCost}
+            pricePreTax={pricePreTax}
+            taxPrice={taxPrice}
+            itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
+        </div>
       </div >
     </>
   )

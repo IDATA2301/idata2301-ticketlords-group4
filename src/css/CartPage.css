@@ -47,3 +47,7 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.cart-summary {
+  width: 30%;
+}
