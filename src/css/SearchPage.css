@@ -1,5 +1,4 @@
 .search-page {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,6 +59,8 @@
 .no-search-found {
   margin-top: 2rem;
   font-size: 1.5rem;
+  position: relative;
+  width: 100%;
 }
 
 .no-search-found-image {
@@ -70,10 +71,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .no-search-found-image img {
   width: 500px;
+  max-width: 100%;
   height: auto;
 }
 
@@ -97,14 +100,22 @@
   font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
+.search-context {
+  color: #75C75C;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .date {
   align-self: stretch;
   max-width: 90px;
   flex-basis: 15%;
   padding: 5px;
-  color: #000000;
   margin-right: clamp(20px, 5vw, 40px);
-  background-color: #8f27dd;
+  background-color: #75C75C;
+  color: white;
 }
 
 .month {
@@ -120,7 +131,9 @@
   flex-basis: 85%;
   margin-left: 10px;
   min-height: 100%;
-  background-color: #8f27dd;
+  background-color: white;
+  border: solid;
+  border-color: #8F27DD;
   padding-left: 20px;
 }
 
