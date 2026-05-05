@@ -4,10 +4,11 @@ body,
   display: flex;
   flex-direction: column;
   background-color: #F4EDF7;
+  min-height: 100vh;
 }
 
 .main-content {
-  width: 100%;
+  flex-grow: 1;
 }
 
 footer a {
