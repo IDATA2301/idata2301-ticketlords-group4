@@ -109,21 +109,26 @@
 }
 
 .date {
+  display: flex;
+  flex-direction: column;
   align-self: stretch;
   max-width: 90px;
+  font-weight: bold;
   flex-basis: 15%;
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-right: clamp(20px, 5vw, 40px);
-  background-color: #75C75C;
+  background-color: #2f2f2f;
   color: white;
+  align-items: center;
 }
 
 .month {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .day {
-  font-size: 2rem;
+  font-size: 3.5rem;
 }
 
 .info {
@@ -137,6 +142,10 @@
   padding-left: 20px;
 }
 
+.event-arena, .event-name {
+  color: #8F27DD;
+}
+
 .event-name {
   font-size: 2rem;
   margin-top: 10px;
@@ -147,4 +156,19 @@
   margin-left: 50px;
   margin-right: 20px;
   margin-bottom: 20px;
+}
+
+.searched-event-button button:hover {
+  background-color: #aa1a87;
+}
+
+.searched-event-button button {
+  cursor: pointer;
+  background-color: #DF32B6;
+  padding: 7px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
