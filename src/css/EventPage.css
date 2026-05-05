@@ -159,6 +159,7 @@
 
 
 .add-to-cart-button{
+    cursor: pointer;
     background-color: #DF32B6;
     padding: 7px;
     color: white;
@@ -176,6 +177,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.add-to-cart-button:hover {
+    background-color: #aa1a87;
 }
 
 
