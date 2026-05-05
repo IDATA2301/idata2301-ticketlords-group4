@@ -3,7 +3,6 @@
   flex-direction: row;
   justify-content: space-around;
   font-family: "Franklin Gothic Medium", Arial, sans-serif;
-
 }
 
 .cart-items {
@@ -20,18 +19,6 @@
   border-color: aqua;
   border-style: solid;
   border-radius: 15px;
-}
-
-.cart-summary {
-  border-color: aqua;
-  border-style: solid;
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  width: 30%;
-  flex-direction: column;
-  margin-bottom: 20px;
-  row-gap: 2rem;
 }
 
 .trash-button {
@@ -54,42 +41,9 @@
   font-size: 1.5rem;
 }
 
-.cart-separator {
-  border-top: 1px solid #ccc;
-  margin: 10px 5px;
-}
-
 .ticket-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-.items,
-.tax,
-.total {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
-
-.cart-summary button {
-  border-radius: 20px;
-  border-width: 1px;
-  height: 3.5rem;
-  width: 80%;
-}
-
-.cart-summary button:hover {
-  cursor: pointer;
-  background-color: rgba(69, 160, 73, 0.7);
-  color: white;
-}
-
-.go-to-checkout-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
 }
