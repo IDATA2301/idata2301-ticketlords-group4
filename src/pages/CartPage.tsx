@@ -13,6 +13,7 @@ export default function CartPage() {
   const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
+  const [hardcodedIsNotLoggedIn, setHardcodedIsNotLoggedIn] = useState(true);
 
   const TrashCanIcon = () => (
     <svg width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
@@ -20,6 +21,8 @@ export default function CartPage() {
       <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
     </svg>
   );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cartItems: CartItem[] = getCart().items;
@@ -38,7 +41,6 @@ export default function CartPage() {
     setTotalCost(getCartTotalCost());
   }, [cartItems])
 
-  const navigate = useNavigate();
 
   return (
     <>
@@ -76,14 +78,40 @@ export default function CartPage() {
           )}
         </div>
 
-        <div className="cart-summary">
-          <CartSummary showCheckoutButton={true}
-            totalCost={totalCost}
-            pricePreTax={pricePreTax}
-            taxPrice={taxPrice}
-            itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
+        <div className="right-side">
+          <div className="cart-summary">
+            <CartSummary
+              totalCost={totalCost}
+              pricePreTax={pricePreTax}
+              taxPrice={taxPrice}
+              itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
+          </div>
+
+          {hardcodedIsNotLoggedIn &&
+            <div className="not-logged-in-prompt">
+              <div className="guest-prompt">
+                <h3>Stay as guest</h3>
+                <p>E-mail address</p>
+                <input className="user-email" type="email" placeholder="Enter your email" name="email" id="user-email" autoComplete="email" />
+              </div>
+
+              <div className="prompt-login">
+                <h3>Already have an account?</h3>
+                <div>
+                  <button className="login-button" onClick={() => navigate("/login")}>Login</button>
+                  <button onClick={() => navigate("/register")}>Create account</button>
+                </div>
+              </div>
+            </div>
+          }
+
+          <div className="place-order">
+            <button onClick={() => navigate("/checkout")}>
+              Place order →
+            </button>
+          </div>
         </div>
-      </div >
+      </div>
     </>
   )
 }
