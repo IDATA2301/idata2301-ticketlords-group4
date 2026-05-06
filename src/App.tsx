@@ -25,7 +25,7 @@ function App() {
           <Route path="events/search" element={<SearchPage />} />
           <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
           <Route path="event/:eventId" element={<EventPage />} />
-          <Route path="registerUser" element={<RegisterUserPage />} />
+          <Route path="register" element={<RegisterUserPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="user" element={<UserPage />} />
           <Route path="contact" element={<ContactPage />} />
