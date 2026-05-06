@@ -1,6 +1,6 @@
 import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
-import "../css/CartPage.css";
+import styles from "../css/CartPage.module.css";
 import { useState, useEffect } from "react";
 import { getCart, removeFromCart, getTicketCountInCart, getCartTotalCost } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
@@ -13,10 +13,13 @@ export default function CartPage() {
   const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
-  const [hardcodedIsNotLoggedIn, setHardcodedIsNotLoggedIn] = useState(true);
+  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
 
   const TrashCanIcon = () => (
-    <svg width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+    <svg width="30" height="auto" fill="currentColor" className={styles["bi.bi-trash"]} viewBox="0 0 16 16">
       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
       <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
     </svg>
@@ -45,11 +48,11 @@ export default function CartPage() {
   return (
     <>
       <h1>Cart</h1>
-      <div className="cart-content">
-        <div className="cart-items">
+      <div className={styles["cart-content"]}>
+        <div className={styles["cart-items"]}>
           {cartItems.map((cartItem: CartItem) => (
-            <div className={"ticket-item"} key={cartItem.ticket.ticketId}>
-              <div className="ticket-info">
+            <div className={styles["ticket-item"]} key={cartItem.ticket.ticketId}>
+              <div className={styles["ticket-info"]}>
                 <div>
                   <div>{cartItem.ticket.event.eventName}</div>
                   <div>
@@ -64,7 +67,7 @@ export default function CartPage() {
                   <div>Quantity: {cartItem.amount}</div>
                 </div>
                 <div>
-                  <button className="trash-button"
+                  <button className={styles["trash-button"]}
                     onClick={() => {
                       removeFromCart(cartItem.ticket.ticketId);
                       setCartItems(getCart().items);
@@ -78,8 +81,8 @@ export default function CartPage() {
           )}
         </div>
 
-        <div className="right-side">
-          <div className="cart-summary">
+        <div className={styles["right-side"]}>
+          <div className={styles["cart-summary"]}>
             <CartSummary
               totalCost={totalCost}
               pricePreTax={pricePreTax}
@@ -87,31 +90,66 @@ export default function CartPage() {
               itemCount={cartItems.reduce((sum, item) => sum + item.amount, 0)} />
           </div>
 
-          {hardcodedIsNotLoggedIn &&
-            <div className="not-logged-in-prompt">
-              <div className="guest-prompt">
-                <h3>Stay as guest</h3>
-                <p>E-mail address</p>
-                <input className="user-email" type="email" placeholder="Enter your email" name="email" id="user-email" autoComplete="email" />
+          {/* Show if the user is not logged in*/}
+          {!hardcodedIsLoggedIn &&
+            <div className={styles["not-logged-in-prompt"]}>
+              <div className={styles["guest-prompt"]}>
+                <h2>Stay as guest</h2>
+                <h3>E-mail address</h3>
+                <input className={styles["user-email"] + " " + (emailError ? styles["user-email-error"] : "")}
+                  type="email"
+                  placeholder="email@example.com"
+                  name="email"
+                  id="user-email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                    setEmailError(false);
+                  }}
+                />
+                <p>The tickets will be sent to your email address</p>
+
+                {/* Shows if the user doesnt input email correctly*/}
+                {!validEmail &&
+                  <div className={styles["invalid-email-message"]}>
+                    The email address must be valid and contain "@" and "." characters.
+                  </div>
+                }
               </div>
 
-              <div className="prompt-login">
+              <div className={styles["prompt-login"]}>
                 <h3>Already have an account?</h3>
                 <div>
-                  <button className="login-button" onClick={() => navigate("/login")}>Login</button>
-                  <button onClick={() => navigate("/register")}>Create account</button>
+                  <button className={styles["login-button"]} onClick={() => navigate("/login")}>Login</button>
+                  <button onClick={() => navigate("/register")}
+                  > Create account</button>
                 </div>
               </div>
             </div>
           }
 
-          <div className="place-order">
-            <button onClick={() => navigate("/checkout")}>
+          <div className={styles["place-order"]}>
+            <button onClick={() => {
+              if (!hardcodedIsLoggedIn) {
+                if (!email) {
+                  setEmailError(true);
+                  return;
+                }
+                if (!email.includes("@") || !email.includes(".")) {
+                  setValidEmail(false);
+                  return;
+                }
+              }
+              navigate("/checkout", { state: { email } });
+            }
+
+            }>
               Place order →
             </button>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

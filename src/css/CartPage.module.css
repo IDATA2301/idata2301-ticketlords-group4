@@ -73,10 +73,10 @@
 
 
 .place-order button {
-  border-radius: 20px;
+  border-radius: 10px;
   border-width: 1px;
-  height: 3.5rem;
-  width: 80%;
+  height: 3.2rem;
+  width: 60%;
   background-color: #45a049;
   color: white;
   font-size: 1.7rem;
@@ -111,10 +111,43 @@
   border-radius: 15px;
 }
 
+.guest-prompt p,
+h3,
+h2 {
+  margin: 10px 0;
+}
+
 .user-email {
   width: 100%;
   border-radius: 8px;
   height: 2rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3 ease;
+}
+
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(8px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(-8px);
+  }
+}
+
+.user-email-error {
+  border-color: red;
+  animation: shake 0.3s;
+
 }
 
 .prompt-login {
@@ -126,6 +159,7 @@
   flex-direction: column;
   width: 38%;
   border-radius: 15px;
+  gap: 1.7rem;
 }
 
 .prompt-login div {
@@ -137,10 +171,17 @@
 .prompt-login button {
   border-radius: 10px;
   border-width: 1px;
-  height: 2.5rem;
+  height: 3rem;
   width: 45%;
   font-size: 1rem;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.invalid-email-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 .login-button {
