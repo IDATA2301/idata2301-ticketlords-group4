@@ -1,5 +1,5 @@
 .search-page {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +12,7 @@
   flex-direction: row;
   gap: 10px;
 }
+
 
 .search-context {
   flex-basis: 72%;
@@ -59,20 +60,20 @@
 .no-search-found {
   margin-top: 2rem;
   font-size: 1.5rem;
+  width: 100%;
 }
 
 .no-search-found-image {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -60%);
+  position: static;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .no-search-found-image img {
   width: 500px;
+  max-width: 100%;
   height: auto;
 }
 
@@ -96,22 +97,36 @@
   font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
+.search-context {
+  color: black;
+  font-size: 2rem;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .date {
+  display: flex;
+  flex-direction: column;
   align-self: stretch;
   max-width: 90px;
+  font-weight: bold;
   flex-basis: 15%;
-  padding: 5px;
-  color: #000000;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-right: clamp(20px, 5vw, 40px);
-  background-color: #8f27dd;
+  background-color: #2f2f2f;
+  color: white;
+  align-items: center;
 }
 
 .month {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .day {
-  font-size: 2rem;
+  font-size: 3.5rem;
 }
 
 .info {
@@ -119,18 +134,54 @@
   flex-basis: 85%;
   margin-left: 10px;
   min-height: 100%;
-  background-color: #8f27dd;
+  background-color: white;
+  border: solid;
+  border-color: black;
   padding-left: 20px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.searched-event-info {
+  flex-direction: column;
+  display: flex;
+  align-items: baseline;
 }
 
 .event-name {
+  color: #272834;
   font-size: 2rem;
-  margin-top: 10px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .event-arena {
-  font-size: 1.2rem;
-  margin-left: 50px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  color: #514f4f;
+  font-size: 1.3rem;
+  margin-top: 5px;
+  font-weight: lighter;
+}
+
+.searched-event-button {
+  margin-left: auto;
+  padding-right: 20px;
+}
+
+.searched-event-button button:hover {
+  background-color: #aa1a87;
+}
+
+.searched-event-button button {
+  cursor: pointer;
+  background-color: #DF32B6;
+  padding: 10px 25px;
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }

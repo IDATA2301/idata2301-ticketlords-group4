@@ -43,11 +43,10 @@
   left: 0;
   height: 100vh;
   width: 20%;
-  background: #838383;
+  background: #F4EDF7;
   z-index: 1000;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0, 1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  opacity: 88%;
 }
 
 @media (max-width: 600px) {
@@ -72,7 +71,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background-color: #8f27dd;
+  background-color: white;
+  color: #8F27DD;
   font-size: 30px;
   border: solid;
   border-width: 4px;
