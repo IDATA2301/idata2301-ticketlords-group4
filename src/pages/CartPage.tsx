@@ -13,7 +13,7 @@ export default function CartPage() {
   const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
-  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(false);
+  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(true);
   const [emailError, setEmailError] = useState(false);
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -47,7 +47,7 @@ export default function CartPage() {
 
   return (
     <>
-      <h1>Cart</h1>
+      <h1 className={styles["header"]}>Cart</h1>
       <div className={styles["cart-content"]}>
         <div className={styles["cart-items"]}>
           {cartItems.map((cartItem: CartItem) => (
