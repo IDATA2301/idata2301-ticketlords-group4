@@ -1,4 +1,4 @@
-html, body, #root {
+html, body, .app-shell {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@ html, body, #root {
 }
 
 body,
-#root {
+.app-shell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,9 @@ body {
 }
 
 .main-content {
-  flex-grow: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 footer a {
