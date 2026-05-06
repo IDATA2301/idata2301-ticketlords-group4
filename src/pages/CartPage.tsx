@@ -1,8 +1,7 @@
-import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
 import "../css/CartPage.css";
 import { useState, useEffect } from "react";
-import { getCart, removeFromCart, getCartCount, getCartTotalCost } from "../functions/CartHandler";
+import { getCart, removeFromCart, getCartTotalCost } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
 
 export default function CartPage() {
