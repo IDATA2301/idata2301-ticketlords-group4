@@ -158,18 +158,19 @@ export default function EventListPage({title, fetchEvents}: Props) {
                                             </div>
                                         </div>
                                         <div className="info">
-                                            <div className="event-name">
-                                                {event.eventName}
-                                            </div>
-                                            <div className="event-arena">
-                                                {event.eventVenue.arena}
+                                            <div className="searched-event-info">
+                                                <div className="event-name">
+                                                    {event.eventName}
+                                                </div>
+                                                <div className="event-arena">
+                                                    {event.eventVenue.arena}
+                                                </div>
                                             </div>
 
                                             <div className="searched-event-button">
                                                 <button onClick={() => navigate("/event/" + event.eventId)}>
                                                     Go to event
                                                 </button>
-
                                             </div>
 
                                         </div>
