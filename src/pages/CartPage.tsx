@@ -1,10 +1,9 @@
-import type Ticket from "../util/dtos/Ticket";
 import monthConverter from "../functions/DateConverter";
 import styles from "../css/CartPage.module.css";
 import { useState, useEffect } from "react";
-import { getCart, removeFromCart, getTicketCountInCart, getCartTotalCost } from "../functions/CartHandler";
+import { getCart, removeFromCart, getCartTotalCost } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CartSummary from "../components/CartSummary";
 
 export default function CartPage() {
@@ -13,7 +12,7 @@ export default function CartPage() {
   const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
-  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(true);
+  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -142,10 +141,7 @@ export default function CartPage() {
                 }
               }
               navigate("/checkout", { state: { email } });
-            }
-
-            }>
-              Place order →
+            }}> Place order →
             </button>
           </div>
         </div>
