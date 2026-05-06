@@ -136,7 +136,7 @@
   min-height: 100%;
   background-color: white;
   border: solid;
-  border-color: #8F27DD;
+  border-color: black;
   padding-left: 20px;
 
   display: flex;
@@ -145,20 +145,24 @@
   gap: 16px;
 }
 
-.event-arena, .event-name {
-  color: #8F27DD;
+.searched-event-info {
+  flex-direction: column;
+  display: flex;
+  align-items: baseline;
 }
 
 .event-name {
+  color: #272834;
   font-size: 2rem;
-  margin-top: 10px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .event-arena {
-  font-size: 1.2rem;
-  margin-left: 50px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  color: #514f4f;
+  font-size: 1.3rem;
+  margin-top: 5px;
+  font-weight: lighter;
 }
 
 .searched-event-button {
