@@ -80,16 +80,6 @@ export default function EventPage() {
         }
     };
 
-    const fallBackTicket: Ticket = {
-        "ticketId": 8,
-        "event": fallBackEvent,
-        "ticketType": "VIP",
-        "price": 500,
-        "amountAvailable": 16,
-        "ticketDescription": "Get backstage access to The Jhonnysons"
-    };
-
-
     if (!eventId) {
         return (
             <div className="event-page">
