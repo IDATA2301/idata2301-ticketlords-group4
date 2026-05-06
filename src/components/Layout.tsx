@@ -52,7 +52,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div id="root">
+    <div className="app-shell">
       <div className="main-content">
 
         {/* Topbar */}
