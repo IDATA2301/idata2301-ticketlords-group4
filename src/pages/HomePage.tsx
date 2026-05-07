@@ -137,17 +137,11 @@ export default function HomePage() {
                             <div className="category-item">
                                 <img src={"http://10.212.25.185:8080/events/" + popularEvents[0]?.eventId + "/image" }/>
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[0]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/event/" + popularEvents[1]?.eventId}>
                             <div className="category-item">
                                 <img src="/src/assets/beach-sunset.png"/>
-                            </div>
-                            <div className="category-item-description">
-                                {popularEvents[1]?.eventDescription}
                             </div>
                         </Link>
 
@@ -158,9 +152,6 @@ export default function HomePage() {
                                     alt="lord of the rings triology poster"
                                 />
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[2]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[3]?.eventId}>
@@ -170,24 +161,15 @@ export default function HomePage() {
                                     alt="cosplay convention image"
                                 />
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[3]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[4]?.eventId}>
                             <div className="category-item">The Drage vs The Liavågs</div>
-                            <div className="category-item-description">
-                                {popularEvents[4]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[5]?.eventId}>
                             <div className="category-item">
                                 <img src="/src/assets/jogeirHeart.jpg" alt="Jogeir Heart"/>
-                            </div>
-                            <div className="category-item-description">
-                                {popularEvents[5]?.eventDescription}
                             </div>
                         </Link>
 
@@ -196,17 +178,11 @@ export default function HomePage() {
                                 Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
                                 konflikt
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[6]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[7]?.eventId}>
                             <div className="category-item">
                                 Jogeir: the kid named finger
-                            </div>
-                            <div className="category-item-description">
-                                {popularEvents[7]?.eventDescription}
                             </div>
                         </Link>
 
@@ -214,26 +190,17 @@ export default function HomePage() {
                             <div className="category-item">
                                 Jogeir: the kid named finger
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[8]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[9]?.eventId}>
                             <div className="category-item">
                                 Jogeir: the kid named finger
                             </div>
-                            <div className="category-item-description">
-                                {popularEvents[9]?.eventDescription}
-                            </div>
                         </Link>
 
                         <Link to={"/events/" + popularEvents[10]?.eventId}>
                             <div className="category-item">
                                 Jogeir: the kid named finger
-                            </div>
-                            <div className="category-item-description">
-                                {popularEvents[10]?.eventDescription}
                             </div>
                         </Link>
 
