@@ -144,7 +144,8 @@ export default function HomePage() {
 
             <Link to={"/event/" + popularEvents[1]?.eventId}>
               <div className="category-item">
-                <img src="/src/assets/beach-sunset.png" />
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[1]?.eventId + "/image"} />
+
               </div>
               <div className="category-item-description">
                 {popularEvents[1]?.eventDescription}
@@ -154,9 +155,7 @@ export default function HomePage() {
             <Link to={"/events/" + popularEvents[2]?.eventId}>
               <div className="category-item">
                 <img
-                  src="/src/assets/lord-of-the-rings-triology.png"
-                  alt="lord of the rings triology poster"
-                />
+                  <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[2]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[2]?.eventDescription}
@@ -165,10 +164,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[3]?.eventId}>
               <div className="category-item">
-                <img
-                  src="/src/assets/cosplay-convention.png"
-                  alt="cosplay convention image"
-                />
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[3]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[3]?.eventDescription}
@@ -176,7 +172,9 @@ export default function HomePage() {
             </Link>
 
             <Link to={"/events/" + popularEvents[4]?.eventId}>
-              <div className="category-item">The Drage vs The Liavågs</div>
+              <div className="category-item">
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[4]?.eventId + "/image"} />
+              </div>
               <div className="category-item-description">
                 {popularEvents[4]?.eventDescription}
               </div>
@@ -184,7 +182,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[5]?.eventId}>
               <div className="category-item">
-                <img src="/src/assets/jogeirHeart.jpg" alt="Jogeir Heart" />
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[5]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[5]?.eventDescription}
@@ -193,8 +191,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[6]?.eventId}>
               <div className="category-item">
-                Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og
-                konflikt
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[6]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[6]?.eventDescription}
@@ -203,7 +200,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[7]?.eventId}>
               <div className="category-item">
-                Jogeir: the kid named finger
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[7]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[7]?.eventDescription}
@@ -212,7 +209,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[8]?.eventId}>
               <div className="category-item">
-                Jogeir: the kid named finger
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[8]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[8]?.eventDescription}
@@ -221,7 +218,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[9]?.eventId}>
               <div className="category-item">
-                Jogeir: the kid named finger
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[9]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[9]?.eventDescription}
@@ -230,7 +227,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[10]?.eventId}>
               <div className="category-item">
-                Jogeir: the kid named finger
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[10]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[10]?.eventDescription}
