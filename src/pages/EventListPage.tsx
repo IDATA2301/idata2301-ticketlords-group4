@@ -1,12 +1,13 @@
-import { Link, useSearchParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Select from "react-select"
 import { components } from "react-select"
 import type { DropdownIndicatorProps } from "react-select"
 import { useState, useEffect } from "react"
-
+import monthConverter from "../functions/DateConverter"
 import type Event from "../util/dtos/Event"
 
 import "../css/SearchPage.css"
+
 type Props = {
   title: string;
   fetchEvents: () => Promise<Event[]>;
@@ -18,14 +19,14 @@ export default function EventListPage({ title, fetchEvents }: Props) {
   const [notFound, setNotFound] = useState(false);
   const [filter, setFilter] = useState("all");
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEvents().then(events => {
       if (events.length === 0) {
         setNotFound(true);
         setResults([]);
-      }
-      else {
+      } else {
         setResults(events);
         setNotFound(false);
       }
@@ -34,11 +35,16 @@ export default function EventListPage({ title, fetchEvents }: Props) {
 
   const sortedEvents = (results: Event[]) => {
     switch (filter) {
-      case "all": return results;
-      case "upcoming": return results.slice().sort((a, b) => new Date(a.eventDateStart).getTime() - new Date(b.eventDateStart).getTime());
-      case "alphabetical": return results.slice().sort((a, b) => String(a.eventName).localeCompare(String(b.eventName)));
-      case "popular": return results.slice().sort((a, b) => b.totalClicks - a.totalClicks);
-      default: return [];
+      case "all":
+        return results;
+      case "upcoming":
+        return results.slice().sort((a, b) => new Date(a.eventDateStart).getTime() - new Date(b.eventDateStart).getTime());
+      case "alphabetical":
+        return results.slice().sort((a, b) => String(a.eventName).localeCompare(String(b.eventName)));
+      case "popular":
+        return results.slice().sort((a, b) => b.totalClicks - a.totalClicks);
+      default:
+        return [];
     }
   }
 
@@ -82,23 +88,6 @@ export default function EventListPage({ title, fetchEvents }: Props) {
     popular: "Most Popular"
   };
 
-  const dateFinder = (month: number) => {
-    switch (month) {
-      case 0: return "JAN";
-      case 1: return "FEB";
-      case 2: return "MAR";
-      case 3: return "APR";
-      case 4: return "MAY";
-      case 5: return "JUN";
-      case 6: return "JUL";
-      case 7: return "AUG";
-      case 8: return "SEP";
-      case 9: return "OCT";
-      case 10: return "NOV";
-      case 11: return "DEC";
-      default: return "";
-    }
-  }
 
   return (
     <>
@@ -140,33 +129,36 @@ export default function EventListPage({ title, fetchEvents }: Props) {
               ]}></Select>
           </div>
         </div>
-        {notFound ? <div className="no-search-found">Woops! Seems no events could be found here. Maybe try something else?<br /><br />
-          Suggestions:
-          <ul>
-            <li>Search for an event.</li>
-            <li>Search for a host</li>
-            <li>Search for a category</li>
-            <li>Navigate through category menus</li>
-          </ul>
-          <div className="no-search-found-image">
-            <img src="/src/assets/Chillin.png" alt="Image of a dude chilling on a sunbed"></img></div>
-        </div> :
+        {notFound ?
+          <div className="no-search-found">Woops! Seems no events could be found here. Maybe try something
+            else?<br /><br />
+            Suggestions:
+            <ul>
+              <li>Search for an event.</li>
+              <li>Search for a host</li>
+              <li>Search for a category</li>
+              <li>Navigate through category menus</li>
+            </ul>
+            <div className="no-search-found-image">
+              <img src="/Chillin.png" alt="Image of a dude chilling on a sunbed"></img></div>
+          </div> :
           <div className="searched-events">
             {sortedEvents(results).map((event: Event) => {
               const dateStart: Date = new Date(event.eventDateStart);
               return (
                 <div className="event" key={event.eventId}>
-                  <Link to={"/event/" + event.eventId} className="searched-event-link">
-                    <div className="searched-event-item">
-                      <div className="date">
-                        <div className="day">
-                          {dateStart.getDate() + "."}
-                        </div>
-                        <div className="month">
-                          {dateFinder(dateStart.getMonth())}
-                        </div>
+
+                  <div className="searched-event-item">
+                    <div className="date">
+                      <div className="day">
+                        {dateStart.getDate() + ""}
                       </div>
-                      <div className="info">
+                      <div className="month">
+                        {monthConverter(dateStart.getMonth())}
+                      </div>
+                    </div>
+                    <div className="info">
+                      <div className="searched-event-info">
                         <div className="event-name">
                           {event.eventName}
                         </div>
@@ -174,15 +166,24 @@ export default function EventListPage({ title, fetchEvents }: Props) {
                           {event.eventVenue.arena}
                         </div>
                       </div>
+
+                      <div className="searched-event-button">
+                        <button onClick={() => navigate("/event/" + event.eventId)}>
+                          Go to event
+                        </button>
+                      </div>
+
                     </div>
-                  </Link>
+                  </div>
+
+
                 </div>
               )
             })
             }
           </div>
         }
-      </div >
+      </div>
     </>
   );
 }

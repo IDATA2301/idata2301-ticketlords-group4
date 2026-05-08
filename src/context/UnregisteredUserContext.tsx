@@ -32,7 +32,7 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
     hasCreatedRef.current = true;
 
     const savedId = localStorage.getItem("unregisteredUserId");
-    
+
     if (savedId) {
       // Verify the saved ID is valid with backend
       fetch(`${API_BASE_URL}/users/user/${savedId}`)

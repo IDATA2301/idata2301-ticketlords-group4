@@ -52,7 +52,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div id="root">
+    <div className="app-shell">
       <div className="main-content">
 
         {/* Topbar */}
@@ -67,7 +67,7 @@ export default function Layout() {
           <div className="topnav-middle">
             <Link to="/home" className="home-button">
 
-              <img src="/src/assets/TicketLordsLogo.png" />
+              <img src="/TicketLordsLogo.png" />
               <div>
                 Ticket Lords
               </div>
@@ -86,7 +86,7 @@ export default function Layout() {
 
       {/* Footer */}
       <footer className="footer">
-        <Link to="/about">About</Link>
+        <Link to="/about-us">About</Link>
         <Link to="/contact">Contact</Link>
       </footer>
     </div>

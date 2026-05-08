@@ -15,7 +15,7 @@ export default function SearchPage() {
   }
   return (
     <EventListPage
-      title={"Results for " + query + ":"}
+      title={"Results for \"" + query + "\""}
       fetchEvents={fetchEvents}
     />
   );
