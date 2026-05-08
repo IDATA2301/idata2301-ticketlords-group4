@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { UnregisteredUserProvider } from "./context/UnregisteredUserContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
@@ -16,24 +17,27 @@ import CartPage from "./pages/CartPage";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          {/* redirect "/" to "/home" */}
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route path="home" element={<HomePage />} />
-          {/* Add more routes below later */}
-          <Route path="events/search" element={<SearchPage />} />
-          <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
-          <Route path="event/:eventId" element={<EventPage />} />
-          <Route path="registerUser" element={<RegisterUserPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="user" element={<UserPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="about-us" element={<AboutPage />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="cart" element={<CartPage />} />
-        </Route>
-      </Routes>
+
+      <UnregisteredUserProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            {/* redirect "/" to "/home" */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="home" element={<HomePage />} />
+            {/* Add more routes below later */}
+            <Route path="events/search" element={<SearchPage />} />
+            <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
+            <Route path="event/:eventId" element={<EventPage />} />
+            <Route path="registerUser" element={<RegisterUserPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="user" element={<UserPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="about-us" element={<AboutPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="cart" element={<CartPage />} />
+          </Route>
+        </Routes>
+      </UnregisteredUserProvider>
     </BrowserRouter>
   );
 }

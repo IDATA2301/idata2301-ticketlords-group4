@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/Slider.css";
 
 import PopularEventsCarousel from "../pages/PopularEventsCarousel"; // adjust path if needed
 import type Event from "../util/dtos/Event";
@@ -8,7 +9,7 @@ export default function HomePage() {
   const [popularEvents, setPopularEvents] = useState<Event[]>([]);
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
-    const response = await fetch("http://10.212.25.185:8080/events/popular");
+    const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/popular");
     if (!response.ok) return [];
     return response.json();
   };
@@ -27,6 +28,7 @@ export default function HomePage() {
     navigate("/events/search?query=" + encodeURIComponent(query));
   };
 
+
   return (
     <>
       <div className="section-headline">
@@ -35,10 +37,11 @@ export default function HomePage() {
           <h2 className="headline-sub">Search Event, Artist, Location</h2>
         </div>
       </div>
-
-      <form className="search-container" onSubmit={handleSearch}>
-        <input
-          type="text"
+      <form
+        className="search-container"
+        onSubmit={handleSearch}
+      >
+        <input type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a ticket"
@@ -52,7 +55,6 @@ export default function HomePage() {
           </svg>
         </button>
       </form>
-
       <div className="event-categories">
         <Link to="/events/category/arts-music" className="event-category-link">
           <div>🎶Arts & Music</div>

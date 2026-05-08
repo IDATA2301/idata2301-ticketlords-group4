@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/UserPage.css"
+import { API_BASE_URL } from "../config";
 
 export default function UserPage() {
   const [user, setUser] = useState({
@@ -12,7 +13,7 @@ export default function UserPage() {
 
   useEffect(() => {
     // Fetch user data from backend
-    fetch("/users/user/1") //TODO: change 0 to {id} when users have their own page
+    fetch(`${API_BASE_URL}/users/user/1`) //TODO: change 0 to {id} when users have their own page
       .then((response) => response.json())
       .then((data) => {
         setUser({

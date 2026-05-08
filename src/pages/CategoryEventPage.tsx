@@ -18,7 +18,7 @@ export default function CategoryEventPage() {
 
   const fetchEvents = async (): Promise<Event[]> => {
     if (!category) return [];
-    const response = await fetch("http://10.212.25.185:8080/events/category/" + encodeURIComponent(category));
+    const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/category/" + encodeURIComponent(category));
     if (!response.ok) return [];
     return response.json();
   }
