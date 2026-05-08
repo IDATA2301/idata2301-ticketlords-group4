@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {Link} from "react-router-dom";
 import { useUnregisteredUser } from "../context/UnregisteredUserContext";
+import { API_BASE_URL } from "../config";
   
 export default function RegisterUserPage() {
   const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
@@ -31,7 +32,7 @@ export default function RegisterUserPage() {
     };
 
     setIsLoading(true);
-    fetch("http://10.212.25.185:8080/users/user/register?uregId=" + encodeURIComponent(unregisteredUserId), {
+    fetch(`${API_BASE_URL}/users/user/register?uregId=` + encodeURIComponent(unregisteredUserId), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

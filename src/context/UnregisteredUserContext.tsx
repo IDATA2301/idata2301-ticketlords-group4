@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { API_BASE_URL } from "../config";
 
 interface UnregisteredUserContextType {
   unregisteredUserId: number;
@@ -12,7 +13,7 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
   const hasCreatedRef = useRef(false); /* create only one user in react Strict mode */
 
   const createNewUser = () => {
-    fetch("http://10.212.25.185:8080/users/user", {
+    fetch(`${API_BASE_URL}/users/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),
@@ -34,7 +35,7 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
     
     if (savedId) {
       // Verify the saved ID is valid with backend
-      fetch(`http://10.212.25.185:8080/users/user/${savedId}`)
+      fetch(`${API_BASE_URL}/users/user/${savedId}`)
         .then((res) => {
           if (!res.ok) throw new Error("Invalid ID");
           setUnregisteredUserId(parseInt(savedId));
