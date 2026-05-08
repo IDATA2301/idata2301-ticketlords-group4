@@ -154,8 +154,7 @@ export default function HomePage() {
 
             <Link to={"/events/" + popularEvents[2]?.eventId}>
               <div className="category-item">
-                <img
-                  <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[2]?.eventId + "/image"} />
+                <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[2]?.eventId + "/image"} />
               </div>
               <div className="category-item-description">
                 {popularEvents[2]?.eventDescription}
