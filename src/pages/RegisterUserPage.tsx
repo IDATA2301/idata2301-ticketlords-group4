@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUnregisteredUser } from "../context/UnregisteredUserContext";
-  
+
 export default function RegisterUserPage() {
   const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ export default function RegisterUserPage() {
 
   const handleSubmit = () => {
     if (isLoading) return; // Prevent multiple submissions
-    
+
     const formData = {
       email: emailRef.current?.value || "",
       displayName: displayNameRef.current?.value || "",
@@ -31,7 +31,7 @@ export default function RegisterUserPage() {
     };
 
     setIsLoading(true);
-    fetch("http://10.212.25.185:8080/users/user/register?uregId=" + encodeURIComponent(unregisteredUserId), {
+    fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/users/user/register?uregId=" + encodeURIComponent(unregisteredUserId), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -51,12 +51,12 @@ export default function RegisterUserPage() {
   return (
     <>
       <div>
-        <input type="text" ref={displayNameRef} placeholder="Display name"/>
-        <input type="email" ref={emailRef} placeholder="Email"/>
-        <input type="text" ref={firstNameRef} placeholder="First name"/>
-        <input type="text" ref={lastNameRef} placeholder="Last name"/>
-        <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
-        <input type="password" ref={passwordRef} placeholder="Password"/>
+        <input type="text" ref={displayNameRef} placeholder="Display name" />
+        <input type="email" ref={emailRef} placeholder="Email" />
+        <input type="text" ref={firstNameRef} placeholder="First name" />
+        <input type="text" ref={lastNameRef} placeholder="Last name" />
+        <input type="tel" ref={phoneNumberRef} placeholder="Phone number" />
+        <input type="password" ref={passwordRef} placeholder="Password" />
 
         <button type="button" onClick={handleSubmit} disabled={isLoading}>
           {isLoading ? "Registering..." : "Register"}

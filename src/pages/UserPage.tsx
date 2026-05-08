@@ -12,7 +12,7 @@ export default function UserPage() {
 
   useEffect(() => {
     // Fetch user data from backend
-    fetch("http://10.212.25.185:8080/users/user/1") //TODO: change 0 to {id} when users have their own page
+    fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/users/user/1") //TODO: change 0 to {id} when users have their own page
       .then((response) => response.json())
       .then((data) => {
         setUser({

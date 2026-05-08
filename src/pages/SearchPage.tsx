@@ -8,7 +8,7 @@ export default function SearchPage() {
   const query = searchQuery.get("query") || "";
   const fetchEvents = async (): Promise<Event[]> => {
     if (!query) return [];
-    const response = await fetch("http://10.212.25.185:8080/events/search?query=" + encodeURIComponent(query));
+    const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/search?query=" + encodeURIComponent(query));
     if (!response.ok) return [];
     return response.json();
   }

@@ -12,7 +12,7 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
   const hasCreatedRef = useRef(false); /* create only one user in react Strict mode */
 
   const createNewUser = () => {
-    fetch("http://10.212.25.185:8080/users/user", {
+    fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/users/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),
@@ -31,10 +31,10 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
     hasCreatedRef.current = true;
 
     const savedId = localStorage.getItem("unregisteredUserId");
-    
+
     if (savedId) {
       // Verify the saved ID is valid with backend
-      fetch(`http://10.212.25.185:8080/users/user/${savedId}`)
+      fetch(`https://ticketlords-backend-app-ripdj.ondigitalocean.app/users/user/${savedId}`)
         .then((res) => {
           if (!res.ok) throw new Error("Invalid ID");
           setUnregisteredUserId(parseInt(savedId));
