@@ -116,7 +116,7 @@ export default function HomePage() {
 
       <div className="event-popular-section">
         <div className="event-popular">
-          <div className="event-popular-section-description">
+          <div className="event-popular-section-name">
             <h2> {"Popular events"}</h2>
           </div>
           <div className="scroll-left">
@@ -137,8 +137,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[0]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[0]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[0]?.eventName}
               </div>
             </Link>
 
@@ -147,8 +147,8 @@ export default function HomePage() {
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[1]?.eventId + "/image"} />
 
               </div>
-              <div className="category-item-description">
-                {popularEvents[1]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[1]?.eventName}
               </div>
             </Link>
 
@@ -156,8 +156,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[2]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[2]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[2]?.eventName}
               </div>
             </Link>
 
@@ -165,8 +165,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[3]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[3]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[3]?.eventName}
               </div>
             </Link>
 
@@ -174,8 +174,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[4]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[4]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[4]?.eventName}
               </div>
             </Link>
 
@@ -183,8 +183,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[5]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[5]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[5]?.eventName}
               </div>
             </Link>
 
@@ -192,8 +192,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[6]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[6]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[6]?.eventName}
               </div>
             </Link>
 
@@ -201,8 +201,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[7]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[7]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[7]?.eventName}
               </div>
             </Link>
 
@@ -210,8 +210,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[8]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[8]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[8]?.eventName}
               </div>
             </Link>
 
@@ -219,8 +219,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[9]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[9]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[9]?.eventName}
               </div>
             </Link>
 
@@ -228,8 +228,8 @@ export default function HomePage() {
               <div className="category-item">
                 <img src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + popularEvents[10]?.eventId + "/image"} />
               </div>
-              <div className="category-item-description">
-                {popularEvents[10]?.eventDescription}
+              <div className="category-item-name">
+                {popularEvents[10]?.eventName}
               </div>
             </Link>
 
