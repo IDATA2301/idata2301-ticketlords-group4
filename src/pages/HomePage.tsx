@@ -126,7 +126,7 @@ export default function HomePage() {
                 onClick={() => handleScroll("left")}
               >
                 <img
-                  src="/src/assets/arrow-left.png"
+                  src="/arrow-left.png"
                   alt="Arrow left icon"
                 />
               </button>
@@ -243,7 +243,7 @@ export default function HomePage() {
                 onClick={() => handleScroll("right")}
               >
                 <img
-                  src="/src/assets/arrow-right.png"
+                  src="/arrow-right.png"
                   alt="Arrow right icon"
                 />
               </button>

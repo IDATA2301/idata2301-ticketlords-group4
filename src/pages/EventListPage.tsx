@@ -140,7 +140,7 @@ export default function EventListPage({ title, fetchEvents }: Props) {
               <li>Navigate through category menus</li>
             </ul>
             <div className="no-search-found-image">
-              <img src="/src/assets/Chillin.png" alt="Image of a dude chilling on a sunbed"></img></div>
+              <img src="/Chillin.png" alt="Image of a dude chilling on a sunbed"></img></div>
           </div> :
           <div className="searched-events">
             {sortedEvents(results).map((event: Event) => {
