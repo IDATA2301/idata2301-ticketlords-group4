@@ -63,7 +63,7 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
           aria-label="Previus event"
         >
           <img
-            src="/src/assets/arrow-left.png"
+            src="/arrow-left.png"
             alt="Arrow left icon"
           />
         </button>
@@ -74,7 +74,7 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
           aria-label="Next event"
         >
           <img
-            src="/src/assets/arrow-right.png"
+            src="/arrow-right.png"
             alt="Arrow right icon"
           />
         </button>
