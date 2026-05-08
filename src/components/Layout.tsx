@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 import "../css/HamburgerMenu.css";
-import "../css/Slider.css";
 
 export default function Layout() {
   const [showTopbar, setShowTopbar] = useState(true);

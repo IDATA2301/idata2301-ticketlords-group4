@@ -110,10 +110,6 @@ event-category {
   font-weight: bold;
 }
 
-.slider {
-  display: flex;
-  align-items: center;
-}
 
 .carousel-content {
   display: flex;
