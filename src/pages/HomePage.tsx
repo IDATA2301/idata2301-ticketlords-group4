@@ -76,8 +76,6 @@ export default function HomePage() {
 
       <PopularEventsCarousel popularEvents={popularEvents} />
 
-      <br />
-      <br />
     </>
   );
 }
