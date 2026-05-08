@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import type Event from "../util/dtos/Event";
 import "../css/PopularEventsCarousel.css"
-
+import { API_BASE_URL } from "../config";
 interface PopularEventsCarouselProps {
   popularEvents: Event[];
 }
@@ -35,7 +35,7 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
         className="carousel"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
-        >
+      >
         <div className="carousel-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
           {events.map((event, i) => (
             <Link
@@ -45,23 +45,23 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
               tabIndex={i === activeIndex ? 0 : -1}
             >
               <img
-                src={`${IMAGE_BASE}${event.eventId}/image`}
+                src={`${API_BASE_URL}/events/${event.eventId}/image`}
                 alt={event.eventName ?? `Event ${i + 1}`}
                 className="carousel-slide-img"
                 draggable={false}
               />
               <div className="carousel-slide-overlay">
-                {event.eventName && <p className="carousel-slide-name">{event.eventName}</p> }
+                {event.eventName && <p className="carousel-slide-name">{event.eventName}</p>}
                 <span className="carousel-slide-cta">More info</span>
               </div>
             </Link>
-            ))}
-      </div>
+          ))}
+        </div>
         <button
           className="carousel-arrow carousel-arrow--left"
           onClick={prev}
           aria-label="Previus event"
-          >
+        >
           <img
             src="/src/assets/arrow-left.png"
             alt="Arrow left icon"
@@ -72,7 +72,7 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
           className="carousel-arrow carousel-arrow--right"
           onClick={next}
           aria-label="Next event"
-          >
+        >
           <img
             src="/src/assets/arrow-right.png"
             alt="Arrow right icon"

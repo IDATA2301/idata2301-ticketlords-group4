@@ -5,6 +5,7 @@ import type Event from "../util/dtos/Event"
 import { addToCart } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
 import type Ticket from "../util/dtos/Ticket";
+import { API_BASE_URL } from "../config";
 
 
 export default function EventPage() {
@@ -22,7 +23,7 @@ export default function EventPage() {
     if (!eventId) return;
     const loadEvent = async () => {
       try {
-        const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/event/" + encodeURIComponent(eventId));
+        const response = await fetch(`${API_BASE_URL}/events/event/` + encodeURIComponent(eventId));
         if (!response.ok) {
           setEvent(fallBackEvent);
           return;
@@ -44,7 +45,7 @@ export default function EventPage() {
     const loadTickets = async () => {
       try {
         if (event !== null) {
-          const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/tickets/by-event/" + encodeURIComponent(event.eventId))
+          const response = await fetch(`${API_BASE_URL}/tickets/by-event/` + encodeURIComponent(event.eventId))
           if (response.ok) {
             setTickets(await response.json());
           }
@@ -106,7 +107,7 @@ export default function EventPage() {
             {event?.imgPathUrl ? (
               <img
                 className="event-hero-image"
-                src={"https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/" + event.eventId + "/image"}
+                src={`${API_BASE_URL}/events/` + event.eventId + "/image"}
                 alt={event.eventName}
               />
             ) : (
