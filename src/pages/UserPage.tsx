@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/UserPage.css"
 import { API_BASE_URL } from "../config";
-import { getEmailFromToken, isAuthenticated } from "../util/authUtils";
+import { clearAuthToken, getEmailFromToken, isAuthenticated } from "../util/authUtils";
 import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
@@ -32,6 +32,8 @@ export default function UserPage() {
       })
       .catch((error) => console.error("Error fetching user:", error));
   }, []);
+
+  const logOut = () => clearAuthToken() && navigate("/login");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
@@ -94,6 +96,9 @@ export default function UserPage() {
       <br />
 
       <button id="submitChanges">Submit changes</button>
+
+      <br />
+      <button id="logout" onClick={logOut}>Log out</button>
 
     </>
   );
