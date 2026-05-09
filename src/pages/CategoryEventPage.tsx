@@ -1,6 +1,7 @@
 import EventListPage from "./EventListPage";
 import { useParams } from "react-router-dom";
 import type Event from "../util/dtos/Event";
+import { API_BASE_URL } from "../config";
 
 
 export default function CategoryEventPage() {
@@ -18,7 +19,7 @@ export default function CategoryEventPage() {
 
   const fetchEvents = async (): Promise<Event[]> => {
     if (!category) return [];
-    const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/category/" + encodeURIComponent(category));
+    const response = await fetch(`${API_BASE_URL}/events/category/` + encodeURIComponent(category));
     if (!response.ok) return [];
     return response.json();
   }

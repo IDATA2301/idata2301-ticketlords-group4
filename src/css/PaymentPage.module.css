@@ -1,0 +1,80 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 250px 0px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+.content {
+  height: 500px;
+  width: 500px;
+  background-color: firebrick;
+  border-radius: 30px;
+  padding: 0px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.description {
+  align-self: flex-start;
+}
+
+.cardNumber {
+  align-self: center;
+  width: 100%;
+  height: 35px;
+  font-size: 18px;
+  letter-spacing: 0.15rem;
+}
+
+.middle {
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.expiry {
+  width: 100%;
+}
+
+.expiry input {
+  width: 100%;
+  height: 35px;
+}
+
+.cvv {
+  width: 100%;
+}
+
+.cvv input {
+  width: 100%;
+  height: 35px;
+}
+
+.cardholderName {}
+
+.cardholderName input {
+  width: 100%;
+  height: 35px;
+}
+
+.payButton {
+  height: 35px;
+}
+
+.payButton:hover {
+  background-color: white;
+  cursor: pointer;
+}

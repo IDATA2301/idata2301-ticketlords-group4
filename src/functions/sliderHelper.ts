@@ -1,4 +1,4 @@
-export function scrollByOne(
+/** export function scrollByOne(
   container: HTMLElement | null,
   direction: "left" | "right",
 ) {
@@ -28,3 +28,4 @@ export function slide(
     });
   }
 }
+**/
