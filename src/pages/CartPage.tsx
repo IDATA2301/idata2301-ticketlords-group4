@@ -5,6 +5,8 @@ import { getCart, removeFromCart, getCartTotalCost } from "../functions/CartHand
 import type CartItem from "../data/CartItem";
 import { useNavigate } from "react-router-dom";
 import CartSummary from "../components/CartSummary";
+import { isAuthenticated } from "../util/authUtils";
+import isValidEmail from "../functions/EmailRegex";
 
 export default function CartPage() {
 
@@ -12,7 +14,6 @@ export default function CartPage() {
   const [totalCost, setTotalCost] = useState(getCartTotalCost());
   const [pricePreTax, setPricePreTax] = useState(getCartTotalCost() * 0.75);
   const [taxPrice, setTaxPrice] = useState(getCartTotalCost() * 0.25);
-  const [hardcodedIsLoggedIn, setHardcodedIsNotLoggedIn] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -90,7 +91,7 @@ export default function CartPage() {
           </div>
 
           {/* Show if the user is not logged in*/}
-          {!hardcodedIsLoggedIn &&
+          {!isAuthenticated() &&
             <div className={styles["not-logged-in-prompt"]}>
               <div className={styles["guest-prompt"]}>
                 <h2>Stay as guest</h2>
@@ -130,12 +131,12 @@ export default function CartPage() {
 
           <div className={styles["place-order"]}>
             <button onClick={() => {
-              if (!hardcodedIsLoggedIn) {
+              if (!isAuthenticated()) {
                 if (!email) {
                   setEmailError(true);
                   return;
                 }
-                if (!email.includes("@") || !email.includes(".")) {
+                if (!isValidEmail(email)) {
                   setValidEmail(false);
                   return;
                 }
