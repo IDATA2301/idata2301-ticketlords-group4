@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Slider.css";
+import { API_BASE_URL } from "../config";
 
 import { scrollByOne, slide } from "../functions/sliderHelper";
 import type Event from "../util/dtos/Event";
@@ -23,7 +24,7 @@ export default function HomePage() {
   };
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
-    const response = await fetch("https://ticketlords-backend-app-ripdj.ondigitalocean.app/events/popular");
+    const response = await fetch(`${API_BASE_URL}/events/popular`);
     if (!response.ok) return [];
     return response.json();
   }
