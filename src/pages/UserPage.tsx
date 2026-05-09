@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import "../css/UserPage.css"
 import { API_BASE_URL } from "../config";
+import { getEmailFromToken, isAuthenticated } from "../util/authUtils";
+import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     displayName: "",
@@ -12,6 +15,9 @@ export default function UserPage() {
   });
 
   useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate("/login");
+    }
     // Fetch user data from backend
     fetch(`${API_BASE_URL}/users/user/1`) //TODO: change 0 to {id} when users have their own page
       .then((response) => response.json())
