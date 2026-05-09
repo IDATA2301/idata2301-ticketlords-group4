@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import {useState, useEffect, useRef} from "react";
+import {Link} from "react-router-dom";
 import type Event from "../util/dtos/Event";
 import "../css/PopularEventsCarousel.css"
-import { API_BASE_URL } from "../config";
+import {API_BASE_URL} from "../config";
+
 interface PopularEventsCarouselProps {
   popularEvents: Event[];
 }
 
 const IMAGE_BASE = "http://10.212.25.185:8080/events/";
 
-export default function PopularEventsCarousel({ popularEvents }: PopularEventsCarouselProps) {
+export default function PopularEventsCarousel({popularEvents}: PopularEventsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -34,28 +35,29 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
       <div
         className="carousel"
         onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <div className="carousel-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
-          {events.map((event, i) => (
-            <Link
-              key={event.eventId}
-              to={`/event/${event.eventId}`}
-              className="carousel-slide"
-              tabIndex={i === activeIndex ? 0 : -1}
-            >
-              <img
-                src={`${API_BASE_URL}/events/${event.eventId}/image`}
-                alt={event.eventName ?? `Event ${i + 1}`}
-                className="carousel-slide-img"
-                draggable={false}
-              />
-              <div className="carousel-slide-overlay">
-                {event.eventName && <p className="carousel-slide-name">{event.eventName}</p>}
-                <span className="carousel-slide-cta">More info</span>
-              </div>
-            </Link>
-          ))}
+        onMouseLeave={() => setIsPaused(false)}>
+        <div className="carousel-inner">
+          <div className="carousel-track" style={{transform: `translateX(-${activeIndex * 100}%)`}}>
+            {events.map((event, i) => (
+              <Link
+                key={event.eventId}
+                to={`/event/${event.eventId}`}
+                className="carousel-slide"
+                tabIndex={i === activeIndex ? 0 : -1}
+              >
+                <img
+                  src={`${API_BASE_URL}/events/${event.eventId}/image`}
+                  alt={event.eventName ?? `Event ${i + 1}`}
+                  className="carousel-slide-img"
+                  draggable={false}
+                />
+                <div className="carousel-slide-overlay">
+                  {event.eventName && <p className="carousel-slide-name">{event.eventName}</p>}
+                  <span className="carousel-slide-cta">More info</span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
         <button
           className="carousel-arrow carousel-arrow--left"
@@ -79,6 +81,7 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
           />
         </button>
         {/* Pause / play toggle — matching the Live Nation ⏸ button */}
+        <div className="carousel-shadow-overlay"/>
       </div>
     </section>
   );
