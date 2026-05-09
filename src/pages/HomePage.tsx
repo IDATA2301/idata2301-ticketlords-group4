@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx";
 import "../css/Slider.css";
-import { API_BASE_URL } from "../config";
-
-import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx"; // adjust path if needed
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
 
