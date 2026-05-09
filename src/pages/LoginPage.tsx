@@ -1,13 +1,19 @@
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import { API_BASE_URL } from "../config";
-import { setAuthToken } from "../util/authUtils";
+import { isAuthenticated, setAuthToken } from "../util/authUtils";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [ error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/user-page");
+    }
+  }, []);
 
   const handleLogin = async (e: React.SubmitEvent) => {
     e.preventDefault();

@@ -3,6 +3,7 @@ import { useNavigate, Link} from "react-router-dom";
 import { useUnregisteredUser } from "../context/UnregisteredUserContext";
 import { API_BASE_URL } from "../config";
 import isValidEmail from "../functions/EmailRegex";
+import { isAuthenticated } from "../util/authUtils";
 
 
 
@@ -23,6 +24,11 @@ export default function RegisterUserPage() {
     console.log("Current unreg user ID:", unregisteredUserId);
   }, [unregisteredUserId]);
 
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/user-page");
+    }
+  }, []);
 
   const handleSubmit = () => {
     const errors: { [key: string]: string } = {};
