@@ -10,7 +10,7 @@ import SearchPage from "./pages/SearchPage";
 import CategoryEventPage from "./pages/CategoryEventPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
-import CheckoutPage from "./pages/CheckoutPage";
+import PaymentPage from "./pages/PaymentPage";
 import CartPage from "./pages/CartPage";
 
 
@@ -28,12 +28,12 @@ function App() {
             <Route path="events/search" element={<SearchPage />} />
             <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
             <Route path="event/:eventId" element={<EventPage />} />
-            <Route path="registerUser" element={<RegisterUserPage />} />
+            <Route path="register" element={<RegisterUserPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="user" element={<UserPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="about-us" element={<AboutPage />} />
-            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="checkout" element={<PaymentPage />} />
             <Route path="cart" element={<CartPage />} />
           </Route>
         </Routes>

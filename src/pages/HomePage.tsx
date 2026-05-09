@@ -24,9 +24,13 @@ export default function HomePage() {
   };
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
-    const response = await fetch(`${API_BASE_URL}/events/popular`);
-    if (!response.ok) return [];
-    return response.json();
+    try {
+      const response = await fetch(`${API_BASE_URL}/events/popular`);
+      if (!response.ok) return [];
+      return response.json();
+    } catch {
+      return [];
+    }
   }
 
   useEffect(() => {
