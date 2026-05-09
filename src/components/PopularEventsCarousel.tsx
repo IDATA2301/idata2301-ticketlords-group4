@@ -1,8 +1,8 @@
 import {useState, useEffect, useRef} from "react";
 import {Link} from "react-router-dom";
-import type Event from "../util/dtos/Event";
+import type Event from "../util/dtos/Event.ts";
 import "../css/PopularEventsCarousel.css"
-import {API_BASE_URL} from "../config";
+import {API_BASE_URL} from "../config.ts";
 
 interface PopularEventsCarouselProps {
   popularEvents: Event[];
