@@ -2,11 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import { useUnregisteredUser } from "../context/UnregisteredUserContext";
 import { API_BASE_URL } from "../config";
+import isValidEmail from "../functions/EmailRegex";
 
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+
 
 export default function RegisterUserPage() {
   const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
