@@ -4,6 +4,7 @@ import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx";
 import "../css/Slider.css";
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
+import RecommendedEvents from "../components/RecommendedEvents.tsx";
 
 export default function HomePage() {
   const [popularEvents, setPopularEvents] = useState<Event[]>([]);
@@ -82,6 +83,7 @@ export default function HomePage() {
 
       <PopularEventsCarousel popularEvents={popularEvents} />
 
+      <RecommendedEvents />
     </>
   );
 }
