@@ -1,13 +1,19 @@
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import { API_BASE_URL } from "../config";
-import { setAuthToken } from "../util/authUtils";
+import { isAuthenticated, setAuthToken } from "../util/authUtils";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [ error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/user-page");
+    }
+  }, []);
 
   const handleLogin = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -34,7 +40,7 @@ export default function LoginPage() {
       // Store token using auth utility
       setAuthToken(data.token);
       // Navigate to protected page
-      navigate("/userPage");
+      navigate("/user-page");
       
     } catch (err) {
       setError("Login failed");
@@ -57,7 +63,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <Link to="/registerUser">
+      <Link to="/register">
         <p>Click here to register a new user!</p>
       </Link>
     </>

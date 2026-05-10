@@ -23,7 +23,7 @@ export default function EventListPage({ title, fetchEvents }: Props) {
 
   useEffect(() => {
     fetchEvents().then(events => {
-      if (events.length === 0) {
+      if (!events || events.length === 0) {
         setNotFound(true);
         setResults([]);
       } else {

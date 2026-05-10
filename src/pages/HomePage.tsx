@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx";
 import "../css/Slider.css";
-
-import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx"; // adjust path if needed
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
 
@@ -10,10 +9,14 @@ export default function HomePage() {
   const [popularEvents, setPopularEvents] = useState<Event[]>([]);
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
-    const response = await fetch(`${API_BASE_URL}/events/popular`);
-    if (!response.ok) return [];
-    return response.json();
-  };
+    try {
+      const response = await fetch(`${API_BASE_URL}/events/popular`);
+      if (!response.ok) return [];
+      return response.json();
+    } catch {
+      return [];
+    }
+  }
 
   useEffect(() => {
     fetchPopularEvents().then((events) => {

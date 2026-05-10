@@ -78,8 +78,9 @@ export function getEmailFromToken(): string | null {
 /**
  * Removes the token from localStorage (logout)
  */
-export function clearAuthToken(): void {
+export function clearAuthToken(): boolean {
   localStorage.removeItem("authToken");
+  return true;
 }
 
 /**
