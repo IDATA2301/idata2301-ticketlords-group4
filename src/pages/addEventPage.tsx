@@ -1,10 +1,17 @@
 import "../css/addEvent.css";
-import {useRef} from "react";
+import type Category from "../util/dtos/Category.ts";
+import {useEffect, useRef, useState} from "react";
+import Select from "react-select";
+import {API_BASE_URL} from "../config.ts";
+
+type CategoryOption = { value: number; label: string };
 
 export default function AddEventPage() {
+  const [selectedCategory, setSelectedCategory] = useState<CategoryOption | null>(null);
+  const [categories, setCategories] = useState<CategoryOption[]>([]);
+
   const eventNameRef = useRef<HTMLInputElement>(null);
   const hostRef = useRef<HTMLInputElement>(null);
-  const categoryRef = useRef<HTMLInputElement>(null);
   const eventDateStartRef = useRef<HTMLInputElement>(null);
   const eventDateEndRef = useRef<HTMLInputElement>(null);
   const eventVenue = useRef<HTMLInputElement>(null);
@@ -12,13 +19,36 @@ export default function AddEventPage() {
   const imgPathUrl = useRef<HTMLInputElement>(null);
 
 
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+      const response = await fetch(`${API_BASE_URL}/categories/`);
+      if (!response.ok) {
+        console.error("Failed to fetch categories");
+        return;
+      }
+      const data: Category[] = await response.json();
+      const formatted: CategoryOption[] = data.map(cat => ({
+        value: cat.categoryId,
+        label: cat.categoryName
+      }));
+      setCategories(formatted);
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    loadCategories();
+  }, []);
+
     return (
     <div className="add-event-page">
       <input type="text" ref={eventNameRef} placeholder="Event name"/>
 
       <input type="text" ref={hostRef} placeholder="Host name"/>
 
-      <input type="text" ref={categoryRef} placeholder="Category"/>
+      <Select options={categories}
+              onChange={option => setSelectedCategory(option as CategoryOption | null)}
+              placeholder="Select a category" isSearchable/>
 
       <input type="date" ref={eventDateStartRef} placeholder="Start date"/>
 
@@ -28,7 +58,7 @@ export default function AddEventPage() {
 
       <input type="text" ref={eventDescription} placeholder="Description" />
 
-      <input type="image" ref={imgPathUrl} />
+      <input type="file" ref={imgPathUrl} />
 
 
 
