@@ -9,9 +9,14 @@ export default function SearchPage() {
   const query = searchQuery.get("query") || "";
   const fetchEvents = async (): Promise<Event[]> => {
     if (!query) return [];
-    const response = await fetch(`${API_BASE_URL}/events/search?query=` + encodeURIComponent(query));
-    if (!response.ok) return [];
-    return response.json();
+    try {
+      const response = await fetch(`${API_BASE_URL}/events/search?query=` + encodeURIComponent(query));
+      if (!response.ok) return [];
+      return response.json();
+    } catch {
+      return [];
+    }
+
   }
   return (
     <EventListPage

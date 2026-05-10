@@ -81,7 +81,7 @@ function clearCart() {
  *
  * @returns The total amount of items in the cart.
  */
-export function getCartCount() {
+export function getTicketCountInCart() {
   const cart = getCart();
   return cart.items.reduce((total: number, item: CartItem) => total + item.amount, 0);
 }
