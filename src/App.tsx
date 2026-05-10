@@ -3,6 +3,7 @@ import { UnregisteredUserProvider } from "./context/UnregisteredUserContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
+import AddEventPage from "./pages/addEventPage.tsx";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import RegisterUserPage from "./pages/RegisterUserPage";
@@ -28,6 +29,7 @@ function App() {
             <Route path="events/search" element={<SearchPage />} />
             <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
             <Route path="event/:eventId" element={<EventPage />} />
+            <Route path="addevent" element={<AddEventPage />} />
             <Route path="register" element={<RegisterUserPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="user-page" element={<UserPage />} />
