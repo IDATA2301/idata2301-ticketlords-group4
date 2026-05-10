@@ -5,8 +5,10 @@ import { getCart, removeFromCart, getCartTotalCost } from "../functions/CartHand
 import type CartItem from "../data/CartItem";
 import { useNavigate } from "react-router-dom";
 import CartSummary from "../components/CartSummary";
-import { isAuthenticated } from "../util/authUtils";
+import { getUserIdFromToken, isAuthenticated } from "../util/authUtils";
 import isValidEmail from "../functions/EmailRegex";
+import type RegisteredUser from "../util/dtos/RegisteredUser";
+import { API_BASE_URL } from "../config";
 
 export default function CartPage() {
 
@@ -43,6 +45,25 @@ export default function CartPage() {
   useEffect(() => {
     setTotalCost(getCartTotalCost());
   }, [cartItems])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userId = getUserIdFromToken();
+
+      if (userId) {
+        try {
+          const registeredUserData = await fetch(`${API_BASE_URL}/users/user/` + encodeURIComponent(userId));
+          if (registeredUserData.ok) {
+            const registeredUser: RegisteredUser = await registeredUserData.json();
+            setEmail(registeredUser.email);
+          }
+        } catch {
+          console.error("Failed to fetch user data");
+        }
+      }
+    }
+    fetchUser();
+  }, []);
 
 
   return (
