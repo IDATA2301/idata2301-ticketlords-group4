@@ -1,17 +1,22 @@
-import {useState, useEffect, useRef} from "react";
-import {Link} from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import type Event from "../util/dtos/Event.ts";
 import "../css/PopularEventsCarousel.css"
-import {API_BASE_URL} from "../config.ts";
+import { API_BASE_URL } from "../config.ts";
+import registerEventClick from "../functions/RegisterEventClick.ts";
+import registerInterest from "../functions/RegisterInterest.ts";
+import { getUserIdFromToken, isAuthenticated } from "../util/authUtils.ts";
 
 interface PopularEventsCarouselProps {
   popularEvents: Event[];
 }
 
-export default function PopularEventsCarousel({popularEvents}: PopularEventsCarouselProps) {
+export default function PopularEventsCarousel({ popularEvents }: PopularEventsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const userId = getUserIdFromToken();
+  const unregisteredId = localStorage.getItem("unregisteredUserId");
 
   const events = popularEvents.slice(0, 9).filter(Boolean);
   const total = events.length;
@@ -35,13 +40,23 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}>
         <div className="carousel-inner">
-          <div className="carousel-track" style={{transform: `translateX(-${activeIndex * 100}%)`}}>
+          <div className="carousel-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
             {events.map((event, i) => (
               <Link
                 key={event.eventId}
                 to={`/event/${event.eventId}`}
                 className="carousel-slide"
                 tabIndex={i === activeIndex ? 0 : -1}
+                onClick={() => {
+                  if (unregisteredId) {
+                    registerEventClick(event.eventId, parseInt(unregisteredId));
+                  }
+                  if (userId) {
+                    registerInterest(event.category.categoryId, userId)
+                  }
+                }
+                }
+
               >
                 <img
                   src={`${API_BASE_URL}/events/${event.eventId}/image`}
@@ -91,7 +106,7 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
         </div>
 
         {/* Pause / play toggle — matching the Live Nation ⏸ button */}
-        <div className="carousel-shadow-overlay"/>
+        <div className="carousel-shadow-overlay" />
 
       </div>
     </section>
