@@ -8,8 +8,6 @@ interface PopularEventsCarouselProps {
   popularEvents: Event[];
 }
 
-const IMAGE_BASE = "http://10.212.25.185:8080/events/";
-
 export default function PopularEventsCarousel({popularEvents}: PopularEventsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -80,8 +78,21 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
             alt="Arrow right icon"
           />
         </button>
+
+        <div className="carousel-dots">
+          {events.map((_, i) => (
+            <button
+              key={i}
+              className={`carousel-dot ${i === activeIndex ? "carousel-dot--active" : ""}`}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
         {/* Pause / play toggle — matching the Live Nation ⏸ button */}
         <div className="carousel-shadow-overlay"/>
+
       </div>
     </section>
   );
