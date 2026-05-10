@@ -1,6 +1,6 @@
 interface DecodedToken {
   sub?: string;
-  email?: string;
+  userId?: string;
   exp?: number;
   iat?: number;
 }
@@ -60,15 +60,19 @@ export function isAuthenticated(): boolean {
 }
 
 /**
- * Gets the email from the stored token
+ * Gets the userId from the stored token, parsed as a number (long)
  */
-export function getEmailFromToken(): string | null {
+export function getUserIdFromToken(): number | null {
   const token = getTokenFromStorage();
   if (!token) return null;
   
   try {
     const decoded: DecodedToken = jwtDecode(token);
-    return decoded.sub || decoded.email || null;
+    const userIdStr = decoded.userId || decoded.sub;
+    if (!userIdStr) return null;
+    
+    const userId = Number(userIdStr);
+    return isNaN(userId) ? null : userId;
   } catch (error) {
     console.error("Error decoding token:", error);
     return null;
