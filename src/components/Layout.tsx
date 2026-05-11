@@ -73,6 +73,9 @@ export default function Layout() {
             </Link>
           </div>
           <div className="topnav-right">
+            <Link to="/addevent">
+              <button className="create-event-btn">Create Event</button>
+            </Link>
             <Link to="/cart">
               <button className="cart-btn">
                 <img
