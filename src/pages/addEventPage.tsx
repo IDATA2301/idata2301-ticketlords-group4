@@ -24,7 +24,7 @@ export default function AddEventPage() {
   const hostRef = useRef<HTMLInputElement>(null);
   const eventDateStartRef = useRef<HTMLInputElement>(null);
   const eventDateEndRef = useRef<HTMLInputElement>(null);
-  const eventDescriptionRef = useRef<HTMLInputElement>(null);
+  const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
   const imgPathUrlRef = useRef<HTMLInputElement>(null);
 
 
@@ -160,46 +160,78 @@ export default function AddEventPage() {
 
   return (
     <div className="add-event-page">
-      <form onSubmit={(e) => {e.preventDefault(); handleSubmit();}}>
-        <input type="text" ref={eventNameRef} placeholder="Event name"/>
-        {fieldErrors.name && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.name}</p>}
+      <div className="add-event-card">
+        <h2>Create Event</h2>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}>
 
-        <input type="text" ref={hostRef} placeholder="Host name"/>
-        {fieldErrors.host && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.host}</p>}
+          <div className="add-event-field">
+            <label>Event Name</label>
+            <input type="text" ref={eventNameRef} placeholder="e.g Spring festival"/>
+            {fieldErrors.name && <p className="field-error">{fieldErrors.name}</p>}
+          </div>
 
-        <Select options={categories}
-                onChange={option => setSelectedCategory(option as CategoryOption | null)}
-                placeholder="Select a category" isSearchable/>
-        {fieldErrors.category && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.category}</p>}
+          <div className="add-event-field">
+            <label>Host</label>
+            <input type="text" ref={hostRef} placeholder="Host of the event"/>
+            {fieldErrors.host && <p className="field-error">{fieldErrors.host}</p>}
+          </div>
 
-        <input type="date" ref={eventDateStartRef} placeholder="Start date"/>
-        {fieldErrors.datestart && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.datestart}</p>}
+          <div className="add-event-field">
+            <label>Category</label>
+            <Select options={categories}
+                    onChange={option => setSelectedCategory(option as CategoryOption | null)}
+                    placeholder="Select a category" isSearchable/>
+            {fieldErrors.category && <p className="field-error">{fieldErrors.category}</p>}
+          </div>
 
-        <input type="date" ref={eventDateEndRef} placeholder="End date"/>
-        {fieldErrors.dateend && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.dateend}</p>}
+          <div className="add-event-row">
+            <div className="add-event-field">
+              <label>Start Date</label>
+              <input type="date" ref={eventDateStartRef} placeholder="Start date"/>
+              {fieldErrors.datestart && <p className="field-error">{fieldErrors.datestart}</p>}
+            </div>
+            <div className="add-event-field">
+              <label>End Date</label>
+              <input type="date" ref={eventDateEndRef} placeholder="End date"/>
+              {fieldErrors.dateend && <p className="field-error">{fieldErrors.dateend}</p>}
+            </div>
+          </div>
 
-        {/* Venue search */}
-        <input type="text" placeholder="Country" value={country} onChange={e => setCountry(e.target.value)}/>
-        <input type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)}/>
-        <button type="button" onClick={loadVenues}>Search venues</button>
-        {venues.length > 0 && (
-          <Select options={venues}
-                  onChange={option => setSelectedVenue(option as VenueOption | null)}
-                  placeholder="Select a venue" isSearchable/>
-        )}
-        {fieldErrors.venue && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.venue}</p>}
+          {/* Venue search */}
+          <div className="add-event-field">
+            <label>Venue</label>
+            <input type="text" placeholder="e.g Noreg" value={country} onChange={e => setCountry(e.target.value)}/>
+            <input type="text" placeholder="e.g Ålesund" value={city} onChange={e => setCity(e.target.value)}/>
+            <button type="button" onClick={loadVenues}>Search venues</button>
+            {venues.length > 0 && (
+              <Select options={venues}
+                      onChange={option => setSelectedVenue(option as VenueOption | null)}
+                      placeholder="Select a venue" isSearchable/>
+            )}
+            {fieldErrors.venue && <p className="field-error">{fieldErrors.venue}</p>}
+          </div>
 
-        <input type="text" ref={eventDescriptionRef} placeholder="Description"/>
-        {fieldErrors.description && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.description}</p>}
+          <div className="add-event-field">
+            <label>Description</label>
+            <textarea ref={eventDescriptionRef} placeholder="What is happening at the event" />
+            {fieldErrors.description && <p className="field-error">{fieldErrors.description}</p>}
+          </div>
 
-        <input type="file" ref={imgPathUrlRef}/>
-        {fieldErrors.image && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.image}</p>}
+          <div className="add-event-field">
+            <label>Event Image</label>
+            <input type="file" ref={imgPathUrlRef} accept="image/jpeg, image/png"/>
+            {fieldErrors.image && <p className="field-error">{fieldErrors.image}</p>}
+          </div>
 
-        {registrationError && <p style={{ color: "red", fontSize: "12px" }}>{registrationError}</p>}
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Creating..." : "Create Event"}
-        </button>
-      </form>
+          {registrationError && <p className="add-event-general-error">{registrationError}</p>}
+          <button type="submit" className="add-event-submit" disabled={isLoading}>
+            {isLoading ? "Creating..." : "Create Event"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
