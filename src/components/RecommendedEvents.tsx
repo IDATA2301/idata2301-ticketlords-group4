@@ -16,10 +16,10 @@ export default function RecommendedEvents() {
     const fetchRecommended = async () => {
       try {
         if (userId) {
-          // Sends auth token if present so the backend can personalise results
           const token = localStorage.getItem("token");
           const res = await fetch(`${API_BASE_URL}/api/user/` + encodeURIComponent(userId) + `/recommended-events`, {
-            headers: token ? { Authorization: `Bearer ${token}` } : {},
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` },
           });
           if (!res.ok) throw new Error();
           const data = await res.json();
