@@ -12,6 +12,7 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import PaymentPage from "./pages/PaymentPage";
 import CartPage from "./pages/CartPage";
+import SecretMailPage from "./pages/SecretMailPage";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="about-us" element={<AboutPage />} />
             <Route path="checkout" element={<PaymentPage />} />
             <Route path="cart" element={<CartPage />} />
+            <Route path="mail-easter-egg-picture-abdegh67bbbbbegh" element={<SecretMailPage />} />
           </Route>
         </Routes>
       </UnregisteredUserProvider>
