@@ -59,6 +59,9 @@ export default function EventPage() {
     loadTickets();
   }, [event]);
 
+  /**
+   * Saves the wishlist to the database, by sending a POST request to the backend with the userId and eventId.
+   */
   const saveWishlistToDatabase = async (userId: number, eventId: number) => {
     fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
       method: "POST",
@@ -69,6 +72,9 @@ export default function EventPage() {
     });
   }
 
+  /**
+   * Deletes the wishlist from the database, by sending a DELETE request to the backend with the userId and eventId.
+   */
   const deleteWishlistFromDatabase = async (userId: number, eventId: number) => {
     fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
       method: "DELETE",
