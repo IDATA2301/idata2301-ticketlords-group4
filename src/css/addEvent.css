@@ -1,0 +1,121 @@
+.add-event-page {
+    background: #ebe9ee;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px;
+    box-sizing: border-box;
+}
+
+.add-event-card {
+    background: white;
+    border-radius: 8px;
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 16px rgba(124, 42, 232, 0.08);
+}
+
+.add-event-card h2 {
+    color: #7c2ae8;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 24px 0;
+}
+
+.add-event-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.add-event-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d2d2d;
+    margin-bottom: 5px;
+}
+
+.add-event-field input[type="text"],
+.add-event-field input[type="date"] {
+    height: 38px;
+    padding: 0 12px;
+    border: 1.5px solid #d4c9f0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #2d2d2d;
+    background: #fdfcff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.add-event-field input[type="text"]:focus,
+.add-event-field input[type="date"]:focus {
+    border-color: #7c2ae8;
+    background: white;
+}
+
+.add-event-field input[type="file"] {
+    font-size: 13px;
+    color: #2d2d2d;
+    padding: 6px 0;
+}
+
+.add-event-row {
+    display: flex;
+    gap: 16px;
+}
+
+.add-event-row .add-event-field {
+    flex: 1;
+}
+
+.add-event-field .field-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.add-event-general-error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.add-event-submit {
+    cursor: pointer;
+    background-color: #DF32B6;
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 15px;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.add-event-submit:hover:not(:disabled) {
+    background-color: #aa1a87;
+}
+
+.add-event-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .add-event-card {
+        padding: 24px 18px;
+    }
+
+    .add-event-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
