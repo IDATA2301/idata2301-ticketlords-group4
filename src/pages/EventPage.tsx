@@ -6,14 +6,16 @@ import { addToCart } from "../functions/CartHandler";
 import type CartItem from "../data/CartItem";
 import type Ticket from "../util/dtos/Ticket";
 import { API_BASE_URL } from "../config";
+import { getUserIdFromToken, isAuthenticated } from "../util/authUtils";
 
 
 export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const toggleWishlist = () => setIsWishlisted(prev => !prev);
   const [event, setEvent] = useState<Event | null>(null);
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const token = localStorage.getItem("authToken");
+  const userId = getUserIdFromToken();
 
 
   /**
@@ -57,6 +59,25 @@ export default function EventPage() {
     loadTickets();
   }, [event]);
 
+  const saveWishlistToDatabase = async (userId: number, eventId: number) => {
+    fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      credentials: "include"
+    });
+  }
+
+  const deleteWishlistFromDatabase = async (userId: number, eventId: number) => {
+    fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      credentials: "include"
+    });
+  }
 
   const fallBackEvent: Event = {
     "eventName": "The Jhonnysons",
@@ -115,11 +136,22 @@ export default function EventPage() {
                 No image available
               </div>
             )}
-
             <button
               type="button"
               className={`wishlist-heart ${isWishlisted ? "is-active" : ""}`}
-              onClick={toggleWishlist}
+              onClick={() => {
+                if (isAuthenticated() && userId) {
+                  setIsWishlisted(!isWishlisted);
+                  if (!isWishlisted) {
+                    saveWishlistToDatabase(userId, event.eventId);
+                  } else {
+                    deleteWishlistFromDatabase(userId, event.eventId);
+                  }
+                } else {
+                  alert("You need to be logged in to use the wishlist feature.");
+                }
+              }
+              }
               aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             >
