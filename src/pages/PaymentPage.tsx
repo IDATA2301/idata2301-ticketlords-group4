@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { getCartTotalCost, getTicketCountInCart } from "../functions/CartHandler";
-import CartSummary from "../components/CartSummary";
+import { getCartTotalCost } from "../functions/CartHandler";
 import styles from "../css/PaymentPage.module.css";
 import { useLocation } from "react-router-dom";
 import mailHandler from "../functions/MailHandler";
