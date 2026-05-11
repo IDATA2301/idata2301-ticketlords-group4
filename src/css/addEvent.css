@@ -73,6 +73,26 @@
     flex: 1;
 }
 
+.add-event-field textarea {
+    padding: 10px 12px;
+    border: 1.5px solid #d4c9f0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #2d2d2d;
+    background: #fdfcff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    resize: vertical;   /* lets the user resize it vertically */
+    min-height: 120px;  /* default height — adjust to your liking */
+    font-family: inherit;
+}
+
+.add-event-field textarea:focus {
+    border-color: #7c2ae8;
+    background: white;
+}
+
 .add-event-field .field-error {
     color: red;
     font-size: 12px;

@@ -19,7 +19,7 @@ export default function AddEventPage() {
   const eventDateStartRef = useRef<HTMLInputElement>(null);
   const eventDateEndRef = useRef<HTMLInputElement>(null);
   const eventVenueRef = useRef<HTMLInputElement>(null);
-  const eventDescriptionRef = useRef<HTMLInputElement>(null);
+  const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
   const imgPathUrlRef = useRef<HTMLInputElement>(null);
 
 
@@ -173,7 +173,7 @@ export default function AddEventPage() {
 
           <div className="add-event-field">
             <label>Description</label>
-            <input type="text" ref={eventDescriptionRef} placeholder="What is happening at the event"/>
+            <textarea ref={eventDescriptionRef} placeholder="What is happening at the event" />
             {fieldErrors.description && <p className="field-error">{fieldErrors.description}</p>}
           </div>
 
