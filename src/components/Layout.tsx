@@ -73,6 +73,12 @@ export default function Layout() {
             </Link>
           </div>
           <div className="topnav-right">
+            <Link to="/cart">
+              <button className="cart-btn">
+                <img
+                  src="cart.png"
+                /></button>
+            </Link>
             <Link to="/login">
               <button className="login-btn">Login</button>
             </Link>
