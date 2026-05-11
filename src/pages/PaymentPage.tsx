@@ -3,6 +3,7 @@ import { getCartTotalCost, getTicketCountInCart } from "../functions/CartHandler
 import CartSummary from "../components/CartSummary";
 import styles from "../css/PaymentPage.module.css";
 import { useLocation } from "react-router-dom";
+import mailHandler from "../functions/MailHandler";
 
 export default function PaymentPage() {
 
@@ -79,6 +80,7 @@ export default function PaymentPage() {
 
         </div>
         <button className={styles.payButton}
+          onClick={() => mailHandler(userEmail)}
         >{"Pay " + getCartTotalCost() + " NOK"}</button>
       </div>
     </div >
