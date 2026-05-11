@@ -6,10 +6,16 @@ import {API_BASE_URL} from "../config.ts";
 import {useNavigate} from "react-router-dom";
 
 type CategoryOption = { value: number; label: string };
+type VenueOption = { value: number; label: string };
+type EventVenue = { venueId: number; arena: string; country: string; city: string; address: string };
 
 export default function AddEventPage() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryOption | null>(null);
   const [categories, setCategories] = useState<CategoryOption[]>([]);
+  const [selectedVenue, setSelectedVenue] = useState<VenueOption | null>(null);
+  const [venues, setVenues] = useState<VenueOption[]>([]);
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [registrationError, setRegistrationError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +24,6 @@ export default function AddEventPage() {
   const hostRef = useRef<HTMLInputElement>(null);
   const eventDateStartRef = useRef<HTMLInputElement>(null);
   const eventDateEndRef = useRef<HTMLInputElement>(null);
-  const eventVenueRef = useRef<HTMLInputElement>(null);
   const eventDescriptionRef = useRef<HTMLInputElement>(null);
   const imgPathUrlRef = useRef<HTMLInputElement>(null);
 
@@ -44,6 +49,25 @@ export default function AddEventPage() {
     loadCategories();
   }, []);
 
+  const loadVenues = async () => {
+    if (!country || !city) return;
+    try {
+      const response = await fetch(`${API_BASE_URL}/venues/location?country=${country}&city=${city}`);
+      if (!response.ok) {
+        console.error("Failed to fetch venues");
+        return;
+      }
+      const data: EventVenue[] = await response.json();
+      const formatted: VenueOption[] = data.map(venue => ({
+        value: venue.venueId,
+        label: venue.arena
+      }));
+      setVenues(formatted);
+    } catch (error) {
+      console.error("Error fetching venues:", error);
+    }
+  };
+
 
   const handleSubmit = async () => {
     if (isLoading) return;
@@ -62,7 +86,7 @@ export default function AddEventPage() {
     ) {
       errors.dateend = "End date must be after start date";
     }
-    if (!eventVenueRef.current?.value) errors.venue = "Venue is required";
+    if (!selectedVenue) errors.venue = "Venue is required";
     if (!eventDescriptionRef.current?.value) errors.description = "Description is required";
 
     const imageFile = imgPathUrlRef.current?.files?.[0];
@@ -81,45 +105,56 @@ export default function AddEventPage() {
 
     setFieldErrors({});
     setRegistrationError("");
-
-
-    const formData = new FormData();
-    formData.append("name", eventNameRef.current?.value || "");
-    formData.append("host", hostRef.current?.value || "");
-    formData.append("categoryId", String(selectedCategory!.value));
-    formData.append("dateStart", eventDateStartRef.current?.value || "");
-    formData.append("dateEnd", eventDateEndRef.current?.value || "");
-    formData.append("venue", eventVenueRef.current?.value || "");
-    formData.append("description", eventDescriptionRef.current?.value || "");
-    if (imageFile) {
-      formData.append("image", imageFile);
-    }
-
-    const token = localStorage.getItem("token");
-
     setIsLoading(true);
-    fetch(`${API_BASE_URL}/events/event`, {
-      method: "POST",
-      body: formData,
-      headers: {Authorization: `Bearer ${token}`},
-    })
-      .then((response) => {
-        console.log("1");
-        if (!response.ok) {
-          console.log("2");
-          throw new Error(`Failed to create event: ${response.statusText}`);
+
+    try {
+      let imageUrl = "";
+
+      if (imageFile) {
+        const formDataImage = new FormData();
+        formDataImage.append("image", imageFile);
+
+        const imgResponse = await fetch(`${API_BASE_URL}/events/upload-image`, {
+          method: "POST",
+          body: formDataImage,
+        });
+
+        if (!imgResponse.ok) {
+          throw new Error("Image upload failed");
         }
-        return response.json();
-      })
-      .then(() => {
-        setIsLoading(false);
-        navigate("/events");
-      })
-      .catch((error) => {
-        console.error("Error creating event:", error);
-        setRegistrationError("Failed to create event. Please try again.");
-        setIsLoading(false);
+        imageUrl = await imgResponse.text();
+      }
+
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${API_BASE_URL}/events/event`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          eventName: eventNameRef.current?.value || "",
+          host: hostRef.current?.value || "",
+          categoryId: selectedCategory!.value,
+          eventDateStart: eventDateStartRef.current?.value || "",
+          eventDateEnd: eventDateEndRef.current?.value || "",
+          venueId: selectedVenue!.value,
+          eventDescription: eventDescriptionRef.current?.value || "",
+          imgPathUrl: imageUrl,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Failed to create event: ${response.statusText}`);
+      }
+      
+      navigate("/events");
+    } catch (error) {
+      console.error("Error creating event:", error);
+      setRegistrationError("Failed to create event. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
 
@@ -132,7 +167,6 @@ export default function AddEventPage() {
         <input type="text" ref={hostRef} placeholder="Host name"/>
         {fieldErrors.host && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.host}</p>}
 
-
         <Select options={categories}
                 onChange={option => setSelectedCategory(option as CategoryOption | null)}
                 placeholder="Select a category" isSearchable/>
@@ -144,10 +178,16 @@ export default function AddEventPage() {
         <input type="date" ref={eventDateEndRef} placeholder="End date"/>
         {fieldErrors.dateend && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.dateend}</p>}
 
-
-        <input type="text" ref={eventVenueRef} placeholder="Venue"/>
+        {/* Venue search */}
+        <input type="text" placeholder="Country" value={country} onChange={e => setCountry(e.target.value)}/>
+        <input type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)}/>
+        <button type="button" onClick={loadVenues}>Search venues</button>
+        {venues.length > 0 && (
+          <Select options={venues}
+                  onChange={option => setSelectedVenue(option as VenueOption | null)}
+                  placeholder="Select a venue" isSearchable/>
+        )}
         {fieldErrors.venue && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.venue}</p>}
-
 
         <input type="text" ref={eventDescriptionRef} placeholder="Description"/>
         {fieldErrors.description && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.description}</p>}
@@ -155,7 +195,7 @@ export default function AddEventPage() {
         <input type="file" ref={imgPathUrlRef}/>
         {fieldErrors.image && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.image}</p>}
 
-        {registrationError && <p style={{color: "red", fontSize: "12px"}}>{registrationError}</p>}
+        {registrationError && <p style={{ color: "red", fontSize: "12px" }}>{registrationError}</p>}
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Creating..." : "Create Event"}
         </button>
