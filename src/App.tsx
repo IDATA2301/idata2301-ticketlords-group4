@@ -13,6 +13,7 @@ import AboutPage from "./pages/AboutPage";
 import PaymentPage from "./pages/PaymentPage";
 import CartPage from "./pages/CartPage";
 import SecretMailPage from "./pages/SecretMailPage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="register" element={<RegisterUserPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="user-page" element={<UserPage />} />
+            <Route path="edit-account" element={<EditProfilePage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="about-us" element={<AboutPage />} />
             <Route path="checkout" element={<PaymentPage />} />
