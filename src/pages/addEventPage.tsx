@@ -125,7 +125,7 @@ export default function AddEventPage() {
         imageUrl = await imgResponse.text();
       }
 
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("authToken");
       const response = await fetch(`${API_BASE_URL}/events/event`, {
         method: "POST",
         headers: {

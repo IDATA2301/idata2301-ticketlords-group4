@@ -1,17 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import {use, useEffect, useRef, useState} from "react";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import HamburgerMenu from "./HamburgerMenu";
 import "../css/HamburgerMenu.css";
+import useIsAdminRole from "../functions/CheckAdminRole.ts";
 
 export default function Layout() {
   const [showTopbar, setShowTopbar] = useState(true);
   const lastScrollY = useRef(0);
   const location = useLocation();
+  const isAdmin = useIsAdminRole(location.pathname);
 
   useEffect(() => {
     const handleWindowScroll = () => {
       const currentY = window.scrollY;
       const isMobile = window.innerWidth <= 600;
+
 
       if (!isMobile) {
         setShowTopbar(true);
@@ -59,23 +62,27 @@ export default function Layout() {
           <div className="topnav-left">
             <div className="hamburger-menu">
               <header>
-                <HamburgerMenu />
+                <HamburgerMenu/>
               </header>
             </div>
           </div>
           <div className="topnav-middle">
             <Link to="/home" className="home-button">
 
-              <img src="/TicketLordsLogo.png" />
+              <img src="/TicketLordsLogo.png"/>
               <div>
                 Ticket Lords
               </div>
             </Link>
           </div>
           <div className="topnav-right">
-            <Link to="/addevent">
-              <button className="create-event-btn">Create Event</button>
-            </Link>
+            <div>
+              {isAdmin && (
+                <Link to="/addevent">
+                  <button className="create-event-btn">Create Event</button>
+                </Link>
+              )}
+            </div>
             <Link to="/cart">
               <button className="cart-btn">
                 <img
@@ -85,11 +92,12 @@ export default function Layout() {
             <Link to="/login">
               <button className="login-btn">Login</button>
             </Link>
+
           </div>
         </div>
 
         {/* Page content*/}
-        <Outlet />
+        <Outlet/>
       </div>
 
       {/* Footer */}
