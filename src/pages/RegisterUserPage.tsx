@@ -92,24 +92,26 @@ export default function RegisterUserPage() {
   return (
     <>
       <div>
-        <input type="text" ref={displayNameRef} placeholder="Display name"/>
+        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+          <input type="text" ref={displayNameRef} placeholder="Display name" autoFocus />
 
-        <input type="email" ref={emailRef} placeholder="Email"/>
-        {fieldErrors.email && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.email}</p>}
+          <input type="email" ref={emailRef} placeholder="Email"/>
+          {fieldErrors.email && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.email}</p>}
 
-        <input type="text" ref={firstNameRef} placeholder="First name"/>
+          <input type="text" ref={firstNameRef} placeholder="First name"/>
 
-        <input type="text" ref={lastNameRef} placeholder="Last name"/>
+          <input type="text" ref={lastNameRef} placeholder="Last name"/>
 
-        <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
+          <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
 
-        <input type="password" ref={passwordRef} placeholder="Password"/>
-        {fieldErrors.password && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.password}</p>}
+          <input type="password" ref={passwordRef} placeholder="Password"/>
+          {fieldErrors.password && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.password}</p>}
 
-        {registrationError && <p style={{ color: "red", fontSize: "12px" }}>{registrationError}</p>}
-        <button type="button" onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? "Registering..." : "Register"}
-        </button>
+          {registrationError && <p style={{ color: "red", fontSize: "12px" }}>{registrationError}</p>}
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Registering..." : "Register"}
+          </button>
+        </form>
       </div>
 
       <Link to="/login">

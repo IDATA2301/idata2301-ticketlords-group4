@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { getCartTotalCost, getTicketCountInCart } from "../functions/CartHandler";
-import CartSummary from "../components/CartSummary";
+import { getCartTotalCost } from "../functions/CartHandler";
 import styles from "../css/PaymentPage.module.css";
 import { useLocation } from "react-router-dom";
+import mailHandler from "../functions/MailHandler";
 
 export default function PaymentPage() {
 
@@ -15,21 +15,29 @@ export default function PaymentPage() {
 
   return (
     <div className={styles.page}>
+      <div className={styles.disclaimer}>
+        <h1>Disclaimer:</h1>
+        <h3>This is not actually a functional payment portal. Do not use your actual payment information on this page.</h3>
+      </div>
       <div className={styles.content}>
-        <div className={styles.description}>Brought to you by: Skibidi toilet payment technology</div>
-        <input className={styles.cardNumber}
-          type="number"
-          placeholder="1234 5678 9012 3456"
-          name="cardNumber"
-          maxLength={16}
-          id="card-number"
-          autoComplete="off"
-          value={cardNumber}
-          onChange={e => {
-            const newValue = e.target.value.slice(0, 16);
-            setCardNumber(newValue);
-          }}
-        ></input>
+        <div className={styles.description}>Brought to you by: TicketLords payment technology</div>
+        <div className={styles.cardNumber}>
+          <h3>Card Number</h3>
+          <input
+            type="number"
+            placeholder="1234 5678 9012 3456"
+            name="cardNumber"
+            maxLength={16}
+            id="card-number"
+            autoComplete="off"
+            value={cardNumber}
+            onChange={e => {
+              const newValue = e.target.value.slice(0, 16);
+              setCardNumber(newValue);
+            }}
+          ></input>
+        </div>
+
         <div className={styles.middle}>
           <div className={styles.expiry}>
             <h3>Expiration Date</h3>
@@ -71,6 +79,7 @@ export default function PaymentPage() {
 
         </div>
         <button className={styles.payButton}
+          onClick={() => mailHandler(userEmail)}
         >{"Pay " + getCartTotalCost() + " NOK"}</button>
       </div>
     </div >

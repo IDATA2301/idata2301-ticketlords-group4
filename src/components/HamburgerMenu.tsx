@@ -19,30 +19,34 @@ const HamburgerMenu: React.FC = () => {
 
       {open && (
         <>
-          <div className="sidebar">
-            <div className="sidebar-top">
-              <div className="sidebar-event-categories">
-                <Link to="/events/category/arts-music">
-                  <div>🎶Arts & Music</div>
-                </Link>
-                <Link to="events/category/cinema">
-                  <div>✋😐🤚Cinema</div>
-                </Link>
-                <Link to="events/category/cultural">
-                  <div>🌍Cultural</div>
-                </Link>
-                <Link to="events/category/food-drinks">
-                  <div>🍜Food & Drinks</div>
-                </Link>
-                <Link to="events/category/sports">
-                  <div>🏋️Sports</div>
-                </Link>
-                <Link to="categories">
-                  <div>More</div>
-                </Link>
+          <div className="menu-overlay">
+            <div className="sidebar">
+              <div className="sidebar-top">
+                <div className="sidebar-event-categories">
+                  <Link to="/events/category/arts-music">
+                    <div>🎶Arts & Music</div>
+                  </Link>
+                  <Link to="events/category/cinema">
+                    <div>✋😐🤚Cinema</div>
+                  </Link>
+                  <Link to="events/category/cultural">
+                    <div>🌍Cultural</div>
+                  </Link>
+                  <Link to="events/category/food-drinks">
+                    <div>🍜Food & Drinks</div>
+                  </Link>
+                  <Link to="events/category/sports">
+                    <div>🏋️Sports</div>
+                  </Link>
+                  <Link to="categories">
+                    <div>More</div>
+                  </Link>
+                </div>
               </div>
+
             </div>
           </div>
+          <div className="sidebar-backdrop" onClick={() => setOpen(false)}></div>
         </>
       )}
     </>

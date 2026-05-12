@@ -1,4 +1,6 @@
-html, body, .app-shell {
+html,
+body,
+.app-shell {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -96,6 +98,24 @@ body {
   padding: 0;
 }
 
+.cart-btn {
+  padding: 6px 10px;
+  font-size: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-btn img {
+  height: 32px;
+  width: auto;
+}
+
 .login-btn {
   padding: 6px 10px;
   font-size: 1rem;
@@ -114,12 +134,25 @@ body {
   background-color: #45a049;
 }
 
+.create-event-btn {
+  cursor: pointer;
+  background-color: #DF32B6;
+  padding: 7px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
 .topnav-left {
   margin-left: 10px;
 }
 
 .topnav-right {
   margin-right: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .search-container {
@@ -138,7 +171,8 @@ body {
   border-radius: 20px 0 0 20px;
   border: 2px solid #ccc;
   border-right: none;
-  outline: none; /* remove default outline */
+  outline: none;
+  /* remove default outline */
   box-sizing: border-box;
 }
 
@@ -165,7 +199,7 @@ body {
 }
 
 /* blue outline when focusing search field */
-.search-container:has(input:focus) { 
+.search-container:has(input:focus) {
   outline: 2px solid #3262f2;
   outline-offset: 2px;
   border-radius: 20px;
