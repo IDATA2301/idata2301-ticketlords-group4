@@ -24,7 +24,6 @@ export default function UserPage() {
     if (!isAuthenticated()) {
       navigate("/login");
     }
-
     if (userId) {
       // Fetch user data from backend
       fetch(`${API_BASE_URL}/users/user/` + encodeURIComponent(userId))
@@ -42,23 +41,23 @@ export default function UserPage() {
     }
   }, []);
 
-  useEffect(() => {
+  const fetchWishlist = async () => {
     if (userId) {
-      const getWishlist = async () => {
-        try {
-          console.log(userId);
-          const wishlistData = await fetch(`${API_BASE_URL}/wishlists/user/` + encodeURIComponent(userId))
-          if (wishlistData.ok) {
-            const data = await wishlistData.json();
-            setWishlist(data.map((item: any) => item.event));
-          }
-        } catch {
-          console.log("Could not fetch wishlist");
+      try {
+        console.log(userId);
+        const wishlistData = await fetch(`${API_BASE_URL}/wishlists/user/` + encodeURIComponent(userId))
+        if (wishlistData.ok) {
+          const data = await wishlistData.json();
+          setWishlist(data.map((item: any) => item.event));
         }
+      } catch {
+        console.log("Could not fetch wishlist");
       }
-      getWishlist();
-      console.log(wishlist);
     }
+  }
+
+  useEffect(() => {
+    fetchWishlist();
   }, []);
 
   const logOut = () => clearAuthToken() && navigate("/login");
@@ -92,20 +91,31 @@ export default function UserPage() {
                   <span className="event-row__meta"> {new Date(event.eventDateStart).toLocaleDateString("nn-NO", { day: "numeric", month: "short", year: "numeric" })}</span>
                   <span className="event-row__meta"> {event.eventVenue.address}</span>
                 </div>
-                <span className="event-row__badge event-row__badge--pink">
-                  <button
-                    onClick={() => {
+                <span>
+                  <button className="heart-button"
+                    onClick={async (e) => {
+                      e.stopPropagation();
                       if (userId && sessionToken) {
-                        deleteWishlistFromDatabase(userId, event.eventId, sessionToken)
+                        const success = await deleteWishlistFromDatabase(userId, event.eventId, sessionToken)
+                        if (success) {
+                          setWishlist((prev) => prev.filter((item: Event) => item.eventId !== event.eventId));
+                        }
+                        await fetchWishlist()
                       }
                     }
-                    }>Trash
+                    }
+                    aria-label="Remove from wishlist"
+                    type="button"
+                  >
+                    <img src="/heart.png" className="heart-image heart-full" />
+                    <img src="/broken-heart.png" className="heart-image heart-broken" />
                   </button></span>
               </div>
             ))}
           </div>
-        )}
-      </section>
-    </div>
+        )
+        }
+      </section >
+    </div >
   )
 }
