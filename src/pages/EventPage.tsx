@@ -40,6 +40,25 @@ export default function EventPage() {
   }, [eventId]);
 
   /**
+   * Checks the backend if the event/user combination is wishlisted,
+   * and sets the isWishlisted state accordingly.
+   */
+  useEffect(() => {
+    const setWishlistStatus = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/wishlists/is-wishlisted/${userId}/${eventId}`);
+        if (response.ok) {
+          const wishlistStatus = await response.json();
+          setIsWishlisted(wishlistStatus);
+        }
+      } catch {
+        console.error("Could not fetch wishlist status");
+      }
+    };
+    setWishlistStatus();
+  }, [userId, eventId]);
+
+  /**
    * Loads the types of tickets which is available for the event represented on this page.
    * Example: Event Grilling has 2 events, "Normal" and "VIP", this function will find both those ticket types, and their information.
    */
