@@ -13,7 +13,6 @@ export default function useIsAdminRole(locationPathname: string) {
   useEffect(() => {
     const checkAdmin = async () => {
       const userId = getUserIdFromToken();
-      console.log("userId:", userId);
 
       if (!userId) {
         setIsAdmin(false);
@@ -26,15 +25,11 @@ export default function useIsAdminRole(locationPathname: string) {
         },
       });
 
-      console.log("response status:", response.status);
-
       if (response.ok) {
         const data = await response.json();
-        console.log("admin data:", data);
         setIsAdmin(data.isAdmin);
       } else {
         setIsAdmin(false);
-        console.log("response not ok:", response.status, await response.text());
       }
     };
 
