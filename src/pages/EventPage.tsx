@@ -16,7 +16,9 @@ export default function EventPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const token = localStorage.getItem("authToken");
   const userId = getUserIdFromToken();
-
+  const eventDateISO = String(event?.eventDateStart || "");
+  const [datePart, timePartRaw] = eventDateISO.split("T");
+  const timePart = timePartRaw?.slice(0, 5);
 
   /**
    * Loads an event from the database based on the eventId in the url.
@@ -191,7 +193,8 @@ export default function EventPage() {
           <div className="event-meta">
             <div className="event-location"> {event.eventVenue.city}, {event.eventVenue.country} </div>
             <div className="event-page-arena">{event.eventVenue.arena}</div>
-            <div className="event-date">{new Date(event.eventDateStart).toLocaleDateString()}</div>
+            <div className="event-date">{datePart}</div>
+            <div className="event-time">{timePart}</div>
           </div>
 
           <p className="event-description">{event.eventDescription}</p>
