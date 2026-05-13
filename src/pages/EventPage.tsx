@@ -16,7 +16,9 @@ export default function EventPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const token = localStorage.getItem("authToken");
   const userId = getUserIdFromToken();
-
+  const eventDateISO = String(event?.eventDateStart || "");
+  const [datePart, timePartRaw] = eventDateISO.split("T");
+  const timePart = timePartRaw?.slice(0, 5);
 
   /**
    * Loads an event from the database based on the eventId in the url.
@@ -40,6 +42,25 @@ export default function EventPage() {
   }, [eventId]);
 
   /**
+   * Checks the backend if the event/user combination is wishlisted,
+   * and sets the isWishlisted state accordingly.
+   */
+  useEffect(() => {
+    const setWishlistStatus = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/wishlists/is-wishlisted/${userId}/${eventId}`);
+        if (response.ok) {
+          const wishlistStatus = await response.json();
+          setIsWishlisted(wishlistStatus);
+        }
+      } catch {
+        console.error("Could not fetch wishlist status");
+      }
+    };
+    setWishlistStatus();
+  }, [userId, eventId]);
+
+  /**
    * Loads the types of tickets which is available for the event represented on this page.
    * Example: Event Grilling has 2 events, "Normal" and "VIP", this function will find both those ticket types, and their information.
    */
@@ -59,6 +80,9 @@ export default function EventPage() {
     loadTickets();
   }, [event]);
 
+  /**
+   * Saves the wishlist to the database, by sending a POST request to the backend with the userId and eventId.
+   */
   const saveWishlistToDatabase = async (userId: number, eventId: number) => {
     fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
       method: "POST",
@@ -69,6 +93,9 @@ export default function EventPage() {
     });
   }
 
+  /**
+   * Deletes the wishlist from the database, by sending a DELETE request to the backend with the userId and eventId.
+   */
   const deleteWishlistFromDatabase = async (userId: number, eventId: number) => {
     fetch(`${API_BASE_URL}/wishlists/user/${userId}/event/${eventId}`, {
       method: "DELETE",
@@ -166,7 +193,8 @@ export default function EventPage() {
           <div className="event-meta">
             <div className="event-location"> {event.eventVenue.city}, {event.eventVenue.country} </div>
             <div className="event-page-arena">{event.eventVenue.arena}</div>
-            <div className="event-date">{new Date(event.eventDateStart).toLocaleDateString()}</div>
+            <div className="event-date">{datePart}</div>
+            <div className="event-time">{timePart}</div>
           </div>
 
           <p className="event-description">{event.eventDescription}</p>

@@ -143,7 +143,7 @@ export default function CartPage() {
                 <h3>Already have an account?</h3>
                 <div>
                   <button className={styles["login-button"]} onClick={() => navigate("/login")}>Login</button>
-                  <button onClick={() => navigate("/register")}
+                  <button className={styles["register-button"]} onClick={() => navigate("/register")}
                   > Create account</button>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function CartPage() {
                   return;
                 }
               }
-              navigate("/checkout", { state: { email } });
+              navigate("/checkout", { state: { email, cartItems } });
             }}> Place order →
             </button>
           </div>
