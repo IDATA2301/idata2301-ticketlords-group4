@@ -133,6 +133,9 @@ h2 {
 }
 
 
+/*
+ * Shakes the guest email field if no input is provided.
+ */
 @keyframes shake {
 
   0%,
