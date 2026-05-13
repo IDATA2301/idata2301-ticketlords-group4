@@ -20,6 +20,7 @@ export default function EventPage() {
   const [datePart, timePartRaw] = eventDateISO.split("T");
   const timePart = timePartRaw?.slice(0, 5);
 
+
   /**
    * Loads an event from the database based on the eventId in the url.
    */
@@ -213,7 +214,16 @@ export default function EventPage() {
               <div className="price-and-add-to-cart-button">
                 <div className="ticket-price"> {ticket?.price + ",- NOK"}</div>
                 <button className="add-to-cart-button"
-                  onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}>Add to cart
+                  onClick={() => {
+                    const now = new Date();
+                    const eventDate = new Date(eventDateISO);
+                    if (eventDate > now) {
+                      addToCart({ ticket, amount: 1 } as CartItem);
+                    } else {
+                      alert("This event has already occurred. You can no longer purchase tickets for it.");
+                    }
+                  }
+                  }>Add to cart
                 </button>
               </div>
 
