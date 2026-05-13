@@ -162,7 +162,7 @@ export default function CartPage() {
                   return;
                 }
               }
-              navigate("/checkout", { state: { email } });
+              navigate("/checkout", { state: { email, cartItems } });
             }}> Place order →
             </button>
           </div>
