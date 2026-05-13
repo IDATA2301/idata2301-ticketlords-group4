@@ -134,6 +134,17 @@ body {
   background-color: #45a049;
 }
 
+.create-event-btn {
+  cursor: pointer;
+  background-color: #DF32B6;
+  padding: 7px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
 .topnav-left {
   margin-left: 10px;
 }

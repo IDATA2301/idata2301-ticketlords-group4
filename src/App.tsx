@@ -3,6 +3,7 @@ import { UnregisteredUserProvider } from "./context/UnregisteredUserContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
+import AddEventPage from "./pages/AddEventPage.tsx";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import RegisterUserPage from "./pages/RegisterUserPage";
@@ -14,6 +15,7 @@ import PaymentPage from "./pages/PaymentPage";
 import CartPage from "./pages/CartPage";
 import SecretMailPage from "./pages/SecretMailPage";
 import EditProfilePage from "./pages/EditProfilePage";
+import AdminRoute from "./components/AdminRoute.tsx";
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
             <Route path="/" element={<Navigate to="/home" replace />} />
             <Route path="home" element={<HomePage />} />
             {/* Add more routes below later */}
+
             <Route path="events/search" element={<SearchPage />} />
             <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
             <Route path="event/:eventId" element={<EventPage />} />
@@ -39,10 +42,15 @@ function App() {
             <Route path="checkout" element={<PaymentPage />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="mail-easter-egg-picture-abdegh67bbbbbegh" element={<SecretMailPage />} />
+            <Route path="addevent" element={<AdminRoute> <AddEventPage /> </AdminRoute>} />
+
+            {/* Admin sites */}
+
           </Route>
         </Routes>
       </UnregisteredUserProvider>
     </BrowserRouter>
   );
 }
+
 export default App;
