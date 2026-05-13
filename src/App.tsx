@@ -3,7 +3,7 @@ import {UnregisteredUserProvider} from "./context/UnregisteredUserContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
-import AddEventPage from "./pages/addEventPage.tsx";
+import AddEventPage from "./pages/AddEventPage.tsx";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import RegisterUserPage from "./pages/RegisterUserPage";
