@@ -1,4 +1,4 @@
-import "../css/addEvent.css";
+import "../css/AddEvent.css";
 import type Category from "../util/dtos/Category.ts";
 import {useEffect, useRef, useState} from "react";
 import Select from "react-select";

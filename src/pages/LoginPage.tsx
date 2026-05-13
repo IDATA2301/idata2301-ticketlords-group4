@@ -1,13 +1,14 @@
 import type React from "react";
-import { useEffect, useState } from "react";
-import { useNavigate, Link} from "react-router-dom";
-import { API_BASE_URL } from "../config";
-import { isAuthenticated, setAuthToken } from "../util/authUtils";
+import "../css/LoginPage.css";
+import {useEffect, useState} from "react";
+import {useNavigate, Link} from "react-router-dom";
+import {API_BASE_URL} from "../config";
+import {isAuthenticated, setAuthToken} from "../util/authUtils";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ error, setError] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,8 +29,8 @@ export default function LoginPage() {
     try {
       const response = await fetch(`${API_BASE_URL}/users/user/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, password})
       });
 
       if (!response.ok) {
@@ -42,38 +43,52 @@ export default function LoginPage() {
       setAuthToken(data.token);
       // Navigate to protected page
       navigate("/user-page");
-      
+
     } catch (err) {
       setError("Login failed");
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleLogin}>
-        <p>loginpage</p>
-        <input
-          type="email"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-          autoFocus
-        />
-        <input
-          type="password"
-          id="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" disabled={email === "" || password === ""}>
-          Login
-        </button>
-      </form>
+    <div className="login-page">
+      <div className="login-card">
+        <h2>Login</h2>
 
-      <Link to="/register">
-        <p>Click here to register a new user!</p>
-      </Link>
-    </>
+        <form onSubmit={handleLogin}>
+          <div className="login-field">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              placeholder="example@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              autoFocus
+            />
+          </div>
+
+          <div className="login-field">
+            <label>Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {error && <p style={{color: "red"}}>{error}</p>}
+
+          <button type="submit" className="login-submit" disabled={email === "" || password === ""}>
+            Login
+          </button>
+        </form>
+
+        <div className="login-register">
+          <Link to="/register">
+            <p>Click here to register a new user!</p>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -133,6 +133,9 @@ h2 {
 }
 
 
+/*
+ * Shakes the guest email field if no input is provided.
+ */
 @keyframes shake {
 
   0%,
@@ -183,6 +186,14 @@ h2 {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+.prompt-login button:hover {
+  border-width: 3px;
+}
+
+.register-button:hover {
+  border-color: #df32b6;
 }
 
 .invalid-email-message {

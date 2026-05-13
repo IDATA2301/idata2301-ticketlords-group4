@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, Link} from "react-router-dom";
-import { useUnregisteredUser } from "../context/UnregisteredUserContext";
-import { API_BASE_URL } from "../config";
+import {useEffect, useRef, useState} from "react";
+import "../css/RegisterUserPage.css";
+import {useNavigate, Link} from "react-router-dom";
+import {useUnregisteredUser} from "../context/UnregisteredUserContext";
+import {API_BASE_URL} from "../config";
 import isValidEmail from "../functions/EmailRegex";
-import { isAuthenticated } from "../util/authUtils";
-
+import {isAuthenticated} from "../util/authUtils";
 
 
 export default function RegisterUserPage() {
-  const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
+  const {unregisteredUserId} = useUnregisteredUser() ?? {unregisteredUserId: -1};
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [registrationError, setRegistrationError] = useState("");
@@ -53,7 +53,7 @@ export default function RegisterUserPage() {
 
     setFieldErrors({});
     setRegistrationError("");
-    
+
     const formData = {
       email: emailRef.current?.value || "",
       displayName: displayNameRef.current?.value || "",
@@ -67,7 +67,7 @@ export default function RegisterUserPage() {
     setIsLoading(true);
     fetch(`${API_BASE_URL}/users/user/register?uregId=${encodeURIComponent(unregisteredUserId)}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(formData),
     })
       .then((response) => {
@@ -90,33 +90,59 @@ export default function RegisterUserPage() {
   };
 
   return (
-    <>
-      <div>
-        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-          <input type="text" ref={displayNameRef} placeholder="Display name" autoFocus />
+    <div className="register-page">
+      <div className="register-card">
+        <h2>Create account</h2>
 
-          <input type="email" ref={emailRef} placeholder="Email"/>
-          {fieldErrors.email && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.email}</p>}
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}>
+          <div className="register-field">
+            <label>Display name</label>
+            <input type="text" ref={displayNameRef} placeholder="Display name" autoFocus/>
+          </div>
 
-          <input type="text" ref={firstNameRef} placeholder="First name"/>
+          <div className="register-field">
+            <label>Email</label>
+            <input type="email" ref={emailRef} placeholder="Email"/>
+            {fieldErrors.email && <p className="register-error">{fieldErrors.email}</p>}
+          </div>
 
-          <input type="text" ref={lastNameRef} placeholder="Last name"/>
+          <div className="register-field">
+            <label>First Name</label>
+            <input type="text" ref={firstNameRef} placeholder="First name"/>
+          </div>
 
-          <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
+          <div className="register-field">
+            <label>Last name</label>
+            <input type="text" ref={lastNameRef} placeholder="Last name"/>
+          </div>
 
-          <input type="password" ref={passwordRef} placeholder="Password"/>
-          {fieldErrors.password && <p style={{ color: "red", fontSize: "12px" }}>{fieldErrors.password}</p>}
+          <div className="register-field">
+            <label>Phone number</label>
+            <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
+          </div>
 
-          {registrationError && <p style={{ color: "red", fontSize: "12px" }}>{registrationError}</p>}
-          <button type="submit" disabled={isLoading}>
+          <div className="register-field">
+            <label>Password</label>
+            <input type="password" ref={passwordRef} placeholder="Password"/>
+            {fieldErrors.password && <p className="register-error">{fieldErrors.password}</p>}
+          </div>
+
+          {registrationError && <p className="register-general-error">{registrationError}</p>}
+
+          <button type="submit" className="register-submit" disabled={isLoading}>
             {isLoading ? "Registering..." : "Register"}
           </button>
         </form>
-      </div>
 
-      <Link to="/login">
-        <p>Already have a user? Click here!</p>
-      </Link>
-    </>
+        <div className="register-login">
+          <Link to="/login">
+            <p>Already have a user? Click here!</p>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
