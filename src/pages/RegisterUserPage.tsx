@@ -12,6 +12,7 @@ export default function RegisterUserPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [registrationError, setRegistrationError] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
   const navigate = useNavigate();
   const displayNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -53,6 +54,7 @@ export default function RegisterUserPage() {
 
     setFieldErrors({});
     setRegistrationError("");
+    setEmailError(null);
 
     const formData = {
       email: emailRef.current?.value || "",
@@ -71,6 +73,10 @@ export default function RegisterUserPage() {
       body: JSON.stringify(formData),
     })
       .then((response) => {
+        if (response.status === 409) {
+          setEmailError("Email already in use");
+          throw new Error("EMAIL_IN_USE");
+        }
         if (!response.ok) {
           throw new Error(`Registration failed: ${response.statusText}`);
         }
@@ -79,12 +85,14 @@ export default function RegisterUserPage() {
       .then((newUserId) => {
         localStorage.setItem("unregisteredUserId", newUserId.toString());
         console.log(localStorage.getItem("unregisteredUserId"));
-        setIsLoading(false);
         navigate("/login");
       })
       .catch((error) => {
+        if ((error as Error).message === "EMAIL_IN_USE") return;
         console.error("Error registering user:", error);
         setRegistrationError("Registration failed. Please try again.");
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -105,8 +113,15 @@ export default function RegisterUserPage() {
 
           <div className="register-field">
             <label>Email</label>
-            <input type="email" ref={emailRef} placeholder="Email"/>
+            <input
+              type="email"
+              ref={emailRef}
+              onChange={() => setEmailError(null)}
+              placeholder="Email"
+              aria-invalid={Boolean(fieldErrors.email || emailError)}
+            />
             {fieldErrors.email && <p className="register-error">{fieldErrors.email}</p>}
+            {emailError && <p className="register-error">{emailError}</p>}
           </div>
 
           <div className="register-field">
