@@ -128,7 +128,11 @@ export default function EventPage() {
             {event?.imgPathUrl ? (
               <img
                 className="event-hero-image"
-                src={`${API_BASE_URL}/events/` + event.eventId + "/image"}
+                src={
+                  event.imgPathUrl.startsWith("https://")
+                    ? event.imgPathUrl
+                    : `${API_BASE_URL}/events/${event.eventId}/image`
+                }
                 alt={event.eventName}
               />
             ) : (
