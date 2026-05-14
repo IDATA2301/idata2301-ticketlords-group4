@@ -134,6 +134,24 @@ body {
   background-color: #45a049;
 }
 
+.user-btn {
+  padding: 6px 10px;
+  font-size: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-btn img {
+  height: 35px;
+  width: auto;
+}
+
 .create-event-btn {
   cursor: pointer;
   background-color: #DF32B6;

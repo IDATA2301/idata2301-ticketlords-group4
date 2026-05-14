@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {Link, Outlet, useLocation} from "react-router-dom";
+import { clearAuthToken, isAuthenticated } from "../util/authUtils.ts";
 import HamburgerMenu from "./HamburgerMenu";
 import "../css/HamburgerMenu.css";
 import useIsAdminRole from "../functions/CheckAdminRole.ts";
@@ -9,6 +10,7 @@ export default function Layout() {
   const lastScrollY = useRef(0);
   const location = useLocation();
   const isAdmin = useIsAdminRole(location.pathname);
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
 
   useEffect(() => {
     const handleWindowScroll = () => {
@@ -53,6 +55,10 @@ export default function Layout() {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    setLoggedIn(isAuthenticated());
+  }, [location.pathname]);
+
   return (
     <div className="app-shell">
       <div className="main-content">
@@ -89,9 +95,20 @@ export default function Layout() {
                   src="cart.png"
                 /></button>
             </Link>
-            <Link to="/login">
-              <button className="login-btn">Login</button>
-            </Link>
+
+            {loggedIn ? (
+              <Link to="/user-page">
+                <button className="user-btn">
+                  <img
+                    src="user-icon.png"
+                  /></button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button className="login-btn">Login</button>
+              </Link>
+            )}
+
 
           </div>
         </div>
