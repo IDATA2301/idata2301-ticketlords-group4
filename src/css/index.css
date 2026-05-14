@@ -328,11 +328,27 @@ a {
     padding-left: 0;
   }
 
-  .topnav {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: transform 0.2s ease-out;
+  .topnav-middle {
+    min-width: 0;
+  }
+
+  .home-button div {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .home-button div {
+    font-size: 1.5rem;
+  }
+
+  .home-button {
+    gap: 10px;
+  }
+
+  .home-button img {
+    height: 36px;
   }
 
   .topnav.topnav--visible {
@@ -342,6 +358,8 @@ a {
   .topnav.topnav--hidden {
     transform: translateY(-100%);
   }
+
+
 }
 
 @media (max-width: 600px) {
