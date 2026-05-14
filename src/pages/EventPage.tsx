@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import useIsAdminRole from "../functions/CheckAdminRole";
 import "../css/EventPage.css"
 import type Event from "../util/dtos/Event"
 import { addToCart } from "../functions/CartHandler";
@@ -18,7 +19,20 @@ export default function EventPage() {
   const userId = getUserIdFromToken();
   const eventDateISO = String(event?.eventDateStart || "");
   const [datePart, timePartRaw] = eventDateISO.split("T");
-  const timePart = timePartRaw?.slice(0, 5);
+  const timePart = timePartRaw?.slice(0, 5);const location = useLocation();
+  const isAdmin = useIsAdminRole(location.pathname); // boolean | null
+
+  // Create Ticket form state
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [createLoading, setCreateLoading] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const [createSuccess, setCreateSuccess] = useState(false);
+  const [ticketForm, setTicketForm] = useState({
+    ticketType: "",
+    price: "",
+    amountAvailable: "",
+    ticketDescription: "",
+  });
 
   /**
    * Loads an event from the database based on the eventId in the url.
@@ -105,6 +119,82 @@ export default function EventPage() {
       credentials: "include"
     });
   }
+
+  /**
+   * Handles input changes for the create-ticket form.
+   */
+  const handleTicketFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setTicketForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  /**
+   * Submits the new ticket to the backend via POST /tickets/ticket.
+   * The backend expects the ticket fields + `eventId`.
+   */
+  const handleCreateTicket = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCreateError(null);
+    setCreateSuccess(false);
+
+    if (!ticketForm.ticketType.trim()) {
+      setCreateError("Ticket type is required.");
+      return;
+    }
+    const priceNum = parseFloat(ticketForm.price);
+    if (isNaN(priceNum) || priceNum < 0) {
+      setCreateError("Please enter a valid price.");
+      return;
+    }
+    const amountNum = parseInt(ticketForm.amountAvailable, 10);
+    if (isNaN(amountNum) || amountNum < 1) {
+      setCreateError("Amount available must be at least 1.");
+      return;
+    }
+
+    setCreateLoading(true);
+    try {
+      const body = {
+        ticketType: ticketForm.ticketType.trim(),
+        price: priceNum,
+        amountAvailable: amountNum,
+        ticketDescription: ticketForm.ticketDescription.trim() || null,
+        eventId: event!.eventId ,
+      };
+
+      
+      console.log(body);
+
+      const response = await fetch(`${API_BASE_URL}/tickets/ticket`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        credentials: "include",
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        setCreateError(text || "Failed to create ticket. Please try again.");
+        return;
+      }
+
+      // Refresh ticket list after successful creation
+      const ticketsResponse = await fetch(`${API_BASE_URL}/tickets/by-event/` + encodeURIComponent(event!.eventId));
+      if (ticketsResponse.ok) {
+        setTickets(await ticketsResponse.json());
+      }
+
+      setCreateSuccess(true);
+      setTicketForm({ ticketType: "", price: "", amountAvailable: "", ticketDescription: "" });
+      setShowCreateForm(false);
+    } catch {
+      setCreateError("Network error. Please try again.");
+    } finally {
+      setCreateLoading(false);
+    }
+  };
 
   const fallBackEvent: Event = {
     "eventName": "The Jhonnysons",
@@ -207,23 +297,128 @@ export default function EventPage() {
 
       <div className="ticket-section">
 
+        {createSuccess && (
+          <div className="ticket-create-success">
+            ✓ Ticket created successfully!
+          </div>
+        )}
+
         {tickets.map((ticket: Ticket) => {
           return (
-            <div className="ticket-column">
-              <div className="ticket-information">
-                <div className="ticket-type"> {ticket?.ticketType + "  |"}</div>
-                <div className="ticket-amount"> {"Tickets remaining: " + ticket?.amountAvailable}</div>
+            <div className="ticket-row">
+              <div className="ticket-column">
+                <div className="ticket-information">
+                  <div className="ticket-type"> {ticket?.ticketType + "  |"}</div>
+                  <div className="ticket-amount"> {"Tickets remaining: " + ticket?.amountAvailable}</div>
+                </div>
+                <div className="price-and-add-to-cart-button">
+                  <div className="ticket-price"> {ticket?.price + ",- NOK"}</div>
+                  <button className="add-to-cart-button"
+                    onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}>Add to cart
+                  </button>
+                </div>
               </div>
-              <div className="price-and-add-to-cart-button">
-                <div className="ticket-price"> {ticket?.price + ",- NOK"}</div>
-                <button className="add-to-cart-button"
-                  onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}>Add to cart
-                </button>
-              </div>
-
+              <button>jepps</button>
             </div>
           )
-        }
+        })}
+
+        {/* Only show the Create Ticket button/form if the user is authenticated */}
+        {isAuthenticated() && isAdmin === true && (
+          <div className="create-ticket-section">
+            {!showCreateForm ? (
+              <button
+                className="create-ticket-toggle-button"
+                onClick={() => { setShowCreateForm(true); setCreateSuccess(false); }}
+              >
+                + Add New Ticket Type
+              </button>
+            ) : (
+              <div className="create-ticket-form-wrapper">
+                <h3 className="create-ticket-form-title">Create New Ticket</h3>
+                <form className="create-ticket-form" onSubmit={handleCreateTicket} noValidate>
+                  <div className="create-ticket-field">
+                    <label htmlFor="ticketType">Ticket Type <span className="required">*</span></label>
+                    <input
+                      id="ticketType"
+                      name="ticketType"
+                      type="text"
+                      placeholder="e.g. Standard, VIP, Early Bird"
+                      value={ticketForm.ticketType}
+                      onChange={handleTicketFormChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="create-ticket-row">
+                    <div className="create-ticket-field">
+                      <label htmlFor="price">Price (NOK) <span className="required">*</span></label>
+                      <input
+                        id="price"
+                        name="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="e.g. 299"
+                        value={ticketForm.price}
+                        onChange={handleTicketFormChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="create-ticket-field">
+                      <label htmlFor="amountAvailable">Amount Available <span className="required">*</span></label>
+                      <input
+                        id="amountAvailable"
+                        name="amountAvailable"
+                        type="number"
+                        min="1"
+                        step="1"
+                        placeholder="e.g. 100"
+                        value={ticketForm.amountAvailable}
+                        onChange={handleTicketFormChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="create-ticket-field">
+                    <label htmlFor="ticketDescription">Description</label>
+                    <textarea
+                      id="ticketDescription"
+                      name="ticketDescription"
+                      placeholder="Optional: describe what's included with this ticket"
+                      value={ticketForm.ticketDescription}
+                      onChange={handleTicketFormChange}
+                      rows={3}
+                    />
+                  </div>
+
+                  {createError && (
+                    <div className="create-ticket-error">{createError}</div>
+                  )}
+
+                  <div className="create-ticket-actions">
+                    <button
+                      type="button"
+                      className="create-ticket-cancel"
+                      onClick={() => { setShowCreateForm(false); setCreateError(null); }}
+                      disabled={createLoading}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="create-ticket-submit"
+                      disabled={createLoading}
+                    >
+                      {createLoading ? "Creating…" : "Create Ticket"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

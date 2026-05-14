@@ -157,6 +157,16 @@
     border-color: #8f27dd;
 }
 
+.ticket-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+    font-weight: 600;
+    
+    padding: 25px;
+}
+
 
 .add-to-cart-button{
     cursor: pointer;
@@ -205,5 +215,184 @@
     .event-meta > span {
         width: 100%;
         max-width: 420px;
+    }
+}
+
+.create-ticket-section {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 32px;
+}
+
+.create-ticket-toggle-button {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 3px dashed #8f27dd;
+    border-radius: 2px;
+    color: #8f27dd;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.create-ticket-toggle-button:hover {
+    background: #f1ecff;
+    color: #7c2ae8;
+}
+
+.create-ticket-form-wrapper {
+    width: 100%;
+    background: white;
+    border: 3px solid #8f27dd;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.create-ticket-form-title {
+    margin: 0 0 20px 0;
+    color: #7c2ae8;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.create-ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-ticket-row {
+    display: flex;
+    gap: 16px;
+}
+
+.create-ticket-row .create-ticket-field {
+    flex: 1;
+}
+
+.create-ticket-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.create-ticket-field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.required {
+    color: #e53935;
+}
+
+.create-ticket-field input,
+.create-ticket-field textarea {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #2d2d2d;
+    background: #fafafa;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+}
+
+.create-ticket-field input:focus,
+.create-ticket-field textarea:focus {
+    outline: none;
+    border-color: #8f27dd;
+    background: white;
+}
+
+.create-ticket-error {
+    background: #fff0f0;
+    border: 1px solid #e53935;
+    color: #c62828;
+    padding: 10px 14px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.create-ticket-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.create-ticket-cancel {
+    padding: 9px 20px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.create-ticket-cancel:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.create-ticket-submit {
+    padding: 9px 24px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.create-ticket-submit:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.create-ticket-submit:disabled,
+.create-ticket-cancel:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-create-success {
+    width: 50%;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #f0faf4;
+    border: 2px solid #2e7d32;
+    color: #2e7d32;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+@media (max-width: 800px) {
+    .create-ticket-section {
+        width: 90%;
+    }
+    .ticket-create-success {
+        width: 90%;
+    }
+    .create-ticket-row {
+        flex-direction: column;
     }
 }
