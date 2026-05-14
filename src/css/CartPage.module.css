@@ -29,7 +29,8 @@
 .ticket-item {
   padding: 15px;
   margin-top: 10px;
-  border-color: aqua;
+  border-color: #8F27DD;
+  background-color: white;
   border-style: solid;
   border-radius: 15px;
 }
@@ -39,12 +40,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   border: none;
 }
 
 .trash-button:hover {
   cursor: pointer;
-  outline: 3px solid #45a049;
+  outline: 3px solid #DF32B6;
   border-radius: 8px;
 }
 
@@ -113,9 +115,10 @@
 
 .guest-prompt {
   width: 38%;
-  border: 3px solid #000000;
+  border: 3px solid #8F27DD;
   padding: 15px;
   border-radius: 15px;
+  background-color: white;
 }
 
 .guest-prompt p,
@@ -128,8 +131,8 @@ h2 {
   width: 100%;
   border-radius: 8px;
   height: 2rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.3 ease;
+  border: 1px solid black;
+  transition: border-color;
 }
 
 
@@ -163,7 +166,8 @@ h2 {
 .prompt-login {
   border: solid;
   border-width: 3px;
-  border-color: black;
+  border-color: #8F27DD;
+  background-color: white;
   padding: 15px;
   display: flex;
   flex-direction: column;
