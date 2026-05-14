@@ -59,7 +59,11 @@ export default function PopularEventsCarousel({ popularEvents }: PopularEventsCa
 
               >
                 <img
-                  src={`${API_BASE_URL}/events/${event.eventId}/image`}
+                  src={
+                    event.imgPathUrl.startsWith("images/")
+                      ? `${API_BASE_URL}/events/${event.eventId}/image`
+                      : `${API_BASE_URL}/images/` + event?.imgPathUrl
+                  }
                   alt={event.eventName ?? `Event ${i + 1}`}
                   className="carousel-slide-img"
                   draggable={false}

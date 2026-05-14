@@ -16,6 +16,8 @@ export default function AddEventPage() {
   const [venues, setVenues] = useState<VenueOption[]>([]);
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [arena, setArena] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [registrationError, setRegistrationError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +28,14 @@ export default function AddEventPage() {
   const eventDateEndRef = useRef<HTMLInputElement>(null);
   const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
   const imgPathUrlRef = useRef<HTMLInputElement>(null);
+  //Venue section
+  const venueArenaRef = useRef<HTMLInputElement>(null);
+  const venueAddressRef = useRef<HTMLInputElement>(null);
+  const venueCityRef = useRef<HTMLInputElement>(null);
+  const venueCountryRef = useRef<HTMLInputElement>(null);
+  const [venueErrors, setVenueErrors] = useState<{ [key: string]: string }>({});
+  const [venueSuccess, setVenueSuccess] = useState("");
+  const [isVenueLoading, setIsVenueLoading] = useState(false);
 
 
   useEffect(() => {
@@ -50,23 +60,79 @@ export default function AddEventPage() {
   }, []);
 
   const loadVenues = async () => {
-    if (!country || !city) return;
-    try {
-      const response = await fetch(`${API_BASE_URL}/venues/location?country=${country}&city=${city}`);
-      if (!response.ok) {
-        console.error("Failed to fetch venues");
-        return;
-      }
-      const data: EventVenue[] = await response.json();
-      const formatted: VenueOption[] = data.map(venue => ({
-        value: venue.venueId,
-        label: venue.arena
-      }));
-      setVenues(formatted);
-    } catch (error) {
-      console.error("Error fetching venues:", error);
+  try {
+    const params = new URLSearchParams();
+    if (address.trim()) params.append("address", address.trim());
+    if (arena.trim())   params.append("arena",   arena.trim());
+    if (city.trim())    params.append("city",     city.trim());
+    if (country.trim()) params.append("country",  country.trim());
+
+    if (!params.toString()) return;
+
+    const response = await fetch(`${API_BASE_URL}/venues/search?${params}`);
+    if (!response.ok) {
+      console.error("Failed to fetch venues");
+      return;
     }
-  };
+    const data: EventVenue[] = await response.json();
+    const formatted: VenueOption[] = data.map(venue => ({
+      value: venue.venueId,
+      label: `${venue.arena} — ${venue.address}, ${venue.city}`
+    }));
+    setVenues(formatted);
+  } catch (error) {
+    console.error("Error fetching venues:", error);
+  }
+};
+
+const handleAddVenue = async () => {
+  if (isVenueLoading) return;
+
+  const errors: { [key: string]: string } = {};
+  if (!venueArenaRef.current?.value)   errors.arena   = "Arena is required";
+  if (!venueAddressRef.current?.value) errors.address = "Address is required";
+  if (!venueCityRef.current?.value)    errors.city    = "City is required";
+  if (!venueCountryRef.current?.value) errors.country = "Country is required";
+
+  if (Object.keys(errors).length > 0) {
+    setVenueErrors(errors);
+    return;
+  }
+
+  setVenueErrors({});
+  setVenueSuccess("");
+  setIsVenueLoading(true);
+
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(`${API_BASE_URL}/venues/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        arena:   venueArenaRef.current?.value   || "",
+        address: venueAddressRef.current?.value || "",
+        city:    venueCityRef.current?.value    || "",
+        country: venueCountryRef.current?.value || "",
+      }),
+    });
+
+    if (!response.ok) throw new Error("Failed to add venue");
+
+    setVenueSuccess("Venue added! You can now search for it.");
+    if (venueArenaRef.current)   venueArenaRef.current.value   = "";
+    if (venueAddressRef.current) venueAddressRef.current.value = "";
+    if (venueCityRef.current)    venueCityRef.current.value    = "";
+    if (venueCountryRef.current) venueCountryRef.current.value = "";
+  } catch (error) {
+    console.error("Error adding venue:", error);
+    setVenueErrors({ general: "Failed to add venue. Please try again." });
+  } finally {
+    setIsVenueLoading(false);
+  }
+};
 
 
   const handleSubmit = async () => {
@@ -147,8 +213,10 @@ export default function AddEventPage() {
       if (!response.ok) {
         throw new Error(`Failed to create event: ${response.statusText}`);
       }
+
+      const location = response.headers.get("Location");
+      navigate(location ?? "/home");
       
-      navigate("/events");
     } catch (error) {
       console.error("Error creating event:", error);
       setRegistrationError("Failed to create event. Please try again.");
@@ -159,7 +227,7 @@ export default function AddEventPage() {
 
 
   return (
-    <div className="add-event-page">
+    <div className="add-event-layout">
       <div className="add-event-card">
         <h2>Create Event</h2>
         <form onSubmit={(e) => {
@@ -190,28 +258,48 @@ export default function AddEventPage() {
           <div className="add-event-row">
             <div className="add-event-field">
               <label>Start Date</label>
-              <input type="date" ref={eventDateStartRef} placeholder="Start date"/>
+              <input type="datetime-local" ref={eventDateStartRef} placeholder="Start date"/>
               {fieldErrors.datestart && <p className="field-error">{fieldErrors.datestart}</p>}
             </div>
             <div className="add-event-field">
               <label>End Date</label>
-              <input type="date" ref={eventDateEndRef} placeholder="End date"/>
+              <input type="datetime-local" ref={eventDateEndRef} placeholder="End date"/>
               {fieldErrors.dateend && <p className="field-error">{fieldErrors.dateend}</p>}
             </div>
           </div>
 
           {/* Venue search */}
+          <label className="add-event-field">Venue</label>
+          <div className="add-event-row">
+            <div className="add-event-field">
+              <label>Address</label>
+              <input type="text" placeholder="e.g Larsgårdsvegen" value={address} onChange={e => setAddress(e.target.value)}/>
+            </div>
+            <div className="add-event-field">
+              <label>Arena</label>
+              <input type="text" placeholder="e.g Color Line Stadion" value={arena} onChange={e => setArena(e.target.value)}/>
+            </div>
+          </div>
+          <div className="add-event-row">
+            <div className="add-event-field">
+              <label>City</label>
+              <input type="text" placeholder="e.g Ålesund" value={city} onChange={e => setCity(e.target.value)}/>
+            </div>
+            <div className="add-event-field">
+              <label>Country</label>
+              <input type="text" placeholder="e.g Norway" value={country} onChange={e => setCountry(e.target.value)}/>
+              {fieldErrors.venue && <p className="field-error">{fieldErrors.venue}</p>}
+            </div>
+          </div>
           <div className="add-event-field">
-            <label>Venue</label>
-            <input type="text" placeholder="e.g Noreg" value={country} onChange={e => setCountry(e.target.value)}/>
-            <input type="text" placeholder="e.g Ålesund" value={city} onChange={e => setCity(e.target.value)}/>
             <button type="button" onClick={loadVenues}>Search venues</button>
+          </div>
+          <div className="add-event-field">
             {venues.length > 0 && (
               <Select options={venues}
                       onChange={option => setSelectedVenue(option as VenueOption | null)}
                       placeholder="Select a venue" isSearchable/>
             )}
-            {fieldErrors.venue && <p className="field-error">{fieldErrors.venue}</p>}
           </div>
 
           <div className="add-event-field">
@@ -231,6 +319,38 @@ export default function AddEventPage() {
             {isLoading ? "Creating..." : "Create Event"}
           </button>
         </form>
+      </div>
+
+      <div className="add-venue-card">
+        <h2>Add Venue</h2>
+        <p style={{ fontSize: "13px", color: "#666", marginTop: 0, marginBottom: "20px" }}>
+          Can't find your venue? Add it here, then search for it.
+        </p>
+        <div className="add-event-field">
+          <label>Arena</label>
+          <input type="text" ref={venueArenaRef} placeholder="e.g Color Line Stadion"/>
+          {venueErrors.arena && <p className="field-error">{venueErrors.arena}</p>}
+        </div>
+        <div className="add-event-field">
+          <label>Address</label>
+          <input type="text" ref={venueAddressRef} placeholder="e.g Larsgårdsvegen 1"/>
+          {venueErrors.address && <p className="field-error">{venueErrors.address}</p>}
+        </div>
+        <div className="add-event-field">
+          <label>City</label>
+          <input type="text" ref={venueCityRef} placeholder="e.g Ålesund"/>
+          {venueErrors.city && <p className="field-error">{venueErrors.city}</p>}
+        </div>
+        <div className="add-event-field">
+          <label>Country</label>
+          <input type="text" ref={venueCountryRef} placeholder="e.g Norway"/>
+          {venueErrors.country && <p className="field-error">{venueErrors.country}</p>}
+        </div>
+        {venueErrors.general && <p className="add-event-general-error">{venueErrors.general}</p>}
+        {venueSuccess && <p className="add-venue-success">{venueSuccess}</p>}
+        <button className="add-venue-submit" onClick={handleAddVenue} disabled={isVenueLoading}>
+          {isVenueLoading ? "Adding..." : "Add Venue"}
+        </button>
       </div>
     </div>
   );
