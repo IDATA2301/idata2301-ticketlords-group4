@@ -27,12 +27,33 @@
 }
 
 .ticket-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
   padding: 15px;
   margin-top: 10px;
   border-color: #8F27DD;
   background-color: white;
   border-style: solid;
   border-radius: 15px;
+}
+
+.ticket-img {
+  width: 90px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: #ddd;
+}
+
+.ticket-info {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 .trash-button {
