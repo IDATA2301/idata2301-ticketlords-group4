@@ -91,12 +91,12 @@ export default function Layout() {
             </div>
 
             <Link to="/cart" className="cart-btn">
-                <img src="cart.png" />
+                <img src="/cart.png" />
             </Link>
 
             {loggedIn ? (
               <Link to="/user-page" className="user-btn">
-                  <img src="user-icon.png"/>
+                  <img src="/user-icon.png"/>
               </Link>
             ) : (
               <Link to="/login" className="login-btn">
