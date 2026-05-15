@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: flex-start;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 1.3rem;
 }
 
 .event-card {
@@ -78,7 +79,7 @@
     display: inline-flex;
     align-items: center;
     text-align: center;
-    font-size: 14px;
+    font-size: 1.2rem;
     color: #2d2d2d;
     white-space: nowrap;
 }
@@ -87,7 +88,6 @@
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
-    font-size: 16px;
 }
 
 .event-image-wrap {
@@ -416,7 +416,7 @@
     border: 3px dashed #8f27dd;
     border-radius: 2px;
     color: #8f27dd;
-    font-size: 15px;
+    font-size: 1.4rem;
     font-weight: 700;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
     cursor: pointer;
@@ -439,7 +439,7 @@
 .create-ticket-form-title {
     margin: 0 0 20px 0;
     color: #7c2ae8;
-    font-size: 20px;
+    font-size: 1.7rem;
     font-weight: 700;
 }
 
@@ -465,7 +465,7 @@
 }
 
 .create-ticket-field label {
-    font-size: 13px;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #2d2d2d;
     text-transform: uppercase;
@@ -481,7 +481,7 @@
     padding: 10px 12px;
     border: 2px solid #ddd;
     border-radius: 2px;
-    font-size: 14px;
+    font-size: 1rem;
     font-family: inherit;
     color: #2d2d2d;
     background: #fafafa;
@@ -504,7 +504,7 @@
     color: #c62828;
     padding: 10px 14px;
     border-radius: 2px;
-    font-size: 14px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
@@ -521,7 +521,7 @@
     border: 2px solid #aaa;
     border-radius: 2px;
     color: #555;
-    font-size: 14px;
+    font-size: 1.2rem;
     font-weight: 700;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
     cursor: pointer;
@@ -539,7 +539,7 @@
     border: none;
     border-radius: 2px;
     color: white;
-    font-size: 14px;
+    font-size: 1.2rem;
     font-weight: 700;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
     cursor: pointer;
