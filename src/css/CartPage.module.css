@@ -211,3 +211,83 @@ h2 {
   color: white;
 
 }
+
+@media (max-width: 600px){
+  .header {
+    margin-left: 0;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .cart-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .cart-items {
+    width: 100%;
+    height: 50%;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .right-side {
+    width: 100%;
+  }
+
+  .cart-summary {
+    width: 100%;
+  }
+
+  .ticket-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ticket-item {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .trash-button {
+    align-self: flex-end;
+    padding: 8px;
+  }
+
+  .not-logged-in-prompt {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .guest-prompt,
+  .prompt-login {
+    width: 100%;
+  }
+
+  .prompt-login div {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .prompt-login button {
+    width: 100%;
+  }
+
+  .place-order {
+    height: auto;
+  }
+
+  .place-order button {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+}
+
+
