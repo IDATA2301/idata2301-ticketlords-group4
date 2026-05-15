@@ -1,4 +1,3 @@
-
 .event-page {
     background: #ebe9ee;
     min-height: 100vh;
@@ -6,6 +5,7 @@
     display: block;
     justify-content: center;
     align-items: flex-start;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
 .event-card {
@@ -62,32 +62,26 @@
 }
 
 .event-meta {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
-
 
 .event-meta div {
     height: 34px;
     padding: 0 12px;
     background: #f1ecff;
     border-radius: 4px;
-
     display: inline-flex;
     align-items: center;
     text-align: center;
-
     font-size: 14px;
     color: #2d2d2d;
-
     white-space: nowrap;
 }
-
-
 
 .event-description {
     max-width: 700px;
@@ -128,6 +122,7 @@
     background: rgba(255, 255, 255, 0.95);
 }
 
+/* ── Ticket section ─────────────────────────────────────── */
 .ticket-section {
     display: flex;
     justify-content: center;
@@ -137,50 +132,87 @@
 
 .ticket-information {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 10px;
-    font-size: large;
+    font-size: 1.4rem;
+}
+
+.ticket-description {
+    font-size: 18px;
+    font-weight: 400;
+    color: #555;
+    margin-top: 4px;
+    line-height: 1.5;
+    font-size: 1.4rem;
+}
+
+/* ── Ticket row: wraps ticket-column + optional admin panel */
+.ticket-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 50%;
+    margin-top: 20px;
 }
 
 .ticket-column {
+    flex: 1;
     display: flex;
-    gap: 12px;
-    width: 50%;
-    margin-top: 20px;
+    flex-direction: row;
+    align-items: center;
     background-color: white;
     font-weight: 600;
     justify-content: space-between;
-    flex-wrap: wrap;
     padding: 25px;
-    border: solid;
-    border-width: 3px;
-    border-color: #8f27dd;
+    border: 3px solid #8f27dd;
+    border-right: none;
+    box-sizing: border-box;
 }
 
-.ticket-row {
+.ticket-left {
     display: flex;
-    gap: 12px;
-    width: 100%;
-    margin-top: 20px;
-    font-weight: 600;
-    
-    padding: 25px;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    padding-right: 2rem;
 }
 
+.ticket-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-.add-to-cart-button{
+/* If there is no admin panel sibling, restore the right border */
+.ticket-column:last-child {
+    border-right: 3px solid #8f27dd;
+}
+
+.add-to-cart-button {
     cursor: pointer;
     background-color: #DF32B6;
+    height: 2.5rem;
+    width: 8rem;
+    max-width: 8rem;
+    flex-wrap: nowrap;
     padding: 7px;
     color: white;
     font-weight: bold;
+    font-size: 1.2rem;
     border: none;
     border-radius: 2px;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
+.add-to-cart-button:hover {
+    background-color: #aa1a87;
+}
+
 .ticket-price {
-    font-size: larger;
+    font-size: 1.4rem;
 }
 
 .price-and-add-to-cart-button {
@@ -189,35 +221,183 @@
     gap: 10px;
 }
 
-.add-to-cart-button:hover {
-    background-color: #aa1a87;
+/* ── Admin panel ────────────────────────────────────────── */
+.ticket-admin-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    gap: 6px;
+    padding: 16px 20px;
+    background: #faf7ff;
+    border: 3px solid #8f27dd;
+    border-left: none;
+    min-width: 190px;
+    box-sizing: border-box;
+    align-self: stretch;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7c2ae8;
+    white-space: nowrap;
 }
 
-
-@media (max-width: 800px) {
-    .event-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .event-hero-image {
-        width: 100%;
-        max-width: 420px;
-        height: auto;
-    }
-
-    .event-hero-placeholder {
-        width: 100%;
-        max-width: 420px;
-        height: 220px;
-    }
-
-    .event-meta > span {
-        width: 100%;
-        max-width: 420px;
-    }
+.ticket-admin-label {
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7c2ae8;
+    white-space: nowrap;
 }
 
+.ticket-admin-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.ticket-admin-input {
+    width: 74px;
+    padding: 7px 9px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    font-size: 18px;
+    font-family: inherit;
+    color: #2d2d2d;
+    background: white;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.ticket-admin-input:focus {
+    outline: none;
+    border-color: #8f27dd;
+}
+
+.ticket-admin-button {
+    padding: 8px 16px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.ticket-admin-button:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.ticket-admin-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-admin-error {
+    font-size: 14px;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.ticket-admin-success {
+    font-size: 14px;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+/* ── Delete ticket ──────────────────────────────────────── */
+.ticket-admin-divider {
+    height: 1px;
+    background: #e0d4f7;
+    margin: 4px 0;
+}
+
+.ticket-delete-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: transparent;
+    border: 2px solid #e53935;
+    border-radius: 2px;
+    color: #e53935;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+    align-self: flex-start;
+}
+
+.ticket-delete-button:hover {
+    background: #e53935;
+    color: white;
+}
+
+.ticket-delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ticket-delete-confirm-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c62828;
+}
+
+.ticket-delete-confirm-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.ticket-delete-confirm-yes {
+    padding: 6px 14px;
+    background: #e53935;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.ticket-delete-confirm-yes:hover:not(:disabled) {
+    background: #c62828;
+}
+
+.ticket-delete-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-delete-confirm-no {
+    padding: 6px 14px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ticket-delete-confirm-no:hover {
+    border-color: #666;
+    color: #222;
+}
+
+/* ── Create ticket section ──────────────────────────────── */
 .create-ticket-section {
     display: flex;
     justify-content: center;
@@ -385,13 +565,59 @@
     border-radius: 2px;
 }
 
+/* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 800px) {
+    .event-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .event-hero-image {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+    }
+
+    .event-hero-placeholder {
+        width: 100%;
+        max-width: 420px;
+        height: 220px;
+    }
+
+    .event-meta > span {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .ticket-row {
+        width: 90%;
+        flex-direction: column;
+    }
+
+    /* Restore right border on column since panel drops below */
+    .ticket-column {
+        border-right: 3px solid #8f27dd;
+        border-bottom: none;
+    }
+
+    .ticket-admin-panel {
+        border-left: 3px solid #8f27dd;
+        border-top: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        min-width: unset;
+    }
+
     .create-ticket-section {
         width: 90%;
     }
+
     .ticket-create-success {
         width: 90%;
     }
+
     .create-ticket-row {
         flex-direction: column;
     }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import useIsAdminRole from "../functions/CheckAdminRole";
+import { TrashCanIcon } from "../assets/TrashCanIcon.tsx";
 import "../css/EventPage.css"
 import type Event from "../util/dtos/Event"
 import { addToCart } from "../functions/CartHandler";
@@ -19,10 +20,11 @@ export default function EventPage() {
   const userId = getUserIdFromToken();
   const eventDateISO = String(event?.eventDateStart || "");
   const [datePart, timePartRaw] = eventDateISO.split("T");
-  const timePart = timePartRaw?.slice(0, 5);const location = useLocation();
+  const timePart = timePartRaw?.slice(0, 5);
+  const location = useLocation();
   const isAdmin = useIsAdminRole(location.pathname); // boolean | null
 
-  // Create Ticket form state
+  // --- Create Ticket form state ---
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
@@ -33,6 +35,16 @@ export default function EventPage() {
     amountAvailable: "",
     ticketDescription: "",
   });
+
+  // --- Reduce ticket amount state ---
+  const [reduceInputs, setReduceInputs] = useState<Record<number, string>>({});
+  const [reduceLoading, setReduceLoading] = useState<Record<number, boolean>>({});
+  const [reduceError, setReduceError] = useState<Record<number, string>>({});
+  const [reduceSuccess, setReduceSuccess] = useState<Record<number, boolean>>({});
+
+  // --- Delete ticket state ---
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState<Record<number, boolean>>({});
 
   /**
    * Loads an event from the database based on the eventId in the url.
@@ -158,10 +170,10 @@ export default function EventPage() {
         price: priceNum,
         amountAvailable: amountNum,
         ticketDescription: ticketForm.ticketDescription.trim() || null,
-        eventId: event!.eventId ,
+        eventId: event!.eventId,
       };
 
-      
+
       console.log(body);
 
       const response = await fetch(`${API_BASE_URL}/tickets/ticket`, {
@@ -175,8 +187,12 @@ export default function EventPage() {
       });
 
       if (!response.ok) {
-        const text = await response.text();
-        setCreateError(text || "Failed to create ticket. Please try again.");
+        if (response.status === 409) {
+          setCreateError("A ticket type with this name already exists for this event. Please use a different name.");
+        } else {
+          const text = await response.text();
+          setCreateError(text || "Failed to create ticket. Please try again.");
+        }
         return;
       }
 
@@ -193,6 +209,73 @@ export default function EventPage() {
       setCreateError("Network error. Please try again.");
     } finally {
       setCreateLoading(false);
+    }
+  };
+
+  /**
+   * Calls PUT /tickets/ticket/reduceAmount to decrease available tickets for a given ticketId.
+   */
+  const handleReduceAmount = async (ticketId: number) => {
+    const newAmount = parseInt(reduceInputs[ticketId] ?? "", 10);
+    if (isNaN(newAmount) || newAmount < 0) {
+      setReduceError(prev => ({ ...prev, [ticketId]: "Enter a valid number ≥ 0." }));
+      return;
+    }
+    setReduceError(prev => ({ ...prev, [ticketId]: "" }));
+    setReduceLoading(prev => ({ ...prev, [ticketId]: true }));
+    setReduceSuccess(prev => ({ ...prev, [ticketId]: false }));
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/tickets/ticket/reduceAmount?ticketId=${ticketId}&quantity=${newAmount}`,
+        {
+          method: "PUT",
+          headers: { "Authorization": `Bearer ${token}` },
+          credentials: "include",
+        }
+      );
+      if (response.status === 204) {
+        const ticketsResponse = await fetch(`${API_BASE_URL}/tickets/by-event/` + encodeURIComponent(event!.eventId));
+        if (ticketsResponse.ok) setTickets(await ticketsResponse.json());
+        setReduceInputs(prev => ({ ...prev, [ticketId]: "" }));
+        setReduceSuccess(prev => ({ ...prev, [ticketId]: true }));
+      } else if (response.status === 409) {
+        setReduceError(prev => ({ ...prev, [ticketId]: "Invalid amount for this ticket." }));
+      } else if (response.status === 400) {
+        setReduceError(prev => ({ ...prev, [ticketId]: "Invalid quantity." }));
+      } else {
+        setReduceError(prev => ({ ...prev, [ticketId]: "Request failed." }));
+      }
+    } catch {
+      setReduceError(prev => ({ ...prev, [ticketId]: "Network error." }));
+    } finally {
+      setReduceLoading(prev => ({ ...prev, [ticketId]: false }));
+    }
+  };
+
+  /**
+   * Calls DELETE /tickets/ticket/{ticketId} to remove a ticket.
+   * Requires confirmation step before executing.
+   */
+  const handleDeleteTicket = async (ticketId: number) => {
+    setDeleteLoading(prev => ({ ...prev, [ticketId]: true }));
+    try {
+      const response = await fetch(`${API_BASE_URL}/tickets/ticket/${ticketId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` },
+        credentials: "include",
+      });
+      if (response.status === 204) {
+        setTickets(prev => prev.filter(t => (t.ticketId as number) !== ticketId));
+      } else if (response.status === 404) {
+        setReduceError(prev => ({ ...prev, [ticketId]: "Ticket not found." }));
+      } else {
+        setReduceError(prev => ({ ...prev, [ticketId]: "Failed to delete ticket." }));
+      }
+    } catch {
+      setReduceError(prev => ({ ...prev, [ticketId]: "Network error." }));
+    } finally {
+      setDeleteLoading(prev => ({ ...prev, [ticketId]: false }));
+      setConfirmDeleteId(null);
     }
   };
 
@@ -222,7 +305,7 @@ export default function EventPage() {
   if (!eventId) {
     return (
       <div className="event-page">
-        <h1> No event specified</h1>
+        <h1>No event specified</h1>
       </div>
     );
   }
@@ -253,7 +336,7 @@ export default function EventPage() {
                 alt={event.eventName}
               />
             ) : (
-              <div className="event-hero-placeholder" aria-label="No image avialable">
+              <div className="event-hero-placeholder" aria-label="No image available">
                 No image available
               </div>
             )}
@@ -271,8 +354,7 @@ export default function EventPage() {
                 } else {
                   alert("You need to be logged in to use the wishlist feature.");
                 }
-              }
-              }
+              }}
               aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             >
@@ -285,12 +367,12 @@ export default function EventPage() {
           <h1 className="event-title">{event.eventName}</h1>
 
           <div className="event-meta">
-            <div className="event-location"> {event.eventVenue.city}, {event.eventVenue.country} </div>
+            <div className="event-location">{event.eventVenue.city}, {event.eventVenue.country}</div>
             <div className="event-page-arena">{event.eventVenue.arena}</div>
             <div className="event-date">{datePart}</div>
             <div className="event-time">{timePart}</div>
           </div>
-
+          
           <p className="event-description">{event.eventDescription}</p>
         </div>
       </div>
@@ -304,26 +386,101 @@ export default function EventPage() {
         )}
 
         {tickets.map((ticket: Ticket) => {
+          const tid = ticket.ticketId as number;
           return (
-            <div className="ticket-row">
+            <div className="ticket-row" key={tid ?? ticket.ticketType}>
+
+              {/* ── Main ticket info ── */}
               <div className="ticket-column">
-                <div className="ticket-information">
-                  <div className="ticket-type"> {ticket?.ticketType + "  |"}</div>
-                  <div className="ticket-amount"> {"Tickets remaining: " + ticket?.amountAvailable}</div>
+                <div className="ticket-left">
+                  <div className="ticket-information">
+                    <div className="ticket-type">{ticket?.ticketType + "  |"}</div>
+                    <div className="ticket-amount">{"Tickets remaining: " + ticket?.amountAvailable}</div>
+                  </div>
+                  {ticket?.ticketDescription && (
+                    <div className="ticket-description">{ticket.ticketDescription}</div>
+                  )}
                 </div>
-                <div className="price-and-add-to-cart-button">
-                  <div className="ticket-price"> {ticket?.price + ",- NOK"}</div>
-                  <button className="add-to-cart-button"
-                    onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}>Add to cart
-                  </button>
+                <div className="ticket-right">
+                  <div className="price-and-add-to-cart-button">
+                    <div className="ticket-price">{ticket?.price + ",- NOK"}</div>
+                    <button
+                      className="add-to-cart-button"
+                      onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
               </div>
-              <button>jepps</button>
+
+              {/* ── Admin panel: only visible to admins ── */}
+              {isAuthenticated() && isAdmin === true && (
+                <div className="ticket-admin-panel">
+                  <span className="ticket-admin-label">Set availability</span>
+                  <div className="ticket-admin-controls">
+                    <input
+                      className="ticket-admin-input"
+                      type="number"
+                      min="0"
+                      placeholder="New amount"
+                      value={reduceInputs[tid] ?? ""}
+                      onChange={e =>
+                        setReduceInputs(prev => ({ ...prev, [tid]: e.target.value }))
+                      }
+                    />
+                    <button
+                      className="ticket-admin-button"
+                      disabled={reduceLoading[tid]}
+                      onClick={() => handleReduceAmount(tid)}
+                    >
+                      {reduceLoading[tid] ? "…" : "Apply"}
+                    </button>
+                  </div>
+                  {reduceError[tid] && (
+                    <div className="ticket-admin-error">{reduceError[tid]}</div>
+                  )}
+                  {reduceSuccess[tid] && !reduceError[tid] && (
+                    <div className="ticket-admin-success">✓ Updated</div>
+                  )}
+
+                  <div className="ticket-admin-divider" />
+
+                  {confirmDeleteId === tid ? (
+                    <div className="ticket-delete-confirm">
+                      <span className="ticket-delete-confirm-text">Are you sure?</span>
+                      <div className="ticket-delete-confirm-actions">
+                        <button
+                          className="ticket-delete-confirm-yes"
+                          disabled={deleteLoading[tid]}
+                          onClick={() => handleDeleteTicket(tid)}
+                        >
+                          {deleteLoading[tid] ? "…" : "Yes, delete"}
+                        </button>
+                        <button
+                          className="ticket-delete-confirm-no"
+                          onClick={() => setConfirmDeleteId(null)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      className="ticket-delete-button"
+                      onClick={() => setConfirmDeleteId(tid)}
+                    >
+                      <TrashCanIcon size={17}/>
+                      Remove ticket
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
-          )
+          );
         })}
 
-        {/* Only show the Create Ticket button/form if the user is authenticated */}
+        {/* Only show the Create Ticket button/form to admins */}
         {isAuthenticated() && isAdmin === true && (
           <div className="create-ticket-section">
             {!showCreateForm ? (
@@ -365,7 +522,6 @@ export default function EventPage() {
                         required
                       />
                     </div>
-
                     <div className="create-ticket-field">
                       <label htmlFor="amountAvailable">Amount Available <span className="required">*</span></label>
                       <input
