@@ -12,7 +12,9 @@ import React from "react";
 export default function AdminRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isAdmin = useIsAdminRole(location.pathname);
+  const isMobile = window.innerWidth <= 600;
 
+  if (isMobile) return <Navigate to="/home" replace />
   if (isAdmin === null) return <div>Loading...</div>;
   if (!isAdmin) return <Navigate to="/home" replace />;
   return children;

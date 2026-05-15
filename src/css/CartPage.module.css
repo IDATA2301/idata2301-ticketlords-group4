@@ -27,11 +27,33 @@
 }
 
 .ticket-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
   padding: 15px;
   margin-top: 10px;
-  border-color: aqua;
+  border-color: #8F27DD;
+  background-color: white;
   border-style: solid;
   border-radius: 15px;
+}
+
+.ticket-img {
+  width: 90px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: #ddd;
+}
+
+.ticket-info {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 .trash-button {
@@ -39,12 +61,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   border: none;
 }
 
 .trash-button:hover {
   cursor: pointer;
-  outline: 3px solid #45a049;
+  outline: 3px solid #DF32B6;
   border-radius: 8px;
 }
 
@@ -113,9 +136,10 @@
 
 .guest-prompt {
   width: 38%;
-  border: 3px solid #000000;
+  border: 3px solid #8F27DD;
   padding: 15px;
   border-radius: 15px;
+  background-color: white;
 }
 
 .guest-prompt p,
@@ -128,8 +152,8 @@ h2 {
   width: 100%;
   border-radius: 8px;
   height: 2rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.3 ease;
+  border: 1px solid black;
+  transition: border-color;
 }
 
 
@@ -163,7 +187,8 @@ h2 {
 .prompt-login {
   border: solid;
   border-width: 3px;
-  border-color: black;
+  border-color: #8F27DD;
+  background-color: white;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -207,3 +232,83 @@ h2 {
   color: white;
 
 }
+
+@media (max-width: 600px){
+  .header {
+    margin-left: 0;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .cart-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .cart-items {
+    width: 100%;
+    height: 50%;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .right-side {
+    width: 100%;
+  }
+
+  .cart-summary {
+    width: 100%;
+  }
+
+  .ticket-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ticket-item {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .trash-button {
+    align-self: flex-end;
+    padding: 8px;
+  }
+
+  .not-logged-in-prompt {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .guest-prompt,
+  .prompt-login {
+    width: 100%;
+  }
+
+  .prompt-login div {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .prompt-login button {
+    width: 100%;
+  }
+
+  .place-order {
+    height: auto;
+  }
+
+  .place-order button {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+}
+
+

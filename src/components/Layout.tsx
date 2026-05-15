@@ -84,28 +84,23 @@ export default function Layout() {
           <div className="topnav-right">
             <div>
               {isAdmin && (
-                <Link to="/addevent">
-                  <button className="create-event-btn">Create Event</button>
+                <Link to="/addevent" className="create-event-btn">
+                  Create Event
                 </Link>
               )}
             </div>
-            <Link to="/cart">
-              <button className="cart-btn">
-                <img
-                  src="cart.png"
-                /></button>
+
+            <Link to="/cart" className="cart-btn">
+                <img src="/cart.png" />
             </Link>
 
             {loggedIn ? (
-              <Link to="/user-page">
-                <button className="user-btn">
-                  <img
-                    src="user-icon.png"
-                  /></button>
+              <Link to="/user-page" className="user-btn">
+                  <img src="/user-icon.png"/>
               </Link>
             ) : (
-              <Link to="/login">
-                <button className="login-btn">Login</button>
+              <Link to="/login" className="login-btn">
+                Login
               </Link>
             )}
 

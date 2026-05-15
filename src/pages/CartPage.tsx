@@ -67,6 +67,11 @@ export default function CartPage() {
         <div className={styles["cart-items"]}>
           {cartItems.map((cartItem: CartItem) => (
             <div className={styles["ticket-item"]} key={cartItem.ticket.ticketId}>
+              <img
+                src={`${API_BASE_URL}/events/${cartItem.ticket.event.eventId}/image`}
+                alt={cartItem.ticket.event.eventName}
+                className={styles["ticket-img"]}
+              />
               <div className={styles["ticket-info"]}>
                 <div>
                   <div>{cartItem.ticket.event.eventName}</div>

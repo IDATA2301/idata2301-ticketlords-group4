@@ -358,7 +358,11 @@ export default function EventPage() {
               aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             >
-              {isWishlisted ? "♥" : "♡"}
+              <img
+                className="wishlist-heart-icon"
+                src={isWishlisted ? "/heart-filled.png" : "/heart-empty.png"}
+                alt=""
+                />
             </button>
           </div>
         </div>
