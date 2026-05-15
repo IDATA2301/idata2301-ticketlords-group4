@@ -61,7 +61,7 @@ export default function HomePage() {
         </button>
       </form>
       <div className="event-categories">
-        <Link to="/events/category/arts-music" className="event-category-link">
+        <Link to="/events/category/arts-and-music" className="event-category-link">
           <div>🎶Arts & Music</div>
         </Link>
         <Link to="/events/category/cinema" className="event-category-link">
@@ -70,7 +70,7 @@ export default function HomePage() {
         <Link to="/events/category/cultural" className="event-category-link">
           <div>🌍Cultural</div>
         </Link>
-        <Link to="/events/category/food-drinks" className="event-category-link">
+        <Link to="/events/category/food-and-drinks" className="event-category-link">
           <div>🍜Food & Drinks</div>
         </Link>
         <Link to="/events/category/sports" className="event-category-link">

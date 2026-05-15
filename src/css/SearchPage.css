@@ -109,6 +109,7 @@
 .date {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-self: stretch;
   max-width: 90px;
   font-weight: bold;
@@ -168,6 +169,7 @@
 .searched-event-button {
   margin-left: auto;
   padding-right: 20px;
+  flex-shrink: 0;
 }
 
 .searched-event-button button:hover {
@@ -184,4 +186,76 @@
   border: none;
   border-radius: 2px;
   font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+@media (max-width: 800px) {
+
+  .search-page {
+    padding: 12px;
+  }
+
+  .search-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .search-context {
+    font-size: 1.4rem;
+    white-space: normal;
+    flex-basis: auto;
+  }
+
+  .sort-button {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
+
+  .searched-event-item {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .date {
+    max-width: 64px;
+    margin-right: 0;
+    flex-basis: auto;
+  }
+
+  .month {
+    font-size: 1.2rem;
+  }
+
+  .day {
+    font-size: 2rem;
+  }
+
+  .info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .searched-event-button {
+    margin-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .searched-event-button button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .event-name {
+    font-size: 1.3rem;
+  }
+
+  .event-arena {
+    font-size: 1rem;
+  }
+
+  .no-search-found {
+    font-size: 1.2rem;
+  }
 }

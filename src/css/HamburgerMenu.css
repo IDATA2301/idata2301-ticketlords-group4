@@ -35,7 +35,7 @@
   }
 
   .hamburger {
-    top: 10px;
+    top: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,7 +46,7 @@
     cursor: pointer;
     gap: 7px;
     padding: 0;
-    position: fixed;
+    position: relative;
     z-index: 1100;
   }
 

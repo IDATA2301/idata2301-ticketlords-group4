@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {Link, Outlet, useLocation} from "react-router-dom";
+import { clearAuthToken, isAuthenticated } from "../util/authUtils.ts";
 import HamburgerMenu from "./HamburgerMenu";
 import "../css/HamburgerMenu.css";
 import useIsAdminRole from "../functions/CheckAdminRole.ts";
@@ -9,6 +10,7 @@ export default function Layout() {
   const lastScrollY = useRef(0);
   const location = useLocation();
   const isAdmin = useIsAdminRole(location.pathname);
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
 
   useEffect(() => {
     const handleWindowScroll = () => {
@@ -53,6 +55,10 @@ export default function Layout() {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    setLoggedIn(isAuthenticated());
+  }, [location.pathname]);
+
   return (
     <div className="app-shell">
       <div className="main-content">
@@ -78,20 +84,26 @@ export default function Layout() {
           <div className="topnav-right">
             <div>
               {isAdmin && (
-                <Link to="/addevent">
-                  <button className="create-event-btn">Create Event</button>
+                <Link to="/addevent" className="create-event-btn">
+                  Create Event
                 </Link>
               )}
             </div>
-            <Link to="/cart">
-              <button className="cart-btn">
-                <img
-                  src="cart.png"
-                /></button>
+
+            <Link to="/cart" className="cart-btn">
+                <img src="/cart.png" />
             </Link>
-            <Link to="/login">
-              <button className="login-btn">Login</button>
-            </Link>
+
+            {loggedIn ? (
+              <Link to="/user-page" className="user-btn">
+                  <img src="/user-icon.png"/>
+              </Link>
+            ) : (
+              <Link to="/login" className="login-btn">
+                Login
+              </Link>
+            )}
+
 
           </div>
         </div>
