@@ -328,6 +328,10 @@ a {
     padding-left: 0;
   }
 
+  .create-event-btn {
+    display: none;
+  }
+
   .topnav-middle {
     min-width: 0;
   }
