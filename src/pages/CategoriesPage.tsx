@@ -2,8 +2,16 @@ import {useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import type Category from "../util/dtos/Category.ts";
 import {API_BASE_URL} from "../config.ts";
+import { prettyCategoryName } from "../functions/PrettyCategoryName.ts";
 import "../css/CategoriesPage.css";
 
+/**
+ * Converts a category display name into a URL-safe slug.
+ * Trims whitespace, lowercases and replaces spaces with hyphens.
+ *
+ * @param name The display name to slugify
+ * @returns A URL-safe slug
+ */
 function slugifyCategoryName(name: string) {
   return name
     .trim()
@@ -11,6 +19,12 @@ function slugifyCategoryName(name: string) {
     .replace(/\s+/g, "-");
 }
 
+/**
+ * Page component that fetches and displays all event categories as a navigable grid.
+ * Refetches categories when the window regains focus.
+ *
+ * @returns A grid of category cards, each linking to the relevant category event page.
+ */
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +84,7 @@ export default function CategoriesPage() {
               className="category-card"
               to={`/events/category/${encodeURIComponent(slug)}`}
             >
-              {cat.categoryName}
+              {prettyCategoryName(cat.categoryName)}
             </Link>
           );
         })}
