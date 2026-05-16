@@ -30,7 +30,7 @@
 }
 
 .event-hero-image {
-    width: 260px;
+    width: 460px;
     height: 180px;
     object-fit: cover;
     border-radius: 8px;
@@ -125,7 +125,6 @@
 }
 
 
-/* ── Ticket section ─────────────────────────────────────── */
 .ticket-section {
     display: flex;
     justify-content: center;
@@ -150,7 +149,6 @@
     font-size: 1.4rem;
 }
 
-/* ── Ticket row: wraps ticket-column + optional admin panel */
 .ticket-row {
     display: flex;
     flex-direction: row;
@@ -189,7 +187,6 @@
     flex-shrink: 0;
 }
 
-/* If there is no admin panel sibling, restore the right border */
 .ticket-column:last-child {
     border-right: 3px solid #8f27dd;
 }
@@ -224,7 +221,6 @@
     gap: 10px;
 }
 
-/* ── Admin panel ────────────────────────────────────────── */
 .ticket-admin-panel {
     display: flex;
     flex-direction: column;
@@ -313,7 +309,6 @@
     font-weight: 700;
 }
 
-/* ── Delete ticket ──────────────────────────────────────── */
 .ticket-admin-divider {
     height: 1px;
     background: #e0d4f7;
@@ -326,9 +321,9 @@
     gap: 6px;
     padding: 7px 14px;
     background: transparent;
-    border: 2px solid #e53935;
+    border: 2px solid #ee1815;
     border-radius: 2px;
-    color: #e53935;
+    color: #ee1815;
     font-size: 17px;
     font-weight: 700;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
@@ -339,7 +334,7 @@
 }
 
 .ticket-delete-button:hover {
-    background: #e53935;
+    background: #ee1815;
     color: white;
 }
 
@@ -362,7 +357,7 @@
 
 .ticket-delete-confirm-yes {
     padding: 6px 14px;
-    background: #e53935;
+    background: #ee1815;
     border: none;
     border-radius: 2px;
     color: white;
@@ -374,7 +369,7 @@
 }
 
 .ticket-delete-confirm-yes:hover:not(:disabled) {
-    background: #c62828;
+    background: #ee1815;
 }
 
 .ticket-delete-confirm-yes:disabled {
@@ -400,7 +395,6 @@
     color: #222;
 }
 
-/* ── Create ticket section ──────────────────────────────── */
 .create-ticket-section {
     display: flex;
     justify-content: center;
@@ -568,8 +562,30 @@
     border-radius: 2px;
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 800px) {
+.ticket-info-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #8f27dd;
+    background: transparent;
+    color: #8f27dd;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+    padding: 0;
+}
+
+.ticket-info-button:hover {
+    background: #8f27dd;
+    color: white;
+}
+
+@media (max-width: 1450px) {
     .event-card {
         flex-direction: column;
         text-align: center;
@@ -597,7 +613,6 @@
         flex-direction: column;
     }
 
-    /* Restore right border on column since panel drops below */
     .ticket-column {
         border-right: 3px solid #8f27dd;
         border-bottom: none;
@@ -623,5 +638,294 @@
 
     .create-ticket-row {
         flex-direction: column;
+    }
+
+    .ticket-admin-panel {
+        border-top: none;
+        border-left: 3px solid #8f27dd;
+        border-bottom: 3px solid #8f27dd;
+    }
+
+    .ticket-column {
+        flex-direction: column;
+        align-items: flex-start;
+        border-right: 3px solid #8f27dd;
+        border-bottom: none;
+    }
+
+    .ticket-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .ticket-column:last-child {
+        border-bottom: 3px solid #8f27dd;
+    }
+
+
+}
+
+@media (max-width: 600px) {
+    .ticket-information {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+/* ── Delete event (admin) ───────────────────────────────── */
+.event-delete-admin {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.event-delete-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: transparent;
+    border: 2px solid #ee1815;
+    border-radius: 2px;
+    color: #ee1815;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.event-delete-button:hover {
+    background: #ee1815;
+    color: white;
+}
+
+.event-delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-delete-confirm-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ee1815;
+}
+
+.event-delete-confirm-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.event-delete-confirm-yes {
+    padding: 6px 16px;
+    background: #ee1815;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.event-delete-confirm-yes:hover:not(:disabled) {
+    background: #c62828;
+}
+
+.event-delete-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-delete-confirm-no {
+    padding: 6px 16px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.event-delete-confirm-no:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.event-delete-error {
+    font-size: 1rem;
+    color: #ee1815;
+    font-weight: 600;
+}
+
+/* ── Event visibility admin toggle ─────────────────────── */
+.event-visibility-admin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    width: 50%;
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: #faf7ff;
+    border: 3px solid #8f27dd;
+    box-sizing: border-box;
+}
+
+.event-visibility-label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-visibility-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.event-visibility-badge.visible {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1.5px solid #2e7d32;
+}
+
+.event-visibility-badge.hidden {
+    background: #faf7ff;
+    color: #ee1815;
+    border: 1.5px solid  #ee1815;
+}
+
+.event-visibility-toggle {
+    padding: 8px 18px;
+    border-radius: 2px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.event-visibility-toggle.is-visible {
+    background: transparent;
+    border: 2px solid #ee1815;
+    color: #ee1815;
+}
+
+.event-visibility-toggle.is-visible:hover:not(:disabled) {
+    background: #ee1815;
+    color: white;
+}
+
+.event-visibility-toggle.is-hidden {
+    background: transparent;
+    border: 2px solid #2e7d32;
+    color: #2e7d32;
+}
+
+.event-visibility-toggle.is-hidden:hover:not(:disabled) {
+    background: #2e7d32;
+    color: white;
+}
+
+.event-visibility-toggle:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-visibility-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-visibility-confirm-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #5d2a8e;
+}
+
+.event-visibility-confirm-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.event-visibility-confirm-yes {
+    padding: 6px 16px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.event-visibility-confirm-yes:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.event-visibility-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-visibility-confirm-no {
+    padding: 6px 16px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.event-visibility-confirm-no:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.event-visibility-error {
+    width: 100%;
+    font-size: 1rem;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.event-visibility-success {
+    width: 100%;
+    font-size: 1rem;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+@media (max-width: 800px) {
+    .event-visibility-admin {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

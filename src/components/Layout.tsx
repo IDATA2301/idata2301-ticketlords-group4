@@ -83,7 +83,7 @@ export default function Layout() {
           </div>
           <div className="topnav-right">
             <div>
-              {isAdmin && (
+              {loggedIn && isAdmin === true && (
                 <Link to="/addevent" className="create-event-btn">
                   Create Event
                 </Link>

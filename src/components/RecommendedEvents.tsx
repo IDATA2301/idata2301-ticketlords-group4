@@ -16,7 +16,7 @@ export default function RecommendedEvents() {
     const fetchRecommended = async () => {
       try {
         if (userId) {
-          const token = localStorage.getItem("token");
+          const token = localStorage.getItem("authToken");
           const res = await fetch(`${API_BASE_URL}/api/user/` + encodeURIComponent(userId) + `/recommended-events`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` },
@@ -38,7 +38,6 @@ export default function RecommendedEvents() {
     fetchRecommended();
   }, []);
 
-  console.log(events);
   if (!loading && events.length === 0) return null;
 
   return (
@@ -64,7 +63,11 @@ export default function RecommendedEvents() {
             >
               <div className="rec-card__img-wrap">
                 <img
-                  src={`${API_BASE_URL}/events/${event.eventId}/image`}
+                  src={
+                    event.imgPathUrl.startsWith("images/")
+                      ? `${API_BASE_URL}/events/${event.eventId}/image`
+                      : `${API_BASE_URL}/images/` + event?.imgPathUrl
+                  }
                   alt={"Image of " + event.eventName}
                   className="rec-card__img"
                 />

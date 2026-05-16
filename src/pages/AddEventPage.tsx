@@ -215,7 +215,14 @@ const handleAddVenue = async () => {
       }
 
       const location = response.headers.get("Location");
-      navigate(location ?? "/home");
+      if (location) {
+        const relativePath = location.startsWith("http")
+          ? new URL(location).pathname
+          : location;
+        navigate(relativePath);
+      } else {
+        navigate("/home");
+      }
       
     } catch (error) {
       console.error("Error creating event:", error);

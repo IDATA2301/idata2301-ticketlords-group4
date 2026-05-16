@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useIsAdminRole from "../functions/CheckAdminRole";
 import { TrashCanIcon } from "../assets/TrashCanIcon.tsx";
 import "../css/EventPage.css"
@@ -13,6 +13,7 @@ import { getUserIdFromToken, isAuthenticated } from "../util/authUtils";
 
 export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [event, setEvent] = useState<Event | null>(null);
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -23,12 +24,26 @@ export default function EventPage() {
   const timePart = timePartRaw?.slice(0, 5);
   const location = useLocation();
   const isAdmin = useIsAdminRole(location.pathname); // boolean | null
+  const [confirmDeleteEvent, setConfirmDeleteEvent] = useState(false);
+  const [deleteEventLoading, setDeleteEventLoading] = useState(false);
+  const [deleteEventError, setDeleteEventError] = useState<string | null>(null);
+
+  // --- Visibility toggle state ---
+  const [isPubliclyVisible, setIsPubliclyVisible] = useState<boolean | null>(null);
+  const [confirmVisibilityChange, setConfirmVisibilityChange] = useState(false);
+  const [visibilityLoading, setVisibilityLoading] = useState(false);
+  const [visibilityError, setVisibilityError] = useState<string | null>(null);
+  const [visibilitySuccess, setVisibilitySuccess] = useState(false);
 
   // --- Create Ticket form state ---
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [createSuccess, setCreateSuccess] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<number, boolean>>({});
+  const toggleDEscription = (ticketId: number) => {
+    setExpandedDescriptions(prev => ({ ...prev, [ticketId]: !prev[ticketId] }));
+  };
   const [ticketForm, setTicketForm] = useState({
     ticketType: "",
     price: "",
@@ -47,13 +62,76 @@ export default function EventPage() {
   const [deleteLoading, setDeleteLoading] = useState<Record<number, boolean>>({});
 
   /**
+   * Checks if the event is publicly visible.
+   * If not visible and user is not an admin, redirect to homepage.
+   * This runs first to prevent information leakage.
+   */
+  useEffect(() => {
+    if (!eventId || isAdmin === null) return; // Wait for admin status to be determined
+
+    const checkEventVisibility = async () => {
+      try {
+        const options: RequestInit = {};
+        if (token) {
+          options.headers = { "Authorization": `Bearer ${token}` };
+        }
+        const response = await fetch(`${API_BASE_URL}/events/event/${encodeURIComponent(eventId)}/check-public-visibility`, options);
+        
+        if (!response.ok) {
+          // Event not found
+          navigate("/");
+          return;
+        }
+
+        const isPublic = await response.json();
+        
+        // If event is not public and user is not an admin, redirect to homepage
+        if (!isPublic && !isAdmin) {
+          navigate("/");
+        }
+      } catch {
+        // On error, redirect to homepage
+        console.error("Could not check event visibility");
+        navigate("/");
+      }
+    };
+
+    checkEventVisibility();
+  }, [eventId, isAdmin, navigate]);
+
+  /**
+   * Fetches the current public visibility state of the event for the admin toggle.
+   */
+  useEffect(() => {
+    if (!eventId || isAdmin !== true) return;
+    const fetchVisibility = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/events/event/${encodeURIComponent(eventId)}/check-public-visibility`,
+          { headers: token ? { Authorization: `Bearer ${token}` } : {} }
+        );
+        if (response.ok) {
+          setIsPubliclyVisible(await response.json());
+        }
+      } catch {
+        console.error("Could not fetch event visibility");
+      }
+    };
+    fetchVisibility();
+  }, [eventId, isAdmin]);
+
+  /**
    * Loads an event from the database based on the eventId in the url.
    */
   useEffect(() => {
     if (!eventId) return;
     const loadEvent = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/events/event/` + encodeURIComponent(eventId));
+        const options: RequestInit = {};
+        if (token) {
+          options.headers = { "Authorization": `Bearer ${token}` };
+        }
+        const response = await fetch(`${API_BASE_URL}/events/event/` + encodeURIComponent(eventId), options);
         if (!response.ok) {
           setEvent(fallBackEvent);
           return;
@@ -133,6 +211,67 @@ export default function EventPage() {
   }
 
   /**
+   * Calls PUT /events/event/{eventId}/publicVisible to toggle visibility.
+   */
+  const handleSetVisibility = async (newValue: boolean) => {
+    setVisibilityLoading(true);
+    setVisibilityError(null);
+    setVisibilitySuccess(false);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/events/event/${encodeURIComponent(eventId!)}/publicVisible`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+          body: JSON.stringify(newValue),
+        }
+      );
+      if (response.status === 204) {
+        setIsPubliclyVisible(newValue);
+        setVisibilitySuccess(true);
+        setTimeout(() => setVisibilitySuccess(false), 3000);
+      } else if (response.status === 404) {
+        setVisibilityError("Event not found.");
+      } else {
+        setVisibilityError("Failed to update visibility.");
+      }
+    } catch {
+      setVisibilityError("Network error. Please try again.");
+    } finally {
+      setVisibilityLoading(false);
+      setConfirmVisibilityChange(false);
+    }
+  };
+
+  const handleDeleteEvent = async () => {
+    setDeleteEventLoading(true);
+    setDeleteEventError(null);
+    try {
+      const response = await fetch(`${API_BASE_URL}/events/event/${eventId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+      });
+      if (response.status === 204) {
+        navigate("/home");
+      } else if (response.status === 404) {
+        setDeleteEventError("Event not found.");
+      } else {
+        setDeleteEventError("Failed to delete event.");
+      }
+    } catch {
+      setDeleteEventError("Network error. Please try again.");
+    } finally {
+      setDeleteEventLoading(false);
+      setConfirmDeleteEvent(false);
+    }
+  };
+
+  /**
    * Handles input changes for the create-ticket form.
    */
   const handleTicketFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -172,9 +311,6 @@ export default function EventPage() {
         ticketDescription: ticketForm.ticketDescription.trim() || null,
         eventId: event!.eventId,
       };
-
-
-      console.log(body);
 
       const response = await fetch(`${API_BASE_URL}/tickets/ticket`, {
         method: "POST",
@@ -378,10 +514,103 @@ export default function EventPage() {
           </div>
           
           <p className="event-description">{event.eventDescription}</p>
+
+          {isAuthenticated() && isAdmin === true && (
+          <div className="event-delete-admin">
+            {!confirmDeleteEvent ? (
+              <button
+                className="event-delete-button"
+                onClick={() => setConfirmDeleteEvent(true)}
+              >
+                <TrashCanIcon size={17} /> Delete Event
+              </button>
+            ) : (
+              <div className="event-delete-confirm">
+                <span className="event-delete-confirm-text">
+                  Permanently delete this event and all its tickets?
+                </span>
+                <div className="event-delete-confirm-actions">
+                  <button
+                    className="event-delete-confirm-yes"
+                    disabled={deleteEventLoading}
+                    onClick={handleDeleteEvent}
+                  >
+                    {deleteEventLoading ? "…" : "Yes, delete"}
+                  </button>
+                  <button
+                    className="event-delete-confirm-no"
+                    onClick={() => setConfirmDeleteEvent(false)}
+                    disabled={deleteEventLoading}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {deleteEventError && (
+              <div className="event-delete-error">{deleteEventError}</div>
+            )}
+          </div>
+        )}
         </div>
       </div>
 
       <div className="ticket-section">
+
+        {/* ── Admin: event visibility toggle ── */}
+        {isAuthenticated() && isAdmin === true && isPubliclyVisible !== null && (
+          <div className="event-visibility-admin">
+            <span className="event-visibility-label">
+              Event visibility:
+              <span className={`event-visibility-badge ${isPubliclyVisible ? "visible" : "hidden"}`}>
+                {isPubliclyVisible ? "Public" : "Hidden"}
+              </span>
+            </span>
+
+            {!confirmVisibilityChange ? (
+              <button
+                className={`event-visibility-toggle ${isPubliclyVisible ? "is-visible" : "is-hidden"}`}
+                onClick={() => setConfirmVisibilityChange(true)}
+                disabled={visibilityLoading}
+              >
+                {isPubliclyVisible ? "Make Hidden" : "Make Public"}
+              </button>
+            ) : (
+              <div className="event-visibility-confirm">
+                <span className="event-visibility-confirm-text">
+                  {isPubliclyVisible
+                    ? "Hide this event from the public?"
+                    : "Make this event publicly visible?"}
+                </span>
+                <div className="event-visibility-confirm-actions">
+                  <button
+                    className="event-visibility-confirm-yes"
+                    disabled={visibilityLoading}
+                    onClick={() => handleSetVisibility(!isPubliclyVisible)}
+                  >
+                    {visibilityLoading ? "…" : "Confirm"}
+                  </button>
+                  <button
+                    className="event-visibility-confirm-no"
+                    onClick={() => setConfirmVisibilityChange(false)}
+                    disabled={visibilityLoading}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {visibilityError && (
+              <div className="event-visibility-error">{visibilityError}</div>
+            )}
+            {visibilitySuccess && (
+              <div className="event-visibility-success">
+                ✓ Visibility updated successfully!
+              </div>
+            )}
+          </div>
+        )}
 
         {createSuccess && (
           <div className="ticket-create-success">
@@ -400,8 +629,17 @@ export default function EventPage() {
                   <div className="ticket-information">
                     <div className="ticket-type">{ticket?.ticketType + "  |"}</div>
                     <div className="ticket-amount">{"Tickets remaining: " + ticket?.amountAvailable}</div>
-                  </div>
                   {ticket?.ticketDescription && (
+                    <button
+                      className="ticket-info-button"
+                      onClick={() => toggleDEscription(tid)}
+                      aria-label="Show ticket description"
+                      >
+                      {expandedDescriptions[tid] ? "X" : "i"}
+                    </button>
+                    )}
+                  </div>
+                  {ticket?.ticketDescription && expandedDescriptions[tid] && (
                     <div className="ticket-description">{ticket.ticketDescription}</div>
                   )}
                 </div>

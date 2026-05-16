@@ -44,7 +44,6 @@ export default function UserPage() {
   const fetchWishlist = async () => {
     if (userId) {
       try {
-        console.log(userId);
         const wishlistData = await fetch(`${API_BASE_URL}/wishlists/user/` + encodeURIComponent(userId))
         if (wishlistData.ok) {
           const data = await wishlistData.json();
