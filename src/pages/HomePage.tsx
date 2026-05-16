@@ -4,6 +4,7 @@ import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx";
 import "../css/Slider.css";
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
+import { getTokenFromStorage } from "../util/authUtils";
 import RecommendedEvents from "../components/RecommendedEvents.tsx";
 
 export default function HomePage() {
@@ -11,7 +12,12 @@ export default function HomePage() {
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/events/popular`);
+      const token = getTokenFromStorage();
+      const options: RequestInit = {};
+      if (token) {
+        options.headers = { "Authorization": `Bearer ${token}` };
+      }
+      const response = await fetch(`${API_BASE_URL}/events/popular`, options);
       if (!response.ok) return [];
       return response.json();
     } catch {
