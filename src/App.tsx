@@ -16,6 +16,7 @@ import CartPage from "./pages/CartPage";
 import SecretMailPage from "./pages/SecretMailPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import AdminRoute from "./components/AdminRoute.tsx";
+import CategoriesPage from "./pages/CategoriesPage.tsx";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 
             <Route path="events/search" element={<SearchPage />} />
             <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
+            <Route path="categories" element={<CategoriesPage />} />
             <Route path="event/:eventId" element={<EventPage />} />
             <Route path="register" element={<RegisterUserPage />} />
             <Route path="login" element={<LoginPage />} />
