@@ -236,4 +236,8 @@
     .carousel-slide-overlay {
         padding: 1rem 1.25rem;
     }
+
+    .carousel-arrow {
+        display: none;
+    }
 }
