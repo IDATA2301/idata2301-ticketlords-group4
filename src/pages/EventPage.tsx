@@ -40,6 +40,10 @@ export default function EventPage() {
   const [createLoading, setCreateLoading] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [createSuccess, setCreateSuccess] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<number, boolean>>({});
+  const toggleDEscription = (ticketId: number) => {
+    setExpandedDescriptions(prev => ({ ...prev, [ticketId]: !prev[ticketId] }));
+  };
   const [ticketForm, setTicketForm] = useState({
     ticketType: "",
     price: "",
@@ -625,8 +629,17 @@ export default function EventPage() {
                   <div className="ticket-information">
                     <div className="ticket-type">{ticket?.ticketType + "  |"}</div>
                     <div className="ticket-amount">{"Tickets remaining: " + ticket?.amountAvailable}</div>
-                  </div>
                   {ticket?.ticketDescription && (
+                    <button
+                      className="ticket-info-button"
+                      onClick={() => toggleDEscription(tid)}
+                      aria-label="Show ticket description"
+                      >
+                      {expandedDescriptions[tid] ? "X" : "i"}
+                    </button>
+                    )}
+                  </div>
+                  {ticket?.ticketDescription && expandedDescriptions[tid] && (
                     <div className="ticket-description">{ticket.ticketDescription}</div>
                   )}
                 </div>

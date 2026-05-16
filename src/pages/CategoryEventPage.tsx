@@ -3,21 +3,26 @@ import { useParams } from "react-router-dom";
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
 import { getTokenFromStorage } from "../util/authUtils";
+import { prettyCategoryName} from "../functions/PrettyCategoryName.ts";
 
-
+/**
+ * Page component that displays all events belonging to a specific category.
+ * Reads the category slug from the URL parameters, converts it to a display
+ * name, and fetches the matching events from the backend.
+ *
+ * @returns An {@link EventListPage} populated with events for the given category.
+ */
 export default function CategoryEventPage() {
   const params = useParams<{ categoryName: string }>();
   const category = params.categoryName;
-
-  const prettyCategoryName = (categoryName: string) => {
-    if (!categoryName) return "";
-    if (categoryName.includes("-")) {
-      categoryName = categoryName.replaceAll("-", " ");
-    }
-    return categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
-  }
   const categoryTitle: string = prettyCategoryName(category ?? "");
 
+  /**
+   * Fetches all events belonging to the current category from the backend.
+   *
+   * @returns A promise resolving to an array of {@link Event} objects,
+   *          or an empty array if the category is missing or the request fails.
+   */
   const fetchEvents = async (): Promise<Event[]> => {
     if (!category) return [];
     const token = getTokenFromStorage();
