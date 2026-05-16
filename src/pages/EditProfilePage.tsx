@@ -35,7 +35,6 @@ export default function UserPage() {
             password: "",
             phoneNumber: data.phoneNumber || "",
           });
-          console.log("Fetched user data:", data);
         })
         .catch((error) => console.error("Error fetching user:", error));
     }
@@ -139,7 +138,6 @@ export default function UserPage() {
         {/* Actions */}
         <div className="user-actions">
           <button className="btn-save" id="submitChanges" onClick={async () => {
-            console.log("User data to update:", user);
             const success = await handleUpdateUser();
             if (success) {
               alert("Details updated successfully!");

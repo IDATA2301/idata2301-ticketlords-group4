@@ -20,7 +20,6 @@ export default async function ticketPurchaseHandler(cartItems: CartItem[]) {
     ticketId: item.ticket.ticketId,
     quantity: item.amount
   }));
-  console.log("Payload data:", payloadData);
 
   if (cartItems.length === 1) {
     try {

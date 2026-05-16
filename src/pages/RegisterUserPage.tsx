@@ -21,10 +21,6 @@ export default function RegisterUserPage() {
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => { // TODO: remove on release: prints in log unreg userid
-    console.log("Current unreg user ID:", unregisteredUserId);
-  }, [unregisteredUserId]);
-
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/user-page");
@@ -84,7 +80,6 @@ export default function RegisterUserPage() {
       })
       .then((newUserId) => {
         localStorage.setItem("unregisteredUserId", newUserId.toString());
-        console.log(localStorage.getItem("unregisteredUserId"));
         navigate("/login");
       })
       .catch((error) => {
