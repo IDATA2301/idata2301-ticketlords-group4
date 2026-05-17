@@ -1,14 +1,14 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import "../css/RegisterUserPage.css";
-import {useNavigate, Link} from "react-router-dom";
-import {useUnregisteredUser} from "../context/UnregisteredUserContext";
-import {API_BASE_URL} from "../config";
+import { useNavigate, Link } from "react-router-dom";
+import { useUnregisteredUser } from "../context/UnregisteredUserContext";
+import { API_BASE_URL } from "../config";
 import isValidEmail from "../functions/EmailRegex";
-import {isAuthenticated} from "../util/authUtils";
+import { isAuthenticated } from "../util/authUtils";
 
 
 export default function RegisterUserPage() {
-  const {unregisteredUserId} = useUnregisteredUser() ?? {unregisteredUserId: -1};
+  const { unregisteredUserId } = useUnregisteredUser() ?? { unregisteredUserId: -1 };
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [registrationError, setRegistrationError] = useState("");
@@ -65,7 +65,7 @@ export default function RegisterUserPage() {
     setIsLoading(true);
     fetch(`${API_BASE_URL}/users/user/register?uregId=${encodeURIComponent(unregisteredUserId)}`, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((response) => {
@@ -85,7 +85,7 @@ export default function RegisterUserPage() {
       .catch((error) => {
         if ((error as Error).message === "EMAIL_IN_USE") return;
         console.error("Error registering user:", error);
-        setRegistrationError("Registration failed. Please try again.");
+        setRegistrationError("This email is already in use. Please try a different one.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -103,7 +103,7 @@ export default function RegisterUserPage() {
         }}>
           <div className="register-field">
             <label>Display name</label>
-            <input type="text" ref={displayNameRef} placeholder="Display name" autoFocus/>
+            <input type="text" ref={displayNameRef} placeholder="Display name" autoFocus />
           </div>
 
           <div className="register-field">
@@ -121,22 +121,22 @@ export default function RegisterUserPage() {
 
           <div className="register-field">
             <label>First Name</label>
-            <input type="text" ref={firstNameRef} placeholder="First name"/>
+            <input type="text" ref={firstNameRef} placeholder="First name" />
           </div>
 
           <div className="register-field">
             <label>Last name</label>
-            <input type="text" ref={lastNameRef} placeholder="Last name"/>
+            <input type="text" ref={lastNameRef} placeholder="Last name" />
           </div>
 
           <div className="register-field">
             <label>Phone number</label>
-            <input type="tel" ref={phoneNumberRef} placeholder="Phone number"/>
+            <input type="tel" ref={phoneNumberRef} placeholder="Phone number" />
           </div>
 
           <div className="register-field">
             <label>Password</label>
-            <input type="password" ref={passwordRef} placeholder="Password"/>
+            <input type="password" ref={passwordRef} placeholder="Password" />
             {fieldErrors.password && <p className="register-error">{fieldErrors.password}</p>}
           </div>
 
