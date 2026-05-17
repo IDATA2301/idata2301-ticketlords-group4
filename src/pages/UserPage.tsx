@@ -5,6 +5,7 @@ import { clearAuthToken, getUserIdFromToken, isAuthenticated } from "../util/aut
 import { useNavigate } from "react-router-dom";
 import type Event from "../util/dtos/Event";
 import { deleteWishlistFromDatabase } from "../functions/WishlistHandler";
+import { clearCart } from "../functions/CartHandler";
 
 
 export default function UserPage() {
@@ -73,7 +74,10 @@ export default function UserPage() {
         <p className="user-hero__email">{user.email}</p>
         <div className="user-hero__actions">
           <button className="btn-edit" onClick={() => navigate("/edit-account")}>Edit Profile</button>
-          <button className="btn-logout" onClick={logOut}>Log Out</button>
+          <button className="btn-logout" onClick={() => {
+            logOut();
+            clearCart();
+          }}>Log Out</button>
         </div>
       </div>
       <section className="user-card">
