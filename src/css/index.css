@@ -60,7 +60,8 @@ footer a {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  z-index: 10000;
+  position: relative;
+  z-index: 2000;
 }
 
 .topnav-left {
@@ -332,6 +333,12 @@ a {
     gap: 30px;
     align-items: center;
     padding-left: 0;
+  }
+  .topnav {
+    position: sticky;
+    top: 0;
+    transition: transform 0.25s ease;
+    will-change: transform;
   }
 
   .create-event-btn {
