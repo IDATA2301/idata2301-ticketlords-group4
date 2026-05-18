@@ -30,8 +30,8 @@
 }
 
 .event-hero-image {
-    width: 460px;
-    height: 180px;
+    max-width: 644px;
+    max-height: 252px;
     object-fit: cover;
     border-radius: 8px;
     background: #ddd;
