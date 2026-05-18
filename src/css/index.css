@@ -86,7 +86,7 @@ footer a {
 .topnav-left, .topnav-middle a {
   color: black;
   font-size: 1.3rem;
-  padding: 6px, 8px;
+  padding: 6px 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -323,10 +323,12 @@ a {
   color: white;
   text-decoration: none;
   padding: 0 15px;
+  display: inline-block;
+  transition: transform 150ms ease;
 }
 
 .footer a:hover {
-  color: #5443a2;
+  transform: translateY(-3px);
 }
 
 @media (max-width: 800px) {
