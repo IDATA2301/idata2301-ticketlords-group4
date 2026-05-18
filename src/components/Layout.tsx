@@ -15,7 +15,7 @@ export default function Layout() {
   useEffect(() => {
     const handleWindowScroll = () => {
       const currentY = window.scrollY;
-      const isMobile = window.innerWidth <= 600;
+      const isMobile = window.matchMedia("(max-width: 800px)").matches;
 
 
       if (!isMobile) {
