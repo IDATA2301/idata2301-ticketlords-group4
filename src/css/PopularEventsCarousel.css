@@ -1,0 +1,243 @@
+.carousel-wrapper {
+    width: 100%;
+    margin-top: 4rem;
+}
+
+.carousel-heading {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 1.5rem;
+    color: #9400d3;
+    margin-bottom: 0.75rem;
+    padding-left: 2rem;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: clamp(260px, 42vw, 500px);
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.56, 0.03, 0.27, 0.98);
+}
+
+.carousel-inner {
+    padding: 0 25%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+
+.carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+}
+
+.carousel-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+
+.carousel-slide-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 2.5rem;
+    gap: 0.75rem;
+}
+
+.carousel-shadow-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(0, 0, 0, 0.75) 25%,
+            transparent 25%,
+            transparent 75%,
+            rgba(0, 0, 0, 0.75) 75%,
+            rgba(0, 0, 0, 0.6) 100%
+    );
+}
+
+.carousel-slide-name {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    margin: 0;
+    max-width: 480px;
+}
+
+.carousel-slide-cta {
+    display: inline-block;
+    background: #DF32B6;
+    color: #fff;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border-radius: 4px;
+    align-self: flex-start;
+    transition: background 0.2s;
+}
+
+.carousel-slide:hover .carousel-slide-cta {
+    background: #951a77;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    padding: 0;
+}
+
+.carousel-dot--active {
+    background: #fff;
+    transform: scale(1.25);
+}
+
+.carousel-dot:hover:not(.carousel-dot--active) {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- Arrow buttons ---- */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: dashed;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    transition: background 0.18s, transform 0.18s;
+    padding: 0;
+    border-width: 1.5rem;
+    border-color: transparent;
+    border-radius: 1rem;
+}
+
+.carousel-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.carousel-arrow:hover {
+    box-shadow: 0 0 0 4px #62bb66;
+}
+
+.carousel-arrow--left  {
+    left: 16px;
+}
+
+.carousel-arrow--right {
+    right: 16px;
+}
+
+.carousel-arrow--left img,
+.carousel-arrow--right img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.carousel-pause {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 0.2s;
+    margin-left: 4px;
+}
+
+.carousel-pause svg {
+    width: 9px;
+    height: 9px;
+}
+
+.carousel-pause:hover {
+    border-color: #fff;
+}
+
+@media (max-width: 600px) {
+    .carousel-carousel {
+        height: clamp(200px, 56vw, 320px);
+    }
+
+    .carousel-arrow {
+        width: 32px;
+        height: 32px;
+    }
+
+    .carousel-arrow svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .carousel-arrow--left  {
+        left: 8px;
+    }
+
+    .carousel-arrow--right {
+        right: 8px;
+    }
+
+    .carousel-slide-overlay {
+        padding: 1rem 1.25rem;
+    }
+
+    .carousel-arrow {
+        display: none;
+    }
+}

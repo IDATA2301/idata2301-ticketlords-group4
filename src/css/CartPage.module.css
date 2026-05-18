@@ -1,0 +1,314 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.header {
+  margin-left: 100px;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+.cart-items {
+  padding-left: 50px;
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.ticket-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 15px;
+  margin-top: 10px;
+  border-color: #8F27DD;
+  background-color: white;
+  border-style: solid;
+  border-radius: 15px;
+}
+
+.ticket-img {
+  width: 90px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: #ddd;
+}
+
+.ticket-info {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.trash-button {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: none;
+}
+
+.trash-button:hover {
+  cursor: pointer;
+  outline: 3px solid #DF32B6;
+  border-radius: 8px;
+}
+
+.bi.bi-trash {
+  width: 32px;
+  height: auto;
+  font-size: 1.5rem;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-side {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+}
+
+.cart-summary {
+  width: 80%;
+}
+
+.place-order button:hover {
+  cursor: pointer;
+  background-color: rgba(69, 160, 73, 0.7);
+  color: white;
+}
+
+
+.place-order button {
+  border-radius: 10px;
+  border-width: 1px;
+  height: 3.2rem;
+  width: 60%;
+  background-color: #45a049;
+  color: white;
+  font-size: 1.7rem;
+}
+
+.place-order {
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  border-width: 1px;
+  height: 3.5rem;
+  width: 100%;
+}
+
+.not-logged-in-prompt {
+  display: flex;
+  flex-direction: row;
+}
+
+.not-logged-in-prompt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 20px;
+}
+
+.guest-prompt {
+  width: 38%;
+  border: 3px solid #8F27DD;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.guest-prompt p,
+h3,
+h2 {
+  margin: 10px 0;
+}
+
+.user-email {
+  width: 100%;
+  border-radius: 8px;
+  height: 2rem;
+  border: 1px solid black;
+  transition: border-color;
+}
+
+
+/*
+ * Shakes the guest email field if no input is provided.
+ */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(8px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(-8px);
+  }
+}
+
+.user-email-error {
+  border-color: red;
+  animation: shake 0.3s;
+
+}
+
+.prompt-login {
+  border: solid;
+  border-width: 3px;
+  border-color: #8F27DD;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 38%;
+  border-radius: 15px;
+  gap: 1.7rem;
+}
+
+.prompt-login div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.prompt-login button {
+  border-radius: 10px;
+  border-width: 1px;
+  height: 3rem;
+  width: 45%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.prompt-login button:hover {
+  border-width: 3px;
+}
+
+.register-button:hover {
+  border-color: #df32b6;
+}
+
+.invalid-email-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.login-button {
+  background-color: #45a049;
+  color: white;
+
+}
+
+@media (max-width: 800px){
+  .header {
+    margin-left: 0;
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .cart-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .cart-items {
+    width: 100%;
+    height: 50%;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .right-side {
+    width: 100%;
+  }
+
+  .cart-summary {
+    width: 100%;
+  }
+
+  .ticket-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ticket-item {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .trash-button {
+    align-self: flex-end;
+    padding: 8px;
+  }
+
+  .not-logged-in-prompt {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .guest-prompt,
+  .prompt-login {
+    width: 100%;
+  }
+
+  .prompt-login div {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .prompt-login button {
+    width: 100%;
+  }
+
+  .place-order {
+    height: auto;
+  }
+
+  .place-order button {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+}
+
+

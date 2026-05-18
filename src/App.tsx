@@ -1,62 +1,60 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { UnregisteredUserProvider } from "./context/UnregisteredUserContext";
+import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
+import EventPage from "./pages/EventPage";
+import AddEventPage from "./pages/AddEventPage.tsx";
+import LoginPage from "./pages/LoginPage";
+import UserPage from "./pages/UserPage";
+import RegisterUserPage from "./pages/RegisterUserPage";
+import SearchPage from "./pages/SearchPage";
+import CategoryEventPage from "./pages/CategoryEventPage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
+import PaymentPage from "./pages/PaymentPage";
+import CartPage from "./pages/CartPage";
+import SecretMailPage from "./pages/SecretMailPage";
+import EditProfilePage from "./pages/EditProfilePage";
+import AdminRoute from "./components/AdminRoute.tsx";
+import CategoriesPage from "./pages/CategoriesPage.tsx";
+import EditEventPage from "./pages/EditEventPage.tsx";
+
 
 function App() {
-
-  const slide = (direction: number) => {
-    console.log("Slide direction:", direction);
-  };
-
   return (
-    <>
+    <BrowserRouter>
 
-      <div className="topnav">
-        <a className="active" href="#Home">Home</a>
-        <button className="login-btn">Login</button>
-      </div>
+      <UnregisteredUserProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            {/* redirect "/" to "/home" */}
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="home" element={<HomePage />} />
+            {/* Add more routes below later */}
 
-      <div className="section-headline">
-        <li>
-          <h1 className="headline-main">Find Your Next Event</h1>
-          <h2 className="headline-sub">Search Event, Artist, Location</h2>
-        </li>
-      </div>
+            <Route path="events/search" element={<SearchPage />} />
+            <Route path="events/category/:categoryName" element={<CategoryEventPage />} />
+            <Route path="categories" element={<CategoriesPage />} />
+            <Route path="event/:eventId" element={<EventPage />} />
+            <Route path="register" element={<RegisterUserPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="user-page" element={<UserPage />} />
+            <Route path="edit-account" element={<EditProfilePage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="about-us" element={<AboutPage />} />
+            <Route path="checkout" element={<PaymentPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="/event/:eventId/edit" element={<EditEventPage />} />
+            <Route path="mail-easter-egg-picture-abdegh67bbbbbegh" element={<SecretMailPage />} />
+            <Route path="addevent" element={<AdminRoute> <AddEventPage /> </AdminRoute>} />
 
-      <div className="search-container">
-        <input type="text" placeholder="Search for a ticket" />
-      </div>
-      <br />
-      <div className="event-categories">
-        <div>🌍Cultural</div>
-        <div>🍜Food & Drinks</div>
-        <div>🏋️Sports</div>
-        <div>🎶Arts & Music</div>
-        <div>✋😐🤚Cinema</div>
-        <div>More</div>
-      </div>
+            {/* Admin sites */}
 
-      <br /><br />
-
-
-      <div className="slider">
-        <button className="arrow-left" onClick={() => slide(-1)}>&#8592;</button>
-        <div className="event-popular">
-          <div>Jogeir Johhnyson and The Scripts</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>The Drage vs The Liavågs</div>
-          <div>Anjdreas and the fourth dimension</div>
-          <div>Jogeir, Funnyjunk og Bakken: En historie om kjærlighet og konflikt</div>
-        </div>
-        <button className="arrow-right" onClick={() => slide(1)}>&#8594;</button>
-      </div>
-
-
-      <footer className="footer">
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </footer>
-    </>
+          </Route>
+        </Routes>
+      </UnregisteredUserProvider>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
