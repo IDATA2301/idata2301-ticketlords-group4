@@ -1,4 +1,3 @@
-
 .event-page {
     background: #ebe9ee;
     min-height: 100vh;
@@ -6,6 +5,8 @@
     display: block;
     justify-content: center;
     align-items: flex-start;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    font-size: 1.3rem;
 }
 
 .event-card {
@@ -29,7 +30,7 @@
 }
 
 .event-hero-image {
-    width: 260px;
+    width: 460px;
     height: 180px;
     object-fit: cover;
     border-radius: 8px;
@@ -62,38 +63,31 @@
 }
 
 .event-meta {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
-
 
 .event-meta div {
     height: 34px;
     padding: 0 12px;
     background: #f1ecff;
     border-radius: 4px;
-
     display: inline-flex;
     align-items: center;
     text-align: center;
-
-    font-size: 14px;
+    font-size: 1.2rem;
     color: #2d2d2d;
-
     white-space: nowrap;
 }
-
-
 
 .event-description {
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
-    font-size: 16px;
 }
 
 .event-image-wrap {
@@ -105,11 +99,10 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 38px;
+    width: 32px;
     border: none;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #666;
+    background: rgb(255 255 255);
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
@@ -119,14 +112,18 @@
     transition: transform 0.15s ease, background 0.2s ease;
 }
 
+.wishlist-heart-icon {
+    width: 19px;
+    height: 19px;
+    display: block;
+    object-fit: contain;
+    border-radius: 2px;
+}
+
 .wishlist-heart:hover {
     transform: scale(1.06);
 }
 
-.wishlist-heart.is-active {
-    color: #e53935;
-    background: rgba(255, 255, 255, 0.95);
-}
 
 .ticket-section {
     display: flex;
@@ -137,40 +134,85 @@
 
 .ticket-information {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 10px;
-    font-size: large;
+    font-size: 1.4rem;
+}
+
+.ticket-description {
+    font-size: 18px;
+    font-weight: 400;
+    color: #555;
+    margin-top: 4px;
+    line-height: 1.5;
+    font-size: 1.4rem;
+}
+
+.ticket-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 50%;
+    margin-top: 20px;
 }
 
 .ticket-column {
+    flex: 1;
     display: flex;
-    gap: 12px;
-    width: 50%;
-    margin-top: 20px;
+    flex-direction: row;
+    align-items: center;
     background-color: white;
     font-weight: 600;
     justify-content: space-between;
-    flex-wrap: wrap;
     padding: 25px;
-    border: solid;
-    border-width: 3px;
-    border-color: #8f27dd;
+    border: 3px solid #8f27dd;
+    border-right: none;
+    box-sizing: border-box;
 }
 
+.ticket-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    padding-right: 2rem;
+}
 
-.add-to-cart-button{
+.ticket-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.ticket-column:last-child {
+    border-right: 3px solid #8f27dd;
+}
+
+.add-to-cart-button {
     cursor: pointer;
     background-color: #DF32B6;
+    height: 2.5rem;
+    width: 8rem;
+    max-width: 8rem;
+    flex-wrap: nowrap;
     padding: 7px;
     color: white;
     font-weight: bold;
+    font-size: 1.2rem;
     border: none;
     border-radius: 2px;
     font-family: "Franklin Gothic Medium", Arial, sans-serif;
 }
 
+.add-to-cart-button:hover {
+    background-color: #aa1a87;
+}
+
 .ticket-price {
-    font-size: larger;
+    font-size: 1.4rem;
 }
 
 .price-and-add-to-cart-button {
@@ -179,12 +221,371 @@
     gap: 10px;
 }
 
-.add-to-cart-button:hover {
-    background-color: #aa1a87;
+.ticket-admin-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    gap: 6px;
+    padding: 16px 20px;
+    background: #faf7ff;
+    border: 3px solid #8f27dd;
+    border-left: none;
+    min-width: 190px;
+    box-sizing: border-box;
+    align-self: stretch;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7c2ae8;
+    white-space: nowrap;
 }
 
+.ticket-admin-label {
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7c2ae8;
+    white-space: nowrap;
+}
 
-@media (max-width: 800px) {
+.ticket-admin-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.ticket-admin-input {
+    width: 74px;
+    padding: 7px 9px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    font-size: 18px;
+    font-family: inherit;
+    color: #2d2d2d;
+    background: white;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.ticket-admin-input:focus {
+    outline: none;
+    border-color: #8f27dd;
+}
+
+.ticket-admin-button {
+    padding: 8px 16px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.ticket-admin-button:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.ticket-admin-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-admin-error {
+    font-size: 14px;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.ticket-admin-success {
+    font-size: 14px;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+.ticket-admin-divider {
+    height: 1px;
+    background: #e0d4f7;
+    margin: 4px 0;
+}
+
+.ticket-delete-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: transparent;
+    border: 2px solid #ee1815;
+    border-radius: 2px;
+    color: #ee1815;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+    align-self: flex-start;
+}
+
+.ticket-delete-button:hover {
+    background: #ee1815;
+    color: white;
+}
+
+.ticket-delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ticket-delete-confirm-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c62828;
+}
+
+.ticket-delete-confirm-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.ticket-delete-confirm-yes {
+    padding: 6px 14px;
+    background: #ee1815;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.ticket-delete-confirm-yes:hover:not(:disabled) {
+    background: #ee1815;
+}
+
+.ticket-delete-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-delete-confirm-no {
+    padding: 6px 14px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ticket-delete-confirm-no:hover {
+    border-color: #666;
+    color: #222;
+}
+
+.create-ticket-section {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 32px;
+}
+
+.create-ticket-toggle-button {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 3px dashed #8f27dd;
+    border-radius: 2px;
+    color: #8f27dd;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.create-ticket-toggle-button:hover {
+    background: #f1ecff;
+    color: #7c2ae8;
+}
+
+.create-ticket-form-wrapper {
+    width: 100%;
+    background: white;
+    border: 3px solid #8f27dd;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.create-ticket-form-title {
+    margin: 0 0 20px 0;
+    color: #7c2ae8;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.create-ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-ticket-row {
+    display: flex;
+    gap: 16px;
+}
+
+.create-ticket-row .create-ticket-field {
+    flex: 1;
+}
+
+.create-ticket-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.create-ticket-field label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.required {
+    color: #e53935;
+}
+
+.create-ticket-field input,
+.create-ticket-field textarea {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #2d2d2d;
+    background: #fafafa;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+}
+
+.create-ticket-field input:focus,
+.create-ticket-field textarea:focus {
+    outline: none;
+    border-color: #8f27dd;
+    background: white;
+}
+
+.create-ticket-error {
+    background: #fff0f0;
+    border: 1px solid #e53935;
+    color: #c62828;
+    padding: 10px 14px;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.create-ticket-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.create-ticket-cancel {
+    padding: 9px 20px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.create-ticket-cancel:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.create-ticket-submit {
+    padding: 9px 24px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.create-ticket-submit:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.create-ticket-submit:disabled,
+.create-ticket-cancel:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ticket-create-success {
+    width: 50%;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #f0faf4;
+    border: 2px solid #2e7d32;
+    color: #2e7d32;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.ticket-info-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #8f27dd;
+    background: transparent;
+    color: #8f27dd;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+    padding: 0;
+}
+
+.ticket-info-button:hover {
+    background: #8f27dd;
+    color: white;
+}
+
+@media (max-width: 1450px) {
     .event-card {
         flex-direction: column;
         text-align: center;
@@ -205,5 +606,326 @@
     .event-meta > span {
         width: 100%;
         max-width: 420px;
+    }
+
+    .ticket-row {
+        width: 90%;
+        flex-direction: column;
+    }
+
+    .ticket-column {
+        border-right: 3px solid #8f27dd;
+        border-bottom: none;
+    }
+
+    .ticket-admin-panel {
+        border-left: 3px solid #8f27dd;
+        border-top: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        min-width: unset;
+    }
+
+    .create-ticket-section {
+        width: 90%;
+    }
+
+    .ticket-create-success {
+        width: 90%;
+    }
+
+    .create-ticket-row {
+        flex-direction: column;
+    }
+
+    .ticket-admin-panel {
+        border-top: none;
+        border-left: 3px solid #8f27dd;
+        border-bottom: 3px solid #8f27dd;
+    }
+
+    .ticket-column {
+        flex-direction: column;
+        align-items: flex-start;
+        border-right: 3px solid #8f27dd;
+        border-bottom: none;
+    }
+
+    .ticket-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .ticket-column:last-child {
+        border-bottom: 3px solid #8f27dd;
+    }
+
+
+}
+
+@media (max-width: 600px) {
+    .ticket-information {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+/* ── Delete event (admin) ───────────────────────────────── */
+.event-delete-admin {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.event-delete-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: transparent;
+    border: 2px solid #ee1815;
+    border-radius: 2px;
+    color: #ee1815;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.event-delete-button:hover {
+    background: #ee1815;
+    color: white;
+}
+
+.event-delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-delete-confirm-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ee1815;
+}
+
+.event-delete-confirm-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.event-delete-confirm-yes {
+    padding: 6px 16px;
+    background: #ee1815;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.event-delete-confirm-yes:hover:not(:disabled) {
+    background: #c62828;
+}
+
+.event-delete-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-delete-confirm-no {
+    padding: 6px 16px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.event-delete-confirm-no:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.event-delete-error {
+    font-size: 1rem;
+    color: #ee1815;
+    font-weight: 600;
+}
+
+/* ── Event visibility admin toggle ─────────────────────── */
+.event-visibility-admin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    width: 50%;
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: #faf7ff;
+    border: 3px solid #8f27dd;
+    box-sizing: border-box;
+}
+
+.event-visibility-label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-visibility-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.event-visibility-badge.visible {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1.5px solid #2e7d32;
+}
+
+.event-visibility-badge.hidden {
+    background: #faf7ff;
+    color: #ee1815;
+    border: 1.5px solid  #ee1815;
+}
+
+.event-visibility-toggle {
+    padding: 8px 18px;
+    border-radius: 2px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.event-visibility-toggle.is-visible {
+    background: transparent;
+    border: 2px solid #ee1815;
+    color: #ee1815;
+}
+
+.event-visibility-toggle.is-visible:hover:not(:disabled) {
+    background: #ee1815;
+    color: white;
+}
+
+.event-visibility-toggle.is-hidden {
+    background: transparent;
+    border: 2px solid #2e7d32;
+    color: #2e7d32;
+}
+
+.event-visibility-toggle.is-hidden:hover:not(:disabled) {
+    background: #2e7d32;
+    color: white;
+}
+
+.event-visibility-toggle:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-visibility-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-visibility-confirm-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #5d2a8e;
+}
+
+.event-visibility-confirm-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.event-visibility-confirm-yes {
+    padding: 6px 16px;
+    background: #8f27dd;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.event-visibility-confirm-yes:hover:not(:disabled) {
+    background: #7c2ae8;
+}
+
+.event-visibility-confirm-yes:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.event-visibility-confirm-no {
+    padding: 6px 16px;
+    background: transparent;
+    border: 2px solid #aaa;
+    border-radius: 2px;
+    color: #555;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.event-visibility-confirm-no:hover:not(:disabled) {
+    border-color: #666;
+    color: #222;
+}
+
+.event-visibility-error {
+    width: 100%;
+    font-size: 1rem;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.event-visibility-success {
+    width: 100%;
+    font-size: 1rem;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+@media (max-width: 800px) {
+    .event-visibility-admin {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

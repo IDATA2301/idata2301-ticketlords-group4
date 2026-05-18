@@ -4,6 +4,7 @@ import PopularEventsCarousel from "../components/PopularEventsCarousel.tsx";
 import "../css/Slider.css";
 import type Event from "../util/dtos/Event";
 import { API_BASE_URL } from "../config";
+import { getTokenFromStorage } from "../util/authUtils";
 import RecommendedEvents from "../components/RecommendedEvents.tsx";
 
 export default function HomePage() {
@@ -11,7 +12,12 @@ export default function HomePage() {
 
   const fetchPopularEvents = async (): Promise<Event[]> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/events/popular`);
+      const token = getTokenFromStorage();
+      const options: RequestInit = {};
+      if (token) {
+        options.headers = { "Authorization": `Bearer ${token}` };
+      }
+      const response = await fetch(`${API_BASE_URL}/events/popular`, options);
       if (!response.ok) return [];
       return response.json();
     } catch {
@@ -61,7 +67,7 @@ export default function HomePage() {
         </button>
       </form>
       <div className="event-categories">
-        <Link to="/events/category/arts-music" className="event-category-link">
+        <Link to="/events/category/arts-and-music" className="event-category-link">
           <div>🎶Arts & Music</div>
         </Link>
         <Link to="/events/category/cinema" className="event-category-link">
@@ -70,7 +76,7 @@ export default function HomePage() {
         <Link to="/events/category/cultural" className="event-category-link">
           <div>🌍Cultural</div>
         </Link>
-        <Link to="/events/category/food-drinks" className="event-category-link">
+        <Link to="/events/category/food-and-drinks" className="event-category-link">
           <div>🍜Food & Drinks</div>
         </Link>
         <Link to="/events/category/sports" className="event-category-link">

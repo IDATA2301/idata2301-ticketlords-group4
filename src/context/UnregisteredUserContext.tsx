@@ -20,7 +20,6 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Created new user:", data);
         setUnregisteredUserId(data);
         localStorage.setItem("unregisteredUserId", data.toString());
       })
@@ -42,7 +41,6 @@ export const UnregisteredUserProvider: React.FC<{ children: React.ReactNode }> =
         })
         .catch(() => {
           // If invalid, create new ID
-          console.log("Saved ID invalid, creating new one...");
           createNewUser();
         });
     } else {

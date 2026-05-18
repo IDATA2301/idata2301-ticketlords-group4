@@ -5,6 +5,10 @@ export default function AboutPage() {
   return (
     <div className="about-page">
       <div className="about-content">
+        <h1>Disclaimer:</h1>
+        <p>This website is a result of a university group project, performed in the course IDATA2301 Web technologies and IDATA2306 Application Development, at NTNU.</p>
+        <p>All the information provided here is a result of imagination. Any resemblance with real companies or products is a coincidence.</p>
+
         <h1>About TicketLords</h1>
         <p>TicketLords is a ticket selling platform, designed to make your life easier when finding and buying tickets for events.<br />
           With TicketLords, you can navigate seamlessly through a wide range of events, from concerts and sports to theater and festivals.

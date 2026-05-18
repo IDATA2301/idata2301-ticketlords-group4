@@ -71,7 +71,7 @@ export function removeFromCart(ticketId: number) {
 /**
  * Removes the cart from localStorage.
  */
-function clearCart() {
+export function clearCart() {
   localStorage.removeItem(CART_KEY);
 }
 

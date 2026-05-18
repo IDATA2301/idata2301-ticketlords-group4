@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getCartTotalCost } from "../functions/CartHandler";
+import { getCartTotalCost, clearCart } from "../functions/CartHandler";
 import styles from "../css/PaymentPage.module.css";
 import { useLocation } from "react-router-dom";
 import mailHandler from "../functions/MailHandler";
+import ticketPurchaseHandler from "../functions/TicketPurchaseHandler";
 
 export default function PaymentPage() {
 
@@ -12,6 +13,7 @@ export default function PaymentPage() {
   const [cardholderName, setCardholderName] = useState("");
   const location = useLocation();
   const userEmail = location.state?.email;
+  const tickets = location.state?.cartItems || [];
 
   return (
     <div className={styles.page}>
@@ -79,7 +81,13 @@ export default function PaymentPage() {
 
         </div>
         <button className={styles.payButton}
-          onClick={() => mailHandler(userEmail)}
+          onClick={() => {
+            mailHandler(userEmail);
+            ticketPurchaseHandler(tickets);
+            clearCart();
+            alert("The purchase has been made!");
+          }
+          }
         >{"Pay " + getCartTotalCost() + " NOK"}</button>
       </div>
     </div >
