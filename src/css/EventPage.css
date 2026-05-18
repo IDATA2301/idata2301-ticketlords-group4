@@ -9,7 +9,7 @@
     font-size: 1.3rem;
 }
 
-.event-card {
+.event-page .event-card {
     width: 100%;
     background: white;
     padding: 30px 40px;
@@ -21,7 +21,7 @@
     box-sizing: border-box;
 }
 
-.event-hero {
+.event-page .event-hero {
     margin: 0;
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@
     flex-shrink: 0;
 }
 
-.event-hero-image {
+.event-page .event-hero-image {
     max-width: 644px;
     max-height: 252px;
     object-fit: cover;
@@ -38,7 +38,7 @@
     display: block;
 }
 
-.event-hero-placeholder {
+.event-page .event-hero-placeholder {
     width: 260px;
     height: 180px;
     object-fit: cover;
@@ -48,13 +48,13 @@
     text-align: center;
 }
 
-.event-content {
+.event-page .event-content {
     margin: 0;
     max-width: 700px;
     text-align: left;
 }
 
-.event-title {
+.event-page .event-title {
     color: #7c2ae8;
     font-size: 32px;
     font-weight: 700;
@@ -62,7 +62,7 @@
     margin-top: 0;
 }
 
-.event-meta {
+.event-page .event-meta {
     display: flex;
     gap: 12px;
     margin-bottom: 16px;
@@ -71,7 +71,7 @@
     flex-wrap: wrap;
 }
 
-.event-meta div {
+.event-page .event-meta div {
     height: 34px;
     padding: 0 12px;
     background: #f1ecff;
@@ -84,18 +84,18 @@
     white-space: nowrap;
 }
 
-.event-description {
+.event-page .event-description {
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
 }
 
-.event-image-wrap {
+.event-page .event-image-wrap {
     position: relative;
     display: inline-block;
 }
 
-.wishlist-heart {
+.event-page .wishlist-heart {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -112,7 +112,7 @@
     transition: transform 0.15s ease, background 0.2s ease;
 }
 
-.wishlist-heart-icon {
+.event-page .wishlist-heart-icon {
     width: 19px;
     height: 19px;
     display: block;
@@ -120,7 +120,7 @@
     border-radius: 2px;
 }
 
-.wishlist-heart:hover {
+.event-page .wishlist-heart:hover {
     transform: scale(1.06);
 }
 
@@ -687,6 +687,33 @@
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;
+}
+
+.event-admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-edit-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: transparent;
+    border: 2px solid #8f27dd;
+    border-radius: 2px;
+    color: #8f27dd;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Franklin Gothic Medium", Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.event-edit-button:hover {
+    background: #8f27dd;
+    color: white;
 }
 
 .event-delete-button {

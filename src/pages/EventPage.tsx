@@ -525,12 +525,20 @@ export default function EventPage() {
           {isAuthenticated() && isAdmin === true && (
           <div className="event-delete-admin">
             {!confirmDeleteEvent ? (
-              <button
-                className="event-delete-button"
-                onClick={() => setConfirmDeleteEvent(true)}
-              >
-                <TrashCanIcon size={17} /> Delete Event
-              </button>
+              <div className="event-admin-actions">
+                <button
+                  className="event-edit-button"
+                  onClick={() => navigate(`/event/${eventId}/edit`)}
+                >
+                  Edit Event
+                </button>
+                <button
+                  className="event-delete-button"
+                  onClick={() => setConfirmDeleteEvent(true)}
+                >
+                  <TrashCanIcon size={17} /> Delete Event
+                </button>
+              </div>
             ) : (
               <div className="event-delete-confirm">
                 <span className="event-delete-confirm-text">

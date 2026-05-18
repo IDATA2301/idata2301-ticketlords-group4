@@ -1,0 +1,267 @@
+/* ── EditEventPage.module.css ─────────────────────────────────────────── */
+
+.editEventPage {
+  min-height: 100vh;
+  background: #f3eaff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem 5rem;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.eventHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.eventAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8f27dd, #df32b6);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(143, 39, 221, 0.35);
+  margin-bottom: 0.5rem;
+}
+
+.eventHeroName {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.eventHeroHost {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────── */
+.eventCard {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border: 2px solid #8f27dd;
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 8px 32px rgba(143, 39, 221, 0.1);
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────── */
+.eventSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eventSectionTitle {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8f27dd;
+}
+
+.eventDivider {
+  height: 1px;
+  background: #e8d5f7;
+}
+
+/* ── Fields ───────────────────────────────────────────────────────────── */
+.eventField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.eventField label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.eventField input,
+.eventField textarea {
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 2px solid #e8d5f7;
+  background: #f9f4ff;
+  color: #1a1a1a;
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.eventField input {
+  height: 44px;
+}
+
+.eventField textarea {
+  padding: 0.75rem 1rem;
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+.eventField input::placeholder,
+.eventField textarea::placeholder {
+  color: #bbb;
+}
+
+.eventField input:focus,
+.eventField textarea:focus {
+  border-color: #df32b6;
+  background: #fff;
+}
+
+/* datetime-local tweak — remove the default ugly calendar icon tint */
+.eventField input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+/* ── Row layout ───────────────────────────────────────────────────────── */
+.eventRow {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────── */
+.eventActions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.btnSave {
+  flex: 1;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #df32b6, #c020a0);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(223, 50, 182, 0.35);
+}
+
+.btnSave:hover {
+  box-shadow: 0 6px 20px rgba(223, 50, 182, 0.5);
+}
+
+.btnBack {
+  height: 48px;
+  padding: 0 1.5rem;
+  border: 2px solid #e8d5f7;
+  border-radius: 10px;
+  background: transparent;
+  color: #888;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btnBack:hover {
+  border-color: #c9a8e8;
+  color: #555;
+}
+
+/* ── Search venues button ─────────────────────────────────────────────── */
+.btnSearchVenues {
+  height: 40px;
+  padding: 0 1.25rem;
+  border: 2px solid #8f27dd;
+  border-radius: 10px;
+  background: transparent;
+  color: #8f27dd;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.btnSearchVenues:hover {
+  background: #8f27dd;
+  color: #fff;
+}
+
+/* ── react-select theming ─────────────────────────────────────────────── */
+:global(.edit-event-select__control) {
+  border: 2px solid #e8d5f7 !important;
+  border-radius: 10px !important;
+  background: #f9f4ff !important;
+  min-height: 44px !important;
+  box-shadow: none !important;
+  font-family: inherit;
+  font-size: 0.92rem;
+}
+
+:global(.edit-event-select__control--is-focused) {
+  border-color: #df32b6 !important;
+  background: #fff !important;
+}
+
+:global(.edit-event-select__placeholder) {
+  color: #bbb !important;
+}
+
+:global(.edit-event-select__single-value) {
+  color: #1a1a1a !important;
+}
+
+:global(.edit-event-select__option--is-focused) {
+  background: #f3eaff !important;
+  color: #1a1a1a !important;
+}
+
+:global(.edit-event-select__option--is-selected) {
+  background: #8f27dd !important;
+  color: #fff !important;
+}
+
+:global(.edit-event-select__indicator-separator) {
+  background-color: #e8d5f7 !important;
+}
+
+:global(.edit-event-select__dropdown-indicator) {
+  color: #aaa !important;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .eventRow {
+    flex-direction: column;
+  }
+
+  .eventCard {
+    padding: 1.5rem 1rem;
+  }
+}

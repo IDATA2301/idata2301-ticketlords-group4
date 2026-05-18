@@ -17,6 +17,7 @@ import SecretMailPage from "./pages/SecretMailPage";
 import EditProfilePage from "./pages/EditProfilePage";
 import AdminRoute from "./components/AdminRoute.tsx";
 import CategoriesPage from "./pages/CategoriesPage.tsx";
+import EditEventPage from "./pages/EditEventPage.tsx";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="about-us" element={<AboutPage />} />
             <Route path="checkout" element={<PaymentPage />} />
             <Route path="cart" element={<CartPage />} />
+            <Route path="/event/:eventId/edit" element={<EditEventPage />} />
             <Route path="mail-easter-egg-picture-abdegh67bbbbbegh" element={<SecretMailPage />} />
             <Route path="addevent" element={<AdminRoute> <AddEventPage /> </AdminRoute>} />
 
