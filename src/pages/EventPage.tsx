@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useIsAdminRole from "../functions/CheckAdminRole";
 import { TrashCanIcon } from "../assets/TrashCanIcon.tsx";
@@ -9,6 +9,8 @@ import type CartItem from "../data/CartItem";
 import type Ticket from "../util/dtos/Ticket";
 import { API_BASE_URL } from "../config";
 import { getUserIdFromToken, isAuthenticated } from "../util/authUtils";
+import registerEventClick from "../functions/RegisterEventClick.ts";
+import registerInterest from "../functions/RegisterInterest.ts";
 
 
 export default function EventPage() {
@@ -19,6 +21,7 @@ export default function EventPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const token = localStorage.getItem("authToken");
   const userId = getUserIdFromToken();
+  const unregisteredUserId = localStorage.getItem("unregisteredUserId");
   const eventDateISO = String(event?.eventDateStart || "");
   const [datePart, timePartRaw] = eventDateISO.split("T");
   const timePart = timePartRaw?.slice(0, 5);
@@ -44,6 +47,9 @@ export default function EventPage() {
   const toggleDEscription = (ticketId: number) => {
     setExpandedDescriptions(prev => ({ ...prev, [ticketId]: !prev[ticketId] }));
   };
+
+
+
   const [ticketForm, setTicketForm] = useState({
     ticketType: "",
     price: "",
@@ -76,7 +82,7 @@ export default function EventPage() {
           options.headers = { "Authorization": `Bearer ${token}` };
         }
         const response = await fetch(`${API_BASE_URL}/events/event/${encodeURIComponent(eventId)}/check-public-visibility`, options);
-        
+
         if (!response.ok) {
           // Event not found
           navigate("/");
@@ -84,7 +90,7 @@ export default function EventPage() {
         }
 
         const isPublic = await response.json();
-        
+
         // If event is not public and user is not an admin, redirect to homepage
         if (!isPublic && !isAdmin) {
           navigate("/");
@@ -98,6 +104,39 @@ export default function EventPage() {
 
     checkEventVisibility();
   }, [eventId, isAdmin, navigate]);
+
+  /**
+   * Register that the event has been clicked. Send request to database to increment the click amount.
+   */
+  useEffect(() => {
+    console.log(userId, unregisteredUserId);
+    console.log(event?.eventId);
+    if (!eventId || !event) return;
+    if (String(event.eventId) !== eventId) return; // avoids counting fallback event for unknown IDs
+    if (!unregisteredUserId) return;
+    const uid = Number(unregisteredUserId);
+    if (!Number.isFinite(uid)) return;
+    console.log("Kom oss til registerEvent click");
+    registerEventClick(event.eventId, uid);
+
+  }, [event, eventId]);
+
+  // Register event click between user and event when the event page is loaded (after event is successfully loaded)
+  useEffect(() => {
+    console.log(userId, unregisteredUserId);
+    console.log(event?.eventId);
+    if (!eventId || !event) return;
+    if (String(event.eventId) !== eventId) return; // avoids counting fallback event for unknown IDs
+
+    if (!userId) return;
+
+    const uid = Number(userId);
+    if (!Number.isFinite(uid)) return;
+    console.log("Kom oss til registerInterest");
+    registerInterest(event.category.categoryId, uid);
+  }, [event, eventId]);
+
+
 
   /**
    * Fetches the current public visibility state of the event for the admin toggle.
@@ -144,6 +183,7 @@ export default function EventPage() {
     };
     loadEvent();
   }, [eventId]);
+
 
   /**
    * Checks the backend if the event/user combination is wishlisted,
@@ -498,7 +538,7 @@ export default function EventPage() {
                 className="wishlist-heart-icon"
                 src={isWishlisted ? "/heart-filled.png" : "/heart-empty.png"}
                 alt=""
-                />
+              />
             </button>
           </div>
         </div>
@@ -523,50 +563,50 @@ export default function EventPage() {
           </p>
 
           {isAuthenticated() && isAdmin === true && (
-          <div className="event-delete-admin">
-            {!confirmDeleteEvent ? (
-              <div className="event-admin-actions">
-                <button
-                  className="event-edit-button"
-                  onClick={() => navigate(`/event/${eventId}/edit`)}
-                >
-                  Edit Event
-                </button>
-                <button
-                  className="event-delete-button"
-                  onClick={() => setConfirmDeleteEvent(true)}
-                >
-                  <TrashCanIcon size={17} /> Delete Event
-                </button>
-              </div>
-            ) : (
-              <div className="event-delete-confirm">
-                <span className="event-delete-confirm-text">
-                  Permanently delete this event and all its tickets?
-                </span>
-                <div className="event-delete-confirm-actions">
+            <div className="event-delete-admin">
+              {!confirmDeleteEvent ? (
+                <div className="event-admin-actions">
                   <button
-                    className="event-delete-confirm-yes"
-                    disabled={deleteEventLoading}
-                    onClick={handleDeleteEvent}
+                    className="event-edit-button"
+                    onClick={() => navigate(`/event/${eventId}/edit`)}
                   >
-                    {deleteEventLoading ? "…" : "Yes, delete"}
+                    Edit Event
                   </button>
                   <button
-                    className="event-delete-confirm-no"
-                    onClick={() => setConfirmDeleteEvent(false)}
-                    disabled={deleteEventLoading}
+                    className="event-delete-button"
+                    onClick={() => setConfirmDeleteEvent(true)}
                   >
-                    Cancel
+                    <TrashCanIcon size={17} /> Delete Event
                   </button>
                 </div>
-              </div>
-            )}
-            {deleteEventError && (
-              <div className="event-delete-error">{deleteEventError}</div>
-            )}
-          </div>
-        )}
+              ) : (
+                <div className="event-delete-confirm">
+                  <span className="event-delete-confirm-text">
+                    Permanently delete this event and all its tickets?
+                  </span>
+                  <div className="event-delete-confirm-actions">
+                    <button
+                      className="event-delete-confirm-yes"
+                      disabled={deleteEventLoading}
+                      onClick={handleDeleteEvent}
+                    >
+                      {deleteEventLoading ? "…" : "Yes, delete"}
+                    </button>
+                    <button
+                      className="event-delete-confirm-no"
+                      onClick={() => setConfirmDeleteEvent(false)}
+                      disabled={deleteEventLoading}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+              {deleteEventError && (
+                <div className="event-delete-error">{deleteEventError}</div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -645,14 +685,14 @@ export default function EventPage() {
                     <div className="ticket-type">{ticket?.ticketType}</div>
                     <div className="ticket-divider" />
                     <div className="ticket-amount">{"Tickets remaining: " + ticket?.amountAvailable}</div>
-                  {ticket?.ticketDescription && (
-                    <button
-                      className="ticket-info-button"
-                      onClick={() => toggleDEscription(tid)}
-                      aria-label="Show ticket description"
+                    {ticket?.ticketDescription && (
+                      <button
+                        className="ticket-info-button"
+                        onClick={() => toggleDEscription(tid)}
+                        aria-label="Show ticket description"
                       >
-                      {expandedDescriptions[tid] ? "X" : "i"}
-                    </button>
+                        {expandedDescriptions[tid] ? "X" : "i"}
+                      </button>
                     )}
                   </div>
                   {ticket?.ticketDescription && expandedDescriptions[tid] && (
@@ -728,7 +768,7 @@ export default function EventPage() {
                       className="ticket-delete-button"
                       onClick={() => setConfirmDeleteId(tid)}
                     >
-                      <TrashCanIcon size={17}/>
+                      <TrashCanIcon size={17} />
                       Remove ticket
                     </button>
                   )}

@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useRef} from "react";
-import {Link} from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import type Event from "../util/dtos/Event.ts";
 import "../css/PopularEventsCarousel.css"
-import {API_BASE_URL} from "../config.ts";
+import { API_BASE_URL } from "../config.ts";
 import registerEventClick from "../functions/RegisterEventClick.ts";
 import registerInterest from "../functions/RegisterInterest.ts";
-import {getUserIdFromToken} from "../util/authUtils.ts";
+import { getUserIdFromToken } from "../util/authUtils.ts";
 
 /**
  * Props for {@link PopularEventsCarousel}.
@@ -22,7 +22,7 @@ interface PopularEventsCarouselProps {
  * @param popularEvents Array of events from popular. Up to 9
  * @returns A carousel section, or null if no events are provided.
  */
-export default function PopularEventsCarousel({popularEvents}: PopularEventsCarouselProps) {
+export default function PopularEventsCarousel({ popularEvents }: PopularEventsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -82,7 +82,7 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
     touchStartX.current = null;
   };
 
-// Starts a 5-second auto-advance interval, clearing it when paused or unmounted.
+  // Starts a 5-second auto-advance interval, clearing it when paused or unmounted.
   useEffect(() => {
     if (isPaused) return;
     intervalRef.current = setInterval(() => {
@@ -107,23 +107,13 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
         onTouchEnd={handleTouchEnd}
       >
         <div className="carousel-inner">
-          <div className="carousel-track" style={{transform: `translateX(-${activeIndex * 100}%)`}}>
+          <div className="carousel-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
             {events.map((event, i) => (
               <Link
                 key={event.eventId}
                 to={`/event/${event.eventId}`}
                 className="carousel-slide"
                 tabIndex={i === activeIndex ? 0 : -1}
-                onClick={() => {
-                  if (unregisteredId) {
-                    registerEventClick(event.eventId, parseInt(unregisteredId));
-                  }
-                  if (userId) {
-                    registerInterest(event.category.categoryId, userId)
-                  }
-                }
-                }
-
               >
                 <img
                   src={
@@ -182,18 +172,18 @@ export default function PopularEventsCarousel({popularEvents}: PopularEventsCaro
           >
             {isPaused ? (
               <svg viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3"/>
+                <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
             ) : (
               <svg viewBox="0 0 24 24" fill="currentColor">
-                <rect x="6" y="4" width="4" height="16"/>
-                <rect x="14" y="4" width="4" height="16"/>
+                <rect x="6" y="4" width="4" height="16" />
+                <rect x="14" y="4" width="4" height="16" />
               </svg>
             )}
           </button>
         </div>
 
-        <div className="carousel-shadow-overlay"/>
+        <div className="carousel-shadow-overlay" />
 
       </div>
     </section>
