@@ -53,10 +53,12 @@ export default function UserPage() {
 
   const handleUpdateUser = async (): Promise<boolean> => {
     if (userId) {
+    const token = localStorage.getItem("authToken");
       try {
         const data = await fetch(`${API_BASE_URL}/users/user/` + encodeURIComponent(userId), {
           method: "PUT",
           headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
           },
           body: JSON.stringify(user),
