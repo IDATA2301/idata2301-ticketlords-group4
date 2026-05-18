@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 const HamburgerMenu: React.FC = () => {
   const [open, setOpen] = useState(false);
 
+  
+
   return (
     <>
       <button
@@ -23,22 +25,22 @@ const HamburgerMenu: React.FC = () => {
             <div className="sidebar">
               <div className="sidebar-top">
                 <div className="sidebar-event-categories">
-                  <Link to="/events/category/arts-music">
+                  <Link to="/events/category/arts-music" onClick={() => setOpen(false)}>
                     <div>🎶Arts & Music</div>
                   </Link>
-                  <Link to="events/category/cinema">
+                  <Link to="events/category/cinema" onClick={() => setOpen(false)}>
                     <div>✋😐🤚Cinema</div>
                   </Link>
-                  <Link to="events/category/cultural">
+                  <Link to="events/category/cultural" onClick={() => setOpen(false)}>
                     <div>🌍Cultural</div>
                   </Link>
-                  <Link to="events/category/food-drinks">
+                  <Link to="events/category/food-drinks" onClick={() => setOpen(false)}>
                     <div>🍜Food & Drinks</div>
                   </Link>
-                  <Link to="events/category/sports">
+                  <Link to="events/category/sports" onClick={() => setOpen(false)}>
                     <div>🏋️Sports</div>
                   </Link>
-                  <Link to="categories">
+                  <Link to="categories" onClick={() => setOpen(false)}>
                     <div>More</div>
                   </Link>
                 </div>
