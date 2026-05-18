@@ -140,6 +140,13 @@
     font-size: 1.4rem;
 }
 
+.ticket-divider {
+  width: 3px;
+  height: 2.5rem;
+  background: #afafaf;
+  border-radius: 999px;
+}
+
 .ticket-description {
     font-size: 18px;
     font-weight: 400;

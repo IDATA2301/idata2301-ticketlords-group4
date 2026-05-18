@@ -627,7 +627,8 @@ export default function EventPage() {
               <div className="ticket-column">
                 <div className="ticket-left">
                   <div className="ticket-information">
-                    <div className="ticket-type">{ticket?.ticketType + "  |"}</div>
+                    <div className="ticket-type">{ticket?.ticketType}</div>
+                    <div className="ticket-divider" />
                     <div className="ticket-amount">{"Tickets remaining: " + ticket?.amountAvailable}</div>
                   {ticket?.ticketDescription && (
                     <button
