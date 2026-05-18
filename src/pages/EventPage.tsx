@@ -512,8 +512,15 @@ export default function EventPage() {
             <div className="event-date">{datePart}</div>
             <div className="event-time">{timePart}</div>
           </div>
-          
-          <p className="event-description">{event.eventDescription}</p>
+
+          <p className="event-description">
+            {event.eventDescription.split('\n').map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </p>
 
           {isAuthenticated() && isAdmin === true && (
           <div className="event-delete-admin">
