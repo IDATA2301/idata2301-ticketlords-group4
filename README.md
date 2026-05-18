@@ -28,7 +28,7 @@ To get access to the backend, you should beforehand go to the backend repository
 When the backend is set up and is running, you should be able to connect to it given you have set up the url environement variable.
 
 # Environment Variables
-You need to inject some environement variables for the project to work properly. The variables do not come with this project, so if you do not have access to them, you need to create your own.
+You need to inject some environment variables for the project to work properly. The variables do not come with this project, so if you do not have access to them, you need to create your own.
 
 It should look something like this:
 <img width="1109" height="406" alt="Image" src="https://github.com/user-attachments/assets/c66fe605-6e09-4d38-8f66-115bac3b3ec8" />
