@@ -36,5 +36,5 @@ It should look something like this:
 After setting the environment variables, you should be good to go.
 
 # Additional information:
-Spring report following the progress of this project can be found here: https://github.com/IDATA2301/idata2301-ticketlords-group4/wiki
+Sprint report following the progress of this project can be found here: https://github.com/IDATA2301/idata2301-ticketlords-group4/wiki
 
