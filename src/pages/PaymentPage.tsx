@@ -85,6 +85,7 @@ export default function PaymentPage() {
             mailHandler(userEmail);
             ticketPurchaseHandler(tickets);
             clearCart();
+            alert("The purchase has been made!");
           }
           }
         >{"Pay " + getCartTotalCost() + " NOK"}</button>
