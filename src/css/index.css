@@ -60,10 +60,12 @@ footer a {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  z-index: 10000;
 }
 
 .topnav-left {
   margin-left: 10px;
+  min-width: 40px;
 }
 
 .topnav-right {
@@ -323,7 +325,7 @@ a {
   color: #5443a2;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .event-categories {
     display: flex;
     flex-direction: column;
