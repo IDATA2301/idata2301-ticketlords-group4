@@ -1,75 +1,37 @@
-# React + TypeScript + Vite
+# Overview 
+This is the frontend repository for our ticket booking project. It is a Vite + React + TypeScript application hosted on netlify at https://ticketlords.netlify.app.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To test this project locally, you can clone the repository and run the project as described in the setup section below.
 
-Currently, two official plugins are available:
+# Setup 
+This project requires Node.js and npm (Node Package Manager). npm is used to install the necessary dependencies and run development scripts. For the following instructions to work, you need to make sure you have these installed before proceeding.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+You can read more about Node here: https://nodejs.org/
 
-## React Compiler
+This project connects to the backend project (https://github.com/IDATA2301/idata2306-group4-ticketlords) using environment variables. You can read about environment variables under the environment variables section. 
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+With nodejs installed, you should now have access to the npm command. Do `npm install` to download all dependencies needed for this project.
 
-Note: This will impact Vite dev & build performances.
+Now you should be able to run the project locally by using the following command in the terminal:
 
-## Expanding the ESLint configuration
+`npm run dev`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+this should open a port on your pc to http://localhost:5173
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Navigate to the page in your browser to see the page.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# !Disclaimer
+You can run the project by itself like we just described, although it is not advised, as you wont have access to the backend, which is an important component.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+To get access to the backend, you should beforehand go to the backend repository and set it up as defined in its own readme.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+When the backend is set up and is running, you should be able to connect to it given you have set up the url environement variable.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Environment Variables
+You need to inject some environment variables for the project to work properly. The variables do not come with this project, so if you do not have access to them, you need to create your own.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+It should look something like this:
+<img width="1109" height="406" alt="Image" src="https://github.com/user-attachments/assets/c66fe605-6e09-4d38-8f66-115bac3b3ec8" />
+
+After setting the environment variables, you should be good to go.
+
