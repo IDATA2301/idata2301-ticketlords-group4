@@ -8,6 +8,8 @@ export default function AboutPage() {
         <h1>Disclaimer:</h1>
         <p>This website is a result of a university group project, performed in the course IDATA2301 Web technologies and IDATA2306 Application Development, at NTNU.</p>
         <p>All the information provided here is a result of imagination. Any resemblance with real companies or products is a coincidence.</p>
+        <p>TicketLords is not affiliated with, endorsed by, or sponsored by any event organizer, venue, artist, or rights holder. TicketLords does not own any rights to the events listed on this site or to any images, logos, names, or other third-party content displayed. All trademarks and copyrighted materials are the property of their respective owners and are used for illustrative and educational purposes only.</p>
+
 
         <h1>About TicketLords</h1>
         <p>TicketLords is a ticket selling platform, designed to make your life easier when finding and buying tickets for events.<br />
