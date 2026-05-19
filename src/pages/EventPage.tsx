@@ -704,7 +704,11 @@ export default function EventPage() {
                     <div className="ticket-price">{ticket?.price + ",- NOK"}</div>
                     <button
                       className="add-to-cart-button"
-                      onClick={() => addToCart({ ticket, amount: 1 } as CartItem)}
+                      onClick={() => {
+                        addToCart({ ticket, amount: 1 } as CartItem);
+                        alert("Ticket added to cart.")
+                      }
+                      }
                     >
                       Add to cart
                     </button>
